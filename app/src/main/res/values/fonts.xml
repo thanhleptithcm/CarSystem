@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_calibre_regular">fonts/CalibreApp-Regular.ttf</string>
+    <string name="font_calibre_medium">fonts/CalibreApp-Medium.ttf</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_blur_transparent"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="@integer/error_dialog_weight"
+        android:background="@drawable/bg_solid_lavender_radius_4"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv_message"
+            style="@style/TextView"
+            android:gravity="center"
+            android:padding="@dimen/common_24dp" />
+
+        <com.matas.caroperatingsystem.widget.AppButton
+            android:id="@+id/btn_ok"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:textColor="@color/light_blue"
+            android:text="@string/action_ok" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Card Operating System</string>
+
+    <!-- action -->
+    <string name="action_edit">Edit</string>
+    <string name="action_next">Next</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_ok">OK</string>
+    <string name="action_done">Done</string>
+    <!-- login -->
+    <string name="login_email">Enter Email</string>
+    <string name="login_password">Enter Password</string>
+    <string name="login_confirm_password">Enter Confirm Password</string>
+    <string name="login_sign_up"><u>Sign Up</u></string>
+    <string name="login_forgot_password"><u>Forgot Password?</u></string>
+    <string name="login">Login</string>
+    <string name="login_with_facebook">Login With Facebook</string>
+    <string name="login_with_google">Login With Google</string>
+
+
+
+    <string name="login_please_input_email">Please Input Email</string>
+    <string name="login_please_input_password">Please Input Password</string>
+    <string name="login_please_input_confirm_password">Please Input Confirm Password</string>
+    <string name="login_email_invalid">Email Invalid</string>
+
+    <string name="warning_logout">Are you sure you want to logout?</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+</resources>

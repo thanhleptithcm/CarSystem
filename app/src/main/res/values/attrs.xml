@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTextView">
+        <attr name="tvFont" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="AppEditText">
+        <attr name="edtFont" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="AppButton">
+        <attr name="btnFont" format="string" />
+    </declare-styleable>
+</resources>

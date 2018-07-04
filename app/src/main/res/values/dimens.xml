@@ -1,0 +1,24 @@
+<resources>
+    <dimen name="common_4dp">4dp</dimen>
+    <dimen name="common_8dp">8dp</dimen>
+    <dimen name="common_16dp">16dp</dimen>
+    <dimen name="common_20dp">20dp</dimen>
+    <dimen name="common_24dp">24dp</dimen>
+    <dimen name="common_32dp">32dp</dimen>
+    <dimen name="common_42dp">42dp</dimen>
+
+    <dimen name="common_text_size_16sp">16sp</dimen>
+    <dimen name="common_text_size_18sp">18sp</dimen>
+    <dimen name="common_text_size_20sp">20sp</dimen>
+    <dimen name="common_text_size_22sp">22sp</dimen>
+
+    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="common_margin_padding">20dp</dimen>
+
+    <!-- top bar -->
+    <dimen name="top_bar_left_right_size">60dp</dimen>
+    <dimen name="top_bar_start_end_padding">10dp</dimen>
+
+    <!-- button -->
+    <dimen name="larger_button_height">50dp</dimen>
+</resources>
