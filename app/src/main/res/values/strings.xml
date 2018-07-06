@@ -7,17 +7,20 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_ok">OK</string>
     <string name="action_done">Done</string>
+
+    <!--Splash-->
+    <string name="welcome_system">Welcome\nSYSTEM SMART CAR</string>
+    <string name="welcome">Welcome</string>
     <!-- login -->
     <string name="login_email">Enter Email</string>
     <string name="login_password">Enter Password</string>
     <string name="login_confirm_password">Enter Confirm Password</string>
-    <string name="login_sign_up"><u>Sign Up</u></string>
+    <string name="login_sign_up_line_bottom"><u>Sign Up</u></string>
+    <string name="login_sign_up">Sign Up</string>
     <string name="login_forgot_password"><u>Forgot Password?</u></string>
     <string name="login">Login</string>
     <string name="login_with_facebook">Login With Facebook</string>
     <string name="login_with_google">Login With Google</string>
-
-
 
     <string name="login_please_input_email">Please Input Email</string>
     <string name="login_please_input_password">Please Input Password</string>
@@ -31,4 +34,8 @@
     <string name="api_default_error">Something wrong happened!</string>
     <string name="some_error">Some Error Occurred!</string>
     <string name="connection_error">Internet connection lost!</string>
+
+
+    <!--Home-->
+    <string name="home">Home</string>
 </resources>

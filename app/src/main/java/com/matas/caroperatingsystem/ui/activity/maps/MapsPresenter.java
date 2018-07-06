@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MapsPresenter extends BasePresenter<MapsContract.LoginView> implements MapsContract.LoginPresenter {
+public class MapsPresenter extends BasePresenter<MapsContract.MapsView> implements MapsContract.MapsPresenter {
 
     private final CompositeDisposable mCompositeDisposable;
 

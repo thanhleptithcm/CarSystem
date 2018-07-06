@@ -7,15 +7,16 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.ui.base.BaseFragment;
+import com.matas.caroperatingsystem.ui.base.TopBarFragment;
 import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.AppTextView;
+import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class LoginFragment extends BaseFragment implements LoginContract.LoginMvpView, View.OnClickListener {
+public class LoginFragment extends TopBarFragment implements LoginContract.LoginMvpView, View.OnClickListener {
 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
@@ -123,6 +124,23 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
 
         if (mOnLoginListener != null)
             mOnLoginListener.onLoginClick(emailStr.toString(), passwordStr.toString());
+    }
+
+    @Override
+    protected void onFragmentChangedToTopBackStack() {
+        super.onFragmentChangedToTopBackStack();
+        setupTopBar();
+    }
+
+    @Override
+    protected void setupTopBar() {
+        if(isAdded()){
+            AppTopBar topBar = getTopBar();
+            if (topBar != null) {
+                topBar.initData(R.drawable.ic_left_arrow, getString(R.string.welcome), 0);
+                topBar.setVisible(View.VISIBLE, View.GONE, View.VISIBLE, View.INVISIBLE);
+            }
+        }
     }
 
     public interface OnLoginListener {

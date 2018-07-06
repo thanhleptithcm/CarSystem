@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.fragment.login;
+package com.matas.caroperatingsystem.ui.fragment.home;
 
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
@@ -8,15 +8,15 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class LoginPresenter extends BasePresenter<LoginContract.LoginMvpView> implements LoginContract.LoginMvpPresenter {
+public class HomePresenter extends BasePresenter<HomeContract.HomeView> implements HomeContract.HomePresenter {
 
     private final CompositeDisposable mCompositeDisposable;
     private final AuthenticateApi mAuthenticateApi;
 
     @Inject
-    public LoginPresenter(CompositeDisposable compositeDisposable,
-                          PreferencesHelper prefs,
-                          AuthenticateApi authenticateApi) {
+    public HomePresenter(CompositeDisposable compositeDisposable,
+                         PreferencesHelper prefs,
+                         AuthenticateApi authenticateApi) {
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;
         this.mAuthenticateApi = authenticateApi;

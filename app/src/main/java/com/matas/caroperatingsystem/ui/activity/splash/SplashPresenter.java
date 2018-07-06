@@ -1,7 +1,5 @@
 package com.matas.caroperatingsystem.ui.activity.splash;
 
-import android.text.TextUtils;
-
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 import com.matas.caroperatingsystem.ui.base.BasePresenter;
 
@@ -16,6 +14,6 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> implements Spl
 
     @Override
     public boolean isLogin() {
-        return !TextUtils.isEmpty(null);
+        return mPrefs.getUserLogin() != null;
     }
 }

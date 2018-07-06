@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
-import com.matas.caroperatingsystem.ui.base.BaseActivity;
 import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
+import com.matas.caroperatingsystem.ui.base.BaseActivity;
 import com.matas.caroperatingsystem.utils.AppConstants;
 
 import javax.inject.Inject;
@@ -30,12 +30,12 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (mPresenter.isLogin()) {
-//                    MainActivity.startActivity(SplashActivity.this);
-//                } else {
+                if (mPresenter.isLogin()) {
+                    MainActivity.startActivity(SplashActivity.this);
+                } else {
                     LoginActivity.startActivity(SplashActivity.this);
-//                }
-//                finish();
+                }
+                finish();
             }
         }, AppConstants.SPLASH_DELAY_TIME);
     }

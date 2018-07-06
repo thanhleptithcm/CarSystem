@@ -10,9 +10,7 @@
         android:id="@+id/edt_user_name"
         style="@style/EditText"
         android:layout_width="0dp"
-        android:background="@drawable/bg_solid_white_stroke_orange_radius_8dp"
         android:hint="@string/login_email"
-        android:padding="@dimen/common_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,9 +20,7 @@
         style="@style/EditText"
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/common_16dp"
-        android:background="@drawable/bg_solid_white_stroke_orange_radius_8dp"
         android:hint="@string/login_password"
-        android:padding="@dimen/common_16dp"
         app:layout_constraintEnd_toEndOf="@id/edt_user_name"
         app:layout_constraintStart_toStartOf="@id/edt_user_name"
         app:layout_constraintTop_toBottomOf="@id/edt_user_name" />
@@ -34,9 +30,7 @@
         style="@style/EditText"
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/common_16dp"
-        android:background="@drawable/bg_solid_white_stroke_orange_radius_8dp"
         android:hint="@string/login_confirm_password"
-        android:padding="@dimen/common_16dp"
         app:layout_constraintEnd_toEndOf="@id/edt_user_name"
         app:layout_constraintStart_toStartOf="@id/edt_user_name"
         app:layout_constraintTop_toBottomOf="@id/edt_pass_word" />
@@ -46,7 +40,6 @@
         style="@style/Button"
         android:layout_width="0dp"
         android:layout_marginBottom="@dimen/common_16dp"
-        android:background="@drawable/bg_solid_orange_radius_8dp"
         android:text="@string/login_sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/edt_user_name"

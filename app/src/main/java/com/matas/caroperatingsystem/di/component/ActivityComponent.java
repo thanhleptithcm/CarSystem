@@ -6,6 +6,7 @@ import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
 import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
 import com.matas.caroperatingsystem.ui.activity.maps.MapsActivity;
 import com.matas.caroperatingsystem.ui.activity.splash.SplashActivity;
+import com.matas.caroperatingsystem.ui.fragment.home.HomeFragment;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
 
@@ -23,6 +24,8 @@ public interface ActivityComponent {
     void inject(LoginFragment loginFragment);
 
     void inject(SignUpFragment signUpFragment);
+
+    void inject(HomeFragment homeFragment);
 
     void inject(MapsActivity mapsActivity);
 }

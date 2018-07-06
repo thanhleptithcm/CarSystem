@@ -7,7 +7,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.ui.base.BaseActivity;
 import com.matas.caroperatingsystem.ui.base.BaseMainActivity;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 

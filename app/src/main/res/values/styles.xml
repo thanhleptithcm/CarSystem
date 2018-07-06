@@ -43,20 +43,19 @@
     <style name="EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:imeOptions">actionDone</item>
         <item name="android:textColor">@color/dark_orange</item>
-        <item name="android:inputType">textVisiblePassword</item>
-        <item name="android:background">@color/transparent</item>
+        <item name="android:padding">@dimen/common_16dp</item>
+        <item name="android:background">@drawable/bg_solid_white_stroke_separator_radius_8dp</item>
         <item name="android:textSize">@dimen/common_text_size_18sp</item>
     </style>
 
     <style name="Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/lavender</item>
+        <item name="android:textColor">@color/dark_orange</item>
+        <item name="android:background">@drawable/bg_solid_white_stroke_separator_radius_8dp</item>
         <item name="android:textSize">@dimen/common_text_size_18sp</item>
     </style>
-
 
     <style name="ProgressLoading" parent="@android:style/Widget.SeekBar">
         <item name="android:indeterminateOnly">false</item>

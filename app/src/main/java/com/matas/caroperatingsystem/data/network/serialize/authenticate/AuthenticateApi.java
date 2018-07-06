@@ -2,7 +2,7 @@ package com.matas.caroperatingsystem.data.network.serialize.authenticate;
 
 import com.matas.caroperatingsystem.data.network.Urls;
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.request.LoginRequest;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.response.User;
+import com.matas.caroperatingsystem.data.model.User;
 
 import java.util.Map;
 

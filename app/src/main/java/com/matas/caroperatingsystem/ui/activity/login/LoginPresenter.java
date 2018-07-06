@@ -1,5 +1,6 @@
 package com.matas.caroperatingsystem.ui.activity.login;
 
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 import com.matas.caroperatingsystem.ui.base.BasePresenter;
 
@@ -16,5 +17,15 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
                           PreferencesHelper prefs) {
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;
+    }
+
+    @Override
+    public void login(String userName, String passWord) {
+        if(userName.equalsIgnoreCase("thanh@gmail.com") && passWord.equalsIgnoreCase("111111")){
+            mPrefs.setUserLogin(new User("1", "thanh@gmail.com"));
+            getMvpView().loginSucess();
+        } else {
+            getMvpView().loginFailure();
+        }
     }
 }
