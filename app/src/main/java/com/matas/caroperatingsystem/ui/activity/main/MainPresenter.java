@@ -1,7 +1,7 @@
 package com.matas.caroperatingsystem.ui.activity.main;
 
+import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
-import com.matas.caroperatingsystem.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 

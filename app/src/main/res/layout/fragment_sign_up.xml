@@ -7,10 +7,11 @@
     android:padding="@dimen/common_16dp">
 
     <com.matas.caroperatingsystem.widget.AppEditText
-        android:id="@+id/edt_user_name"
+        android:id="@+id/edt_phone"
         style="@style/EditText"
         android:layout_width="0dp"
-        android:hint="@string/login_email"
+        android:hint="@string/login_phone_number"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,9 +22,9 @@
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/common_16dp"
         android:hint="@string/login_password"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/edt_user_name" />
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone"
+        app:layout_constraintTop_toBottomOf="@id/edt_phone" />
 
     <com.matas.caroperatingsystem.widget.AppEditText
         android:id="@+id/edt_confirm_pass_word"
@@ -31,8 +32,8 @@
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/common_16dp"
         android:hint="@string/login_confirm_password"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name"
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone"
         app:layout_constraintTop_toBottomOf="@id/edt_pass_word" />
 
     <com.matas.caroperatingsystem.widget.AppButton
@@ -42,6 +43,6 @@
         android:layout_marginBottom="@dimen/common_16dp"
         android:text="@string/login_sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name" />
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone" />
 </android.support.constraint.ConstraintLayout>

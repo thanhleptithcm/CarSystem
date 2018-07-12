@@ -8,11 +8,11 @@
     android:padding="@dimen/common_16dp">
 
     <com.matas.caroperatingsystem.widget.AppEditText
-        android:id="@+id/edt_user_name"
+        android:id="@+id/edt_phone"
         style="@style/EditText"
         android:layout_width="0dp"
-        android:hint="@string/login_email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/login_phone_number"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,25 +24,9 @@
         android:layout_marginTop="@dimen/common_16dp"
         android:hint="@string/login_password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/edt_user_name" />
-
-    <com.matas.caroperatingsystem.widget.AppTextView
-        android:id="@+id/tv_sign_up"
-        style="@style/TextView"
-        android:layout_marginTop="@dimen/common_20dp"
-        android:text="@string/login_sign_up_line_bottom"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/edt_pass_word" />
-
-    <com.matas.caroperatingsystem.widget.AppTextView
-        android:id="@+id/tv_forgot_password"
-        style="@style/TextView"
-        android:layout_marginTop="@dimen/common_20dp"
-        android:text="@string/login_forgot_password"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/edt_pass_word" />
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone"
+        app:layout_constraintTop_toBottomOf="@id/edt_phone" />
 
     <com.matas.caroperatingsystem.widget.AppButton
         android:id="@+id/btn_login"
@@ -50,26 +34,26 @@
         android:layout_width="0dp"
         android:layout_marginBottom="@dimen/common_16dp"
         android:text="@string/login"
-        app:layout_constraintBottom_toTopOf="@+id/btn_facebook"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_user_sign_up"
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone" />
 
     <com.matas.caroperatingsystem.widget.AppButton
-        android:id="@+id/btn_facebook"
+        android:id="@+id/btn_user_sign_up"
         style="@style/Button"
         android:layout_width="0dp"
         android:layout_marginBottom="@dimen/common_16dp"
-        android:text="@string/login_with_facebook"
-        app:layout_constraintBottom_toTopOf="@+id/btn_google"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name" />
+        android:text="@string/login_user_sign_up"
+        app:layout_constraintBottom_toTopOf="@+id/btn_biker"
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone" />
 
     <com.matas.caroperatingsystem.widget.AppButton
-        android:id="@+id/btn_google"
+        android:id="@+id/btn_biker"
         style="@style/Button"
         android:layout_width="0dp"
-        android:text="@string/login_with_google"
+        android:text="@string/login_motorbike_taxi_sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@id/edt_user_name" />
+        app:layout_constraintEnd_toEndOf="@id/edt_phone"
+        app:layout_constraintStart_toStartOf="@id/edt_phone" />
 </android.support.constraint.ConstraintLayout>

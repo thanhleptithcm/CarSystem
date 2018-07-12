@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/common_16dp">
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_name"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_phone"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="@string/phone_number"
+        app:layout_constraintEnd_toEndOf="@id/tv_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_address"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="@string/address"
+        app:layout_constraintEnd_toEndOf="@id/tv_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_gender"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="@string/gender"
+        app:layout_constraintEnd_toEndOf="@id/tv_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_gender" />
+</android.support.constraint.ConstraintLayout>

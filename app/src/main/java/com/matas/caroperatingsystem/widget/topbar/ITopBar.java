@@ -4,11 +4,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 public interface ITopBar {
-    void initData(@DrawableRes int srcImvLeftOne, String textTvTitle, @DrawableRes int srcImvRightOne);
+    void initData(@DrawableRes int srcLeftOneImv, @StringRes int textLeftOneTv, @StringRes int textTitleTv, @StringRes int textRightOneTv, @DrawableRes int srcRightOneImv);
 
-    void initData(@StringRes int textLeftOne, @StringRes int textTvTitle, @DrawableRes int srcImvRightOne);
+    void setVisible(int leftOneImv, int leftOneTv, int titleTv, int rightOneTv, int rightOneImv);
 
-    void initData(String textLeftOne, String textTvTitle, @DrawableRes int srcImvRightOne);
-
-    void setVisible(int imvLeftOne, int tvLeftOne, int tvTitle, int imvRightOne);
+    void setDrawableTextLeftOne(int left, int top, int right, int bottom);
 }

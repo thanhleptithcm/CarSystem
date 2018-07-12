@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.base;
+package com.matas.caroperatingsystem.base;
 
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
@@ -23,7 +23,6 @@ import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.di.component.ActivityComponent;
 import com.matas.caroperatingsystem.di.component.DaggerActivityComponent;
 import com.matas.caroperatingsystem.di.module.ActivityModule;
-import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
 import com.matas.caroperatingsystem.ui.dialog.AppLoadingDialog;
 import com.matas.caroperatingsystem.utils.KeyboardUtils;
 
@@ -58,7 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         getSupportFragmentManager().removeOnBackStackChangedListener(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
-
 
     @Override
     public void showLoading() {
@@ -220,8 +218,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
     @Override
     public void onBackPressed() {
         if (isBack()) {
-            String tag = null;
-            popFragment(tag);
+            popFragment(null);
         }
     }
 

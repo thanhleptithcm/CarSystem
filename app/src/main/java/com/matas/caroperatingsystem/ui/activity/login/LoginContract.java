@@ -1,6 +1,7 @@
 package com.matas.caroperatingsystem.ui.activity.login;
 
-import com.matas.caroperatingsystem.ui.base.MvpView;
+
+import com.matas.caroperatingsystem.base.MvpView;
 
 public interface LoginContract {
 

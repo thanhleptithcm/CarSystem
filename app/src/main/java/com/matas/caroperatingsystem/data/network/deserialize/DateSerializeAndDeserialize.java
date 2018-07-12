@@ -25,7 +25,6 @@ public class DateSerializeAndDeserialize implements JsonDeserializer<Date> , Jso
         }
     }
 
-
     @Override
     public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(DateTimeUtils.SERVER_DAY_FORMAT.format(DateTimeUtils.convertTimeZone(date, TimeZone.getDefault(), TimeZone.getTimeZone("GMT"))));

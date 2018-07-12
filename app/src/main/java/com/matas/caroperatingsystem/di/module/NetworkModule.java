@@ -70,13 +70,11 @@ public class NetworkModule {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request.Builder builder = chain.request().newBuilder();
-//                String authenticationToken = prefs.getAuthenticationToken();
-//                Log.d(TAG, "authenticationToken :: " + authenticationToken);
-//                // Add the 'Authorization' header if not set and we are authenticated.
-//                Headers headers = chain.request().headers();
-//                if (authenticationToken != null && headers.get(Urls.REQUEST_HEADER_AUTH_TOKEN) == null) {
-//                    builder.addHeader(Urls.REQUEST_HEADER_AUTH_TOKEN, String.format("%s ", authenticationToken));
-//                }
+                String authenticationToken = prefs.getToken();
+                Headers headers = chain.request().headers();
+                if (authenticationToken != null && headers.get(Urls.REQUEST_HEADER_AUTH_TOKEN) == null) {
+                    builder.addHeader(Urls.REQUEST_HEADER_AUTH_TOKEN, String.format("%s ", authenticationToken));
+                }
                 return chain.proceed(builder.build());
             }
         });

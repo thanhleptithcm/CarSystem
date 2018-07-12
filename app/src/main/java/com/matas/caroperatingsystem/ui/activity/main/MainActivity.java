@@ -7,18 +7,17 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
+import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
-import com.matas.caroperatingsystem.ui.base.BaseMainActivity;
 import com.matas.caroperatingsystem.ui.fragment.home.HomeFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseMainActivity implements MainContract.MainMvpView,
+public class MainActivity extends TopBarActivity implements MainContract.MainMvpView,
         View.OnClickListener,
         HomeFragment.OnHomeListener {
 
-    private AppTopBar mTopBar;
     private HomeFragment mHomeFragment;
 
     @Inject
@@ -35,15 +34,14 @@ public class MainActivity extends BaseMainActivity implements MainContract.MainM
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
-        mTopBar = findViewById(R.id.top_bar);
-
         showScreenHome();
     }
+
 
     private void showScreenHome() {
         mHomeFragment = HomeFragment.newInstance();
@@ -74,12 +72,12 @@ public class MainActivity extends BaseMainActivity implements MainContract.MainM
     }
 
     @Override
-    public AppTopBar getTopBar() {
-        return mTopBar;
+    public void onHomeClick() {
+
     }
 
     @Override
-    public void onHomeClick() {
-
+    public AppTopBar getTopBar() {
+        return null;
     }
 }

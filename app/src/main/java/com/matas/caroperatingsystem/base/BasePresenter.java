@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.base;
+package com.matas.caroperatingsystem.base;
 
 import android.text.TextUtils;
 
@@ -52,6 +52,7 @@ public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V
 
         switch (response.code()) {
             case HttpsURLConnection.HTTP_UNAUTHORIZED:
+            case HttpsURLConnection.HTTP_FORBIDDEN:
             case HttpsURLConnection.HTTP_INTERNAL_ERROR:
             case HttpsURLConnection.HTTP_NOT_FOUND:
             default:
@@ -62,6 +63,7 @@ public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V
     @Override
     public void setUserAsLoggedOut() {
         mPrefs.setUserLogin(null);
+        mPrefs.setToken(null);
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

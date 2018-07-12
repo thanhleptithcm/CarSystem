@@ -6,13 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.ui.base.BaseFragment;
-import com.matas.caroperatingsystem.ui.base.TopBarFragment;
-import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
+import com.matas.caroperatingsystem.base.BaseFragment;
 
 import javax.inject.Inject;
 
-public class HomeFragment extends TopBarFragment implements HomeContract.HomeView, View.OnClickListener {
+public class HomeFragment extends BaseFragment implements HomeContract.HomeView, View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -67,25 +65,6 @@ public class HomeFragment extends TopBarFragment implements HomeContract.HomeVie
 
         }
     }
-
-
-    @Override
-    protected void onFragmentChangedToTopBackStack() {
-        super.onFragmentChangedToTopBackStack();
-        setupTopBar();
-    }
-
-    @Override
-    protected void setupTopBar() {
-        if (isAdded()) {
-            AppTopBar topBar = getTopBar();
-            if (topBar != null) {
-                topBar.initData(R.drawable.ic_menu, getString(R.string.home), 0);
-                topBar.setVisible(View.VISIBLE, View.GONE, View.VISIBLE, View.INVISIBLE);
-            }
-        }
-    }
-
 
     public interface OnHomeListener {
         void onHomeClick();

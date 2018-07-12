@@ -1,11 +1,12 @@
 package com.matas.caroperatingsystem.ui.activity.splash;
 
+import com.matas.caroperatingsystem.base.BasePresenter;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
-import com.matas.caroperatingsystem.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
-public class SplashPresenter extends BasePresenter<SplashMvpView> implements SplashMvpPresenter {
+public class SplashPresenter extends BasePresenter<SplashContract.SplashView> implements SplashContract.SplashPresenter {
 
     @Inject
     public SplashPresenter(PreferencesHelper prefs) {
@@ -15,5 +16,10 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> implements Spl
     @Override
     public boolean isLogin() {
         return mPrefs.getUserLogin() != null;
+    }
+
+    @Override
+    public User getUser() {
+        return mPrefs.getUserLogin();
     }
 }

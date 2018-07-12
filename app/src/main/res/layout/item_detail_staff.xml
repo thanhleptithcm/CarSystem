@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_stroke_separator_bottom"
+    android:padding="@dimen/common_16dp">
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_phone"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:background="@drawable/bg_stroke_separator_bottom"
+        android:text="@string/phone_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imv_your_location"
+        android:layout_width="@dimen/common_24dp"
+        android:layout_height="@dimen/common_24dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_your_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="ádjgasjkdgasjkdg"
+        android:layout_marginStart="@dimen/common_16dp"
+        app:layout_constraintBottom_toBottomOf="@id/imv_your_location"
+        app:layout_constraintStart_toEndOf="@id/imv_your_location"
+        app:layout_constraintTop_toTopOf="@id/imv_your_location" />
+
+    <ImageView
+        android:id="@+id/imv_destination"
+        android:layout_width="@dimen/common_24dp"
+        android:layout_height="@dimen/common_24dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_destination"
+        app:layout_constraintTop_toBottomOf="@id/imv_your_location" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="ádjgasjkdgasjkdg"
+        android:layout_marginStart="@dimen/common_16dp"
+        app:layout_constraintBottom_toBottomOf="@id/imv_destination"
+        app:layout_constraintStart_toEndOf="@id/imv_destination"
+        app:layout_constraintTop_toTopOf="@id/imv_destination" />
+</android.support.constraint.ConstraintLayout>

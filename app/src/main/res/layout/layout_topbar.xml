@@ -2,63 +2,91 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_size"
     android:background="@color/dark_orange"
-    android:gravity="center_vertical"
-    tools:showIn="@layout/activity_main">
+    android:gravity="center_vertical">
 
-    <FrameLayout
-        android:id="@+id/fr_left_one"
-        android:layout_width="@dimen/top_bar_left_right_size"
-        android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_size">
 
-        <ImageView
-            android:id="@+id/imv_left_one"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/left_one_frame_layout"
+            android:layout_width="@dimen/top_bar_left_right_size"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/top_bar_start_end_padding"
-            android:contentDescription="@null"
-            tools:src="@drawable/ic_left_arrow" />
-    </FrameLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/left_one_text_view"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <com.matas.caroperatingsystem.widget.AppTextView
-        android:id="@+id/tv_left_one"
-        style="@style/TextView"
-        android:layout_width="@dimen/top_bar_left_right_size"
-        android:layout_height="match_parent"
-        android:paddingEnd="0dp"
-        android:paddingStart="@dimen/top_bar_start_end_padding"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/fr_left_one" />
+            <ImageView
+                android:id="@+id/left_one_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/top_bar_start_end_padding"
+                android:contentDescription="@null"
+                tools:src="@drawable/ic_menu" />
+        </FrameLayout>
 
-    <com.matas.caroperatingsystem.widget.AppTextView
-        android:id="@+id/tv_title"
-        style="@style/TextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_text_size_22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/fr_right_one"
-        app:layout_constraintStart_toEndOf="@id/tv_left_one"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Title" />
-
-    <FrameLayout
-        android:id="@+id/fr_right_one"
-        android:layout_width="@dimen/top_bar_left_right_size"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/imv_right_one"
-            android:layout_width="wrap_content"
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/left_one_text_view"
+            style="@style/TextView"
+            android:layout_width="@dimen/top_bar_left_right_size"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/top_bar_start_end_padding"
-            android:contentDescription="@null" />
-    </FrameLayout>
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/ic_left_arrow"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/left_one_frame_layout"
+            app:layout_goneMarginStart="@dimen/top_bar_start_end_padding"
+            tools:text="Back"
+            tools:visibility="visible" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/title_text_view"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_one_text_view"
+            app:layout_constraintStart_toEndOf="@id/left_one_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/right_one_text_view"
+            style="@style/TextView"
+            android:layout_width="@dimen/top_bar_left_right_size"
+            android:layout_height="match_parent"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/right_one_frame_layout"
+            app:layout_constraintStart_toEndOf="@id/title_text_view"
+            app:layout_goneMarginEnd="@dimen/top_bar_start_end_padding"
+            tools:text="@string/action_cancel"
+            tools:visibility="visible" />
+
+        <FrameLayout
+            android:id="@+id/right_one_frame_layout"
+            android:layout_width="@dimen/top_bar_left_right_size"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/right_one_text_view">
+
+            <ImageView
+                android:id="@+id/right_one_image_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center"
+                android:layout_marginEnd="@dimen/top_bar_start_end_padding"
+                android:contentDescription="@null" />
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.matas.caroperatingsystem.widget.topbar;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,13 +13,22 @@ import android.widget.TextView;
 
 import com.matas.caroperatingsystem.R;
 
-public class AppTopBar extends ConstraintLayout implements ITopBar {
-    private FrameLayout frLeftOne;
-    private ImageView imvLeftOne;
-    private TextView tvLeftOne;
-    private TextView tvTitle;
-    private FrameLayout frRightOne;
-    private ImageView imvRightOne;
+public class AppTopBar extends ConstraintLayout implements ITopBar,
+        View.OnClickListener {
+
+    public FrameLayout mLeftOneFrameLayout;
+    public ImageView mLeftOneImageView;
+    public TextView mLeftOneTextView;
+
+    public TextView mTitleTextView;
+
+    public FrameLayout mRightOneFrameLayout;
+    public ImageView mRightOneImageView;
+    public TextView mRightOneTextView;
+
+    public ConstraintLayout mConstraintLayout;
+
+    private OnTopBarListener mOnTopBarListener;
 
     public AppTopBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -26,13 +37,21 @@ public class AppTopBar extends ConstraintLayout implements ITopBar {
                 this,
                 false
         );
+        mConstraintLayout = view.findViewById(R.id.constraint_layout);
+        mLeftOneFrameLayout = view.findViewById(R.id.left_one_frame_layout);
+        mLeftOneImageView = view.findViewById(R.id.left_one_image_view);
+        mLeftOneTextView = view.findViewById(R.id.left_one_text_view);
 
-        frLeftOne = view.findViewById(R.id.fr_left_one);
-        imvLeftOne = view.findViewById(R.id.imv_left_one);
-        tvLeftOne = view.findViewById(R.id.tv_left_one);
-        tvTitle = view.findViewById(R.id.tv_title);
-        frRightOne = view.findViewById(R.id.fr_right_one);
-        imvRightOne = view.findViewById(R.id.imv_right_one);
+        mTitleTextView = view.findViewById(R.id.title_text_view);
+
+        mRightOneTextView = view.findViewById(R.id.right_one_text_view);
+        mRightOneFrameLayout = view.findViewById(R.id.right_one_frame_layout);
+        mRightOneImageView = view.findViewById(R.id.right_one_image_view);
+
+        mLeftOneFrameLayout.setOnClickListener(this);
+        mLeftOneTextView.setOnClickListener(this);
+        mRightOneTextView.setOnClickListener(this);
+        mRightOneFrameLayout.setOnClickListener(this);
 
         this.addView(view);
     }
@@ -47,31 +66,68 @@ public class AppTopBar extends ConstraintLayout implements ITopBar {
     }
 
     @Override
-    public void initData(int srcImvLeftOne, String textTvTitle, int srcImvRightOne) {
-        setDrawable(frLeftOne, imvLeftOne, srcImvLeftOne);
-        tvTitle.setText(textTvTitle);
-        setDrawable(frRightOne, imvRightOne, srcImvRightOne);
+    public void initData(@DrawableRes int srcLeftOneImv,
+                         @StringRes int textLeftOneTv,
+                         @StringRes int textTitleTv,
+                         @StringRes int textRightOneTv,
+                         @DrawableRes int srcRightOneImv) {
+        mLeftOneTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_left_arrow, 0, 0, 0);
+        setDrawable(mLeftOneFrameLayout, mLeftOneImageView, srcLeftOneImv);
+        if (textLeftOneTv != 0) {
+            mLeftOneTextView.setText(textLeftOneTv);
+        }
+        if (textTitleTv != 0) {
+            mTitleTextView.setText(textTitleTv);
+        }
+        if (textRightOneTv != 0) {
+            mRightOneTextView.setText(textRightOneTv);
+        }
+        setDrawable(mRightOneFrameLayout, mRightOneImageView, srcRightOneImv);
     }
 
     @Override
-    public void initData(int textLeftOne, int textTvTitle, int srcImvRightOne) {
-        tvLeftOne.setText(textLeftOne);
-        tvTitle.setText(textTvTitle);
-        setDrawable(frRightOne, imvRightOne, srcImvRightOne);
+    public void setVisible(int leftOneImv, int leftOneTv, int titleTv, int rightOneTv, int rightOneImv) {
+        mLeftOneFrameLayout.setVisibility(leftOneImv);
+        mLeftOneTextView.setVisibility(leftOneTv);
+        mTitleTextView.setVisibility(titleTv);
+        mRightOneTextView.setVisibility(rightOneTv);
+        mRightOneFrameLayout.setVisibility(rightOneImv);
     }
 
     @Override
-    public void initData(String textLeftOne, String textTvTitle, int srcImvRightOne) {
-        tvLeftOne.setText(textLeftOne);
-        tvTitle.setText(textTvTitle);
-        setDrawable(frRightOne, imvRightOne, srcImvRightOne);
+    public void setDrawableTextLeftOne(int left, int top, int right, int bottom) {
+        this.mLeftOneTextView.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+    }
+
+    public void setOnTopBarListener(OnTopBarListener callBack) {
+        this.mOnTopBarListener = callBack;
     }
 
     @Override
-    public void setVisible(int imvLeftOne, int tvLeftOne, int tvTitle, int imvRightOne) {
-        this.frLeftOne.setVisibility(imvLeftOne);
-        this.tvLeftOne.setVisibility(tvLeftOne);
-        this.tvTitle.setVisibility(tvTitle);
-        this.frRightOne.setVisibility(imvRightOne);
+    public void onClick(View v) {
+        if (mOnTopBarListener != null) {
+            if (v == mLeftOneFrameLayout) {
+                mOnTopBarListener.onImvLeftOneClick();
+
+            } else if (v == mLeftOneTextView) {
+                mOnTopBarListener.onTvLeftOneClick();
+
+            } else if (v == mRightOneTextView) {
+                mOnTopBarListener.onTvRightOneClick();
+
+            } else if (v == mRightOneFrameLayout) {
+                mOnTopBarListener.onImvRightOneClick();
+            }
+        }
+    }
+
+    public interface OnTopBarListener {
+        void onImvLeftOneClick();
+
+        void onTvLeftOneClick();
+
+        void onTvRightOneClick();
+
+        void onImvRightOneClick();
     }
 }

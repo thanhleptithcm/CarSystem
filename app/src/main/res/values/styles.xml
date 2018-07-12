@@ -15,6 +15,17 @@
         <item name="android:windowExitAnimation">@null</item>
     </style>
 
+
+    <style name="VLDialogFull">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+    </style>
+
     <style name="DialogLoading">
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>

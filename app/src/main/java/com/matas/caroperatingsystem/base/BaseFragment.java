@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.base;
+package com.matas.caroperatingsystem.base;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -15,4 +15,7 @@ public class AppConstants {
 
     public static final int REQUEST_CAPTURE_IMAGE = 1;
     public static final int REQUEST_READ_LIBRARY = 2;
+
+    public static final int USER_SIGN_UP = 1;
+    public static final int BIKER_SIGN_UP = 2;
 }

@@ -6,23 +6,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
+import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
-import com.matas.caroperatingsystem.ui.activity.splash.SplashActivity;
-import com.matas.caroperatingsystem.ui.base.BaseMainActivity;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
+import com.matas.caroperatingsystem.utils.AppConstants;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends BaseMainActivity implements LoginContract.LoginView,
+public class LoginActivity extends TopBarActivity implements LoginContract.LoginView,
         LoginFragment.OnLoginListener,
         SignUpFragment.OnSignUpListener {
 
     private LoginFragment mLoginFragment;
     private SignUpFragment mSignUpFragment;
-
-    private AppTopBar mTopBar;
 
     @Inject
     LoginPresenter mPresenter;
@@ -38,11 +36,9 @@ public class LoginActivity extends BaseMainActivity implements LoginContract.Log
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
-
-        mTopBar = findViewById(R.id.top_bar);
 
         showScreenLogin();
     }
@@ -59,31 +55,23 @@ public class LoginActivity extends BaseMainActivity implements LoginContract.Log
     }
 
     @Override
-    public void onSignUpClick() {
-        mSignUpFragment = SignUpFragment.newInstance();
-        mSignUpFragment.setOnSignUpListener(this);
-        pushFragment(mSignUpFragment, SignUpFragment.TAG, true);
-    }
-
-    @Override
-    public void onForgotPasswordClick() {
-
-    }
-
-    @Override
     public void onLoginClick(String email, String password) {
         showLoading();
         mPresenter.login(email, password);
     }
 
     @Override
-    public void onLoginWithFaceBook() {
-
+    public void onUserSignUp() {
+        mSignUpFragment = SignUpFragment.newInstance(AppConstants.USER_SIGN_UP);
+        mSignUpFragment.setOnSignUpListener(this);
+        pushFragment(mSignUpFragment, SignUpFragment.TAG, true);
     }
 
     @Override
-    public void onLoginWithGoogle() {
-
+    public void onBikerSignUp() {
+        mSignUpFragment = SignUpFragment.newInstance(AppConstants.BIKER_SIGN_UP);
+        mSignUpFragment.setOnSignUpListener(this);
+        pushFragment(mSignUpFragment, SignUpFragment.TAG, true);
     }
 
     @Override
@@ -98,11 +86,6 @@ public class LoginActivity extends BaseMainActivity implements LoginContract.Log
     }
 
     @Override
-    public AppTopBar getTopBar() {
-        return mTopBar;
-    }
-
-    @Override
     public void loginSucess() {
         hideLoading();
         MainActivity.startActivity(LoginActivity.this);
@@ -112,5 +95,10 @@ public class LoginActivity extends BaseMainActivity implements LoginContract.Log
     public void loginFailure() {
         hideLoading();
         showErrorDialog("Login Failure");
+    }
+
+    @Override
+    public AppTopBar getTopBar() {
+        return null;
     }
 }

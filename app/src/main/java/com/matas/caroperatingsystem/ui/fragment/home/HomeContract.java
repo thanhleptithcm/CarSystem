@@ -1,6 +1,6 @@
 package com.matas.caroperatingsystem.ui.fragment.home;
 
-import com.matas.caroperatingsystem.ui.base.MvpView;
+import com.matas.caroperatingsystem.base.MvpView;
 
 public interface HomeContract {
 

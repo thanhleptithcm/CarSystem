@@ -17,7 +17,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
-    void inject(MainApplication flyNowApplication);
+    void inject(MainApplication mainApplication);
 
     @ApplicationContext
     Context context();
@@ -25,8 +25,6 @@ public interface ApplicationComponent {
     Application application();
 
     PreferencesHelper preferencesHelper();
-
-    CachesHelper cachesHelper();
 
     AuthenticateApi authenticateApi();
 }

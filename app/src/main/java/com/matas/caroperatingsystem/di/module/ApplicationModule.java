@@ -14,7 +14,8 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 
-@Module(includes = {NetworkModule.class, PreferenceModule.class})
+@Module(includes = {NetworkModule.class,
+        PreferenceModule.class})
 public class ApplicationModule {
     private static final String TAG = ApplicationModule.class.getSimpleName();
 

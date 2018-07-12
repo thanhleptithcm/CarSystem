@@ -7,27 +7,23 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.ui.base.TopBarFragment;
+import com.matas.caroperatingsystem.base.BaseFragment;
 import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.AppTextView;
-import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class LoginFragment extends TopBarFragment implements LoginContract.LoginMvpView, View.OnClickListener {
+public class LoginFragment extends BaseFragment implements LoginContract.LoginMvpView, View.OnClickListener {
 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
-    private AppEditText edtEmail;
+    private AppEditText edtPhone;
     private AppEditText edtPassword;
-    private AppTextView tvSignUp;
-    private AppTextView tvForgotPass;
     private AppButton btnLogin;
-    private AppButton btnLoginFaceBook;
-    private AppButton btnLoginGoogle;
-
+    private AppButton btnUserSignUp;
+    private AppButton btnBikerSignUp;
 
     @Inject
     LoginPresenter mPresenter;
@@ -56,24 +52,20 @@ public class LoginFragment extends TopBarFragment implements LoginContract.Login
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
-        edtEmail = view.findViewById(R.id.edt_user_name);
+        edtPhone = view.findViewById(R.id.edt_phone);
         edtPassword = view.findViewById(R.id.edt_pass_word);
-        tvSignUp = view.findViewById(R.id.tv_sign_up);
-        tvForgotPass = view.findViewById(R.id.tv_forgot_password);
         btnLogin = view.findViewById(R.id.btn_login);
-        btnLoginFaceBook = view.findViewById(R.id.btn_facebook);
-        btnLoginGoogle = view.findViewById(R.id.btn_google);
+        btnUserSignUp = view.findViewById(R.id.btn_user_sign_up);
+        btnBikerSignUp = view.findViewById(R.id.btn_biker);
 
         initListener();
         initData();
     }
 
     private void initData() {
-        tvSignUp.setOnClickListener(this);
-        tvForgotPass.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-        btnLoginFaceBook.setOnClickListener(this);
-        btnLoginGoogle.setOnClickListener(this);
+        btnUserSignUp.setOnClickListener(this);
+        btnBikerSignUp.setOnClickListener(this);
     }
 
     private void initListener() {
@@ -89,22 +81,18 @@ public class LoginFragment extends TopBarFragment implements LoginContract.Login
     @Override
     public void onClick(View v) {
         if (mOnLoginListener != null) {
-            if (v == tvSignUp) {
-                mOnLoginListener.onSignUpClick();
-            } else if (v == tvForgotPass) {
-                mOnLoginListener.onForgotPasswordClick();
-            } else if (v == btnLogin) {
+            if (v == btnLogin) {
                 getData();
-            } else if (v == btnLoginFaceBook) {
-                mOnLoginListener.onLoginWithFaceBook();
-            } else if (v == btnLoginGoogle) {
-                mOnLoginListener.onLoginWithGoogle();
+            } else if (v == btnUserSignUp) {
+                mOnLoginListener.onUserSignUp();
+            } else if (v == btnBikerSignUp) {
+                mOnLoginListener.onBikerSignUp();
             }
         }
     }
 
     private void getData() {
-        CharSequence emailStr = edtEmail.getText();
+        CharSequence emailStr = edtPhone.getText();
         CharSequence passwordStr = edtPassword.getText();
 
         if (TextUtils.isEmpty(emailStr)) {
@@ -126,32 +114,11 @@ public class LoginFragment extends TopBarFragment implements LoginContract.Login
             mOnLoginListener.onLoginClick(emailStr.toString(), passwordStr.toString());
     }
 
-    @Override
-    protected void onFragmentChangedToTopBackStack() {
-        super.onFragmentChangedToTopBackStack();
-        setupTopBar();
-    }
-
-    @Override
-    protected void setupTopBar() {
-        if(isAdded()){
-            AppTopBar topBar = getTopBar();
-            if (topBar != null) {
-                topBar.initData(R.drawable.ic_left_arrow, getString(R.string.welcome), 0);
-                topBar.setVisible(View.VISIBLE, View.GONE, View.VISIBLE, View.INVISIBLE);
-            }
-        }
-    }
-
     public interface OnLoginListener {
-        void onSignUpClick();
-
-        void onForgotPasswordClick();
-
         void onLoginClick(String email, String password);
 
-        void onLoginWithFaceBook();
+        void onUserSignUp();
 
-        void onLoginWithGoogle();
+        void onBikerSignUp();
     }
 }

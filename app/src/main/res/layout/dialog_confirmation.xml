@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_blur_transparent_dialog">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/common_8dp"
+        android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+        android:padding="@dimen/common_2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.7">
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/title_text_view"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:padding="@dimen/common_8dp"
+            android:singleLine="true"
+            android:textSize="@dimen/common_text_size_22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/message_text_view"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_10dp"
+            android:paddingStart="@dimen/common_10dp"
+            app:layout_constraintEnd_toEndOf="@id/title_text_view"
+            app:layout_constraintStart_toStartOf="@id/title_text_view"
+            app:layout_constraintTop_toBottomOf="@id/title_text_view"
+            app:layout_goneMarginTop="@dimen/common_20dp" />
+
+        <com.matas.caroperatingsystem.widget.AppButton
+            android:id="@+id/negative_button"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/common_24dp"
+            android:background="@drawable/bg_stroke_separator_top"
+            android:text="@string/action_cancel"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/common_text_size_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/positive_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/message_text_view" />
+
+        <com.matas.caroperatingsystem.widget.AppButton
+            android:id="@+id/positive_button"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/common_24dp"
+            android:background="@drawable/bg_stroke_separator_top_left"
+            android:text="@string/action_ok"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/common_text_size_18sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/negative_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/negative_button" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

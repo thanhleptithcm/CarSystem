@@ -15,6 +15,7 @@ import javax.inject.Singleton;
 public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_LOGIN_USER = "PREF_KEY_LOGIN_USER";
+    private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
 
     private final SharedPreferences mPrefs;
     private final Gson mGson;
@@ -37,5 +38,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setUserLogin(User user) {
         String userJson = mGson.toJson(user);
         mPrefs.edit().putString(PREF_KEY_LOGIN_USER, userJson).apply();
+    }
+
+    @Override
+    public String getToken() {
+        return mPrefs.getString(PREF_KEY_ACCESS_TOKEN, null);
+    }
+
+    @Override
+    public void setToken(String token) {
+        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, token).apply();
     }
 }

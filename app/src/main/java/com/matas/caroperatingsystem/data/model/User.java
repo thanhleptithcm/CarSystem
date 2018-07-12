@@ -15,12 +15,23 @@ public class User implements Parcelable {
     @Expose
     private String username;
 
+
+    @SerializedName("type")
+    @Expose
+    private String type;
+
     public User() {
     }
 
     public User(String id, String username) {
         this.id = id;
         this.username = username;
+    }
+
+    public User(String id, String username, String type) {
+        this.id = id;
+        this.username = username;
+        this.type = type;
     }
 
     public String getId() {
@@ -39,6 +50,14 @@ public class User implements Parcelable {
         this.username = username;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -48,11 +67,13 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.username);
+        dest.writeString(this.type);
     }
 
     protected User(Parcel in) {
         this.id = in.readString();
         this.username = in.readString();
+        this.type = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

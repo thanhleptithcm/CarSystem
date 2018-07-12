@@ -7,11 +7,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.ui.base.BaseFragment;
+import com.matas.caroperatingsystem.base.BaseFragment;
 import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
-import com.matas.caroperatingsystem.widget.AppTextView;
 
 import javax.inject.Inject;
 
@@ -19,20 +18,21 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
 
     public static final String TAG = SignUpFragment.class.getSimpleName();
 
-    private AppEditText edtEmail;
+    private AppEditText edtPhone;
     private AppEditText edtPassword;
     private AppEditText edtConfirmPassword;
     private AppButton btnSignUp;
 
-
+    private int mType;
     @Inject
     SignUpPresenter mPresenter;
 
     private OnSignUpListener mOnSignUpListener;
 
-    public static SignUpFragment newInstance() {
+    public static SignUpFragment newInstance(int type) {
         Bundle args = new Bundle();
         SignUpFragment fragment = new SignUpFragment();
+        args.putInt(SignUpFragment.TAG, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +52,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
-        edtEmail = view.findViewById(R.id.edt_user_name);
+        edtPhone = view.findViewById(R.id.edt_phone);
         edtPassword = view.findViewById(R.id.edt_pass_word);
         edtConfirmPassword = view.findViewById(R.id.edt_confirm_pass_word);
         btnSignUp = view.findViewById(R.id.btn_login);
@@ -62,10 +62,14 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
     }
 
     private void initData() {
-        btnSignUp.setOnClickListener(this);
+        if (getArguments() != null) {
+            mType = getArguments().getInt(SignUpFragment.TAG);
+        }
+
     }
 
     private void initListener() {
+        btnSignUp.setOnClickListener(this);
     }
 
 
@@ -85,7 +89,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
     }
 
     private void getData() {
-        CharSequence emailStr = edtEmail.getText();
+        CharSequence emailStr = edtPhone.getText();
         CharSequence passwordStr = edtPassword.getText();
         CharSequence confirmPasswordStr = edtConfirmPassword.getText();
 
