@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
-import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
 import com.matas.caroperatingsystem.utils.AppConstants;
@@ -88,7 +88,7 @@ public class LoginActivity extends TopBarActivity implements LoginContract.Login
     @Override
     public void loginSucess() {
         hideLoading();
-        MainActivity.startActivity(LoginActivity.this);
+        StaffActivity.startActivity(LoginActivity.this);
     }
 
     @Override

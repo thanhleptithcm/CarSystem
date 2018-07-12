@@ -10,18 +10,18 @@ import com.matas.caroperatingsystem.base.BaseFragment;
 
 import javax.inject.Inject;
 
-public class StaffFragment extends BaseFragment implements StaffContract.StaffView, View.OnClickListener {
+public class ManageStaffFragment extends BaseFragment implements ManageStaffContract.ManageStaffView, View.OnClickListener {
 
-    public static final String TAG = StaffFragment.class.getSimpleName();
+    public static final String TAG = ManageStaffFragment.class.getSimpleName();
 
     @Inject
-    StaffPresenter mPresenter;
+    ManageStaffPresenter mPresenter;
 
     private OnStaffListener mOnStaffListener;
 
-    public static StaffFragment newInstance() {
+    public static ManageStaffFragment newInstance() {
         Bundle args = new Bundle();
-        StaffFragment fragment = new StaffFragment();
+        ManageStaffFragment fragment = new ManageStaffFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,7 +32,7 @@ public class StaffFragment extends BaseFragment implements StaffContract.StaffVi
 
     @Override
     public int getCoordinateLayout() {
-        return R.layout.fragment_staff;
+        return R.layout.fragment_manage_staff;
     }
 
     @Override

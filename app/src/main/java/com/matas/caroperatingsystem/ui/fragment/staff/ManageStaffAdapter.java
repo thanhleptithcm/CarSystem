@@ -11,13 +11,13 @@ import com.matas.caroperatingsystem.widget.AppTextView;
 
 import java.util.List;
 
-public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffHolder> {
+public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.StaffHolder> {
 
     private Context mContext;
     private List<String> mList;
     private OnItemClickListener mListener;
 
-    public StaffAdapter(Context context, List<String> list, OnItemClickListener callBack) {
+    public ManageStaffAdapter(Context context, List<String> list, OnItemClickListener callBack) {
         this.mContext = context;
         this.mList = list;
         this.mListener = callBack;
@@ -25,7 +25,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffHolder>
 
     @Override
     public StaffHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_staff, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_manage_staff, parent, false);
         return new StaffHolder(view);
     }
 

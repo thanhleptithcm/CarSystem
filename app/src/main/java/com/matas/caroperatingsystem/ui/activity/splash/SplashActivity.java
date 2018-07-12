@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseActivity;
 import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
-import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
 import com.matas.caroperatingsystem.utils.AppConstants;
 
 import javax.inject.Inject;

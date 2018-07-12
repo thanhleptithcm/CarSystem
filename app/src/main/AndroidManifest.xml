@@ -33,7 +33,7 @@
         </activity>
 
         <activity android:name=".ui.activity.login.LoginActivity" />
-        <activity android:name=".ui.activity.main.MainActivity" />
+        <activity android:name=".ui.activity.staff.StaffActivity" />
         <activity android:name=".ui.activity.splash.SplashActivity" />
     </application>
 

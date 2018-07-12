@@ -2,13 +2,13 @@ package com.matas.caroperatingsystem.ui.fragment.staff;
 
 import com.matas.caroperatingsystem.base.MvpView;
 
-public interface StaffContract {
+public interface ManageStaffContract {
 
-    interface StaffView extends MvpView {
+    interface ManageStaffView extends MvpView {
 
     }
 
-    interface StaffPresenter {
+    interface ManageStaffPresenter {
 
     }
 }

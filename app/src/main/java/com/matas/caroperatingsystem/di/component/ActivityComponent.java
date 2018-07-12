@@ -4,16 +4,16 @@ import com.matas.caroperatingsystem.base.BaseActivity;
 import com.matas.caroperatingsystem.di.PerActivity;
 import com.matas.caroperatingsystem.di.module.ActivityModule;
 import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
-import com.matas.caroperatingsystem.ui.activity.main.MainActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.activity.maps.MapsActivity;
 import com.matas.caroperatingsystem.ui.activity.splash.SplashActivity;
-import com.matas.caroperatingsystem.ui.fragment.detail_staff.StaffDetailFragment;
+import com.matas.caroperatingsystem.ui.fragment.detail_staff.DetailManageStaffFragment;
 import com.matas.caroperatingsystem.ui.fragment.home.HomeFragment;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.profile.ProfileFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
-import com.matas.caroperatingsystem.ui.fragment.staff.StaffFragment;
+import com.matas.caroperatingsystem.ui.fragment.staff.ManageStaffFragment;
 
 import dagger.Component;
 
@@ -26,7 +26,7 @@ public interface ActivityComponent {
 
     void inject(LoginActivity loginActivity);
 
-    void inject(MainActivity mainActivity);
+    void inject(StaffActivity staffActivity);
 
     void inject(ManageActivity manageActivity);
 
@@ -40,7 +40,7 @@ public interface ActivityComponent {
 
     void inject(ProfileFragment profileFragment);
 
-    void inject(StaffFragment staffFragment);
+    void inject(ManageStaffFragment manageStaffFragment);
 
-    void inject(StaffDetailFragment staffDetailFragment);
+    void inject(DetailManageStaffFragment detailManageStaffFragment);
 }
