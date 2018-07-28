@@ -5,10 +5,10 @@ import com.matas.caroperatingsystem.base.MvpView;
 public interface ManageStaffContract {
 
     interface ManageStaffView extends MvpView {
-
+        void getListStaffSuccess();
     }
 
     interface ManageStaffPresenter {
-
+        void fetchListStaff();
     }
 }

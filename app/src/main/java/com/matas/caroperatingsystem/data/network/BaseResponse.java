@@ -7,29 +7,30 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class BaseResponse implements Parcelable {
-    @SerializedName("status")
+    @SerializedName("success")
     @Expose
-    protected String status;
+    protected String success;
 
-    @SerializedName("message")
+    @SerializedName("code")
     @Expose
-    protected String message;
+    protected int code;
 
-    public String getStatus() {
-        return status;
+    public String getSuccess() {
+        return success;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setSuccess(String success) {
+        this.success = success;
     }
 
-    public String getMessage() {
-        return message;
+    public int getCode() {
+        return code;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCode(int code) {
+        this.code = code;
     }
+
 
     @Override
     public int describeContents() {
@@ -38,16 +39,16 @@ public class BaseResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.status);
-        dest.writeString(this.message);
+        dest.writeString(this.success);
+        dest.writeInt(this.code);
     }
 
     public BaseResponse() {
     }
 
     protected BaseResponse(Parcel in) {
-        this.status = in.readString();
-        this.message = in.readString();
+        this.success = in.readString();
+        this.code = in.readInt();
     }
 
     public static final Creator<BaseResponse> CREATOR = new Creator<BaseResponse>() {

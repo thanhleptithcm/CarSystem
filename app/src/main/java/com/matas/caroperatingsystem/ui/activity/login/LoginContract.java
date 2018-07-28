@@ -6,12 +6,14 @@ import com.matas.caroperatingsystem.base.MvpView;
 public interface LoginContract {
 
     interface LoginView extends MvpView {
-        void loginSucess();
+        void loginSuccess(int typeUser);
 
-        void loginFailure();
+        void signUpSuccess();
     }
 
     interface LoginPresenter {
-        void login(String userName, String passWord);
+        void login(String phone, String passWord);
+
+        void signUp(String phone, String passWord, int type);
     }
 }

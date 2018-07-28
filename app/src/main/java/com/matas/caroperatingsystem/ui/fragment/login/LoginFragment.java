@@ -8,14 +8,12 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseFragment;
-import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
-import com.matas.caroperatingsystem.widget.AppTextView;
 
 import javax.inject.Inject;
 
-public class LoginFragment extends BaseFragment implements LoginContract.LoginMvpView, View.OnClickListener {
+public class LoginFragment extends BaseFragment implements LoginFragContract.LoginMvpView, View.OnClickListener {
 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
@@ -26,7 +24,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
     private AppButton btnBikerSignUp;
 
     @Inject
-    LoginPresenter mPresenter;
+    LoginFragPresenter mPresenter;
 
     private OnLoginListener mOnLoginListener;
 
@@ -92,26 +90,21 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
     }
 
     private void getData() {
-        CharSequence emailStr = edtPhone.getText();
+        CharSequence phoneStr = edtPhone.getText();
         CharSequence passwordStr = edtPassword.getText();
 
-        if (TextUtils.isEmpty(emailStr)) {
-            showErrorDialog(getString(R.string.login_please_input_email));
+        if (TextUtils.isEmpty(phoneStr)) {
+            showErrorDialog(getString(R.string.login_please_input_phone_number));
             return;
         }
 
         if (TextUtils.isEmpty(passwordStr)) {
-            showErrorDialog(getString(R.string.login_please_input_email));
-            return;
-        }
-
-        if (!CommonUtils.isEmailValid(emailStr)) {
-            showErrorDialog(getString(R.string.login_email_invalid));
+            showErrorDialog(getString(R.string.login_please_input_password));
             return;
         }
 
         if (mOnLoginListener != null)
-            mOnLoginListener.onLoginClick(emailStr.toString(), passwordStr.toString());
+            mOnLoginListener.onLoginClick(phoneStr.toString(), passwordStr.toString());
     }
 
     public interface OnLoginListener {

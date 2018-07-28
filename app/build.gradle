@@ -32,13 +32,13 @@ android {
         production {
             dimension "default"
             applicationId "com.matas.caroperatingsystem"
-            buildConfigField("String", "HOME_URL", '"https://pay.per.fly.precision-autonomy.com/"')
+            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/api/"')
         }
 
         dev {
             dimension "default"
             applicationId "com.matas.caroperatingsystem"
-            buildConfigField("String", "HOME_URL", '"https://prod-ppf-missioncontrol-dev.azurewebsites.net/"')
+            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/api/"')
         }
     }
 
@@ -100,4 +100,7 @@ dependencies {
     //glide
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+
+    implementation 'com.google.firebase:firebase-core:16.0.0'
 }
+apply plugin: 'com.google.gms.google-services'

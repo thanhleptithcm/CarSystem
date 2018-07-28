@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseFragment;
-import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 
@@ -66,6 +65,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             mType = getArguments().getInt(SignUpFragment.TAG);
         }
 
+
     }
 
     private void initListener() {
@@ -89,17 +89,17 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
     }
 
     private void getData() {
-        CharSequence emailStr = edtPhone.getText();
+        CharSequence phoneStr = edtPhone.getText();
         CharSequence passwordStr = edtPassword.getText();
         CharSequence confirmPasswordStr = edtConfirmPassword.getText();
 
-        if (TextUtils.isEmpty(emailStr)) {
-            showErrorDialog(getString(R.string.login_please_input_email));
+        if (TextUtils.isEmpty(phoneStr)) {
+            showErrorDialog(getString(R.string.login_please_input_phone_number));
             return;
         }
 
         if (TextUtils.isEmpty(passwordStr)) {
-            showErrorDialog(getString(R.string.login_please_input_email));
+            showErrorDialog(getString(R.string.login_please_input_password));
             return;
         }
 
@@ -108,16 +108,16 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             return;
         }
 
-        if (!CommonUtils.isEmailValid(emailStr)) {
-            showErrorDialog(getString(R.string.login_email_invalid));
+        if (!passwordStr.toString().equalsIgnoreCase(confirmPasswordStr.toString())) {
+            showErrorDialog("Password not valid");
             return;
         }
 
         if (mOnSignUpListener != null)
-            mOnSignUpListener.onSignUpClick(emailStr.toString(), passwordStr.toString(), confirmPasswordStr.toString());
+            mOnSignUpListener.onSignUpClick(phoneStr.toString(), passwordStr.toString(), mType);
     }
 
     public interface OnSignUpListener {
-        void onSignUpClick(String email, String password, String confirmPass);
+        void onSignUpClick(String email, String password, int type);
     }
 }

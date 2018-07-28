@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.matas.caroperatingsystem.widget.topbar.AppTopBar
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_size" />
 
@@ -19,7 +20,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.activity.maps.MapsActivity" />
+            tools:context=".ui.activity.user.UserActivity" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
@@ -43,9 +44,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.matas.caroperatingsystem.widget.AppEditText
-                android:id="@+id/tv_your_location"
+                android:id="@+id/edt_your_location"
                 style="@style/EditText"
                 android:layout_width="0dp"
+                android:text="@string/maps_your_location"
                 android:background="@android:color/transparent"
                 android:hint="@string/maps_enter_your_location"
                 android:padding="@dimen/common_10dp"
@@ -76,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view_empty" />
 
             <com.matas.caroperatingsystem.widget.AppEditText
-                android:id="@+id/tv_destination"
+                android:id="@+id/edt_destination"
                 style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -94,12 +96,46 @@
                 android:layout_width="0dp"
                 android:layout_margin="@dimen/common_10dp"
                 android:background="@drawable/bg_solid_orange_radius_8dp"
-                android:text="book"
+                android:text="@string/maps_book"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imv_destination" />
         </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_16dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.matas.caroperatingsystem.widget.AppTextView
+                android:id="@+id/tv_distance"
+                style="@style/TextView"
+                android:drawablePadding="@dimen/common_10dp"
+                android:drawableStart="@drawable/ic_distance"
+                android:padding="@dimen/common_10dp"
+                android:text="0 km"
+                app:layout_constraintEnd_toStartOf="@+id/tv_clock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.matas.caroperatingsystem.widget.AppTextView
+                android:id="@+id/tv_clock"
+                style="@style/TextView"
+                android:drawablePadding="@dimen/common_10dp"
+                android:drawableStart="@drawable/ic_clock"
+                android:padding="@dimen/common_10dp"
+                android:text="0 mins"
+                app:layout_constraintBottom_toBottomOf="@id/tv_distance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_distance"
+                app:layout_constraintTop_toTopOf="@id/tv_distance" />
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

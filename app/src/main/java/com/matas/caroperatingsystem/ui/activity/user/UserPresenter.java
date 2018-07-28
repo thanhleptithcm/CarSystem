@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.activity.maps;
+package com.matas.caroperatingsystem.ui.activity.user;
 
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
@@ -7,12 +7,12 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MapsPresenter extends BasePresenter<MapsContract.MapsView> implements MapsContract.MapsPresenter {
+public class UserPresenter extends BasePresenter<UserContract.UserView> implements UserContract.UserPresenter {
 
     private final CompositeDisposable mCompositeDisposable;
 
     @Inject
-    public MapsPresenter(CompositeDisposable compositeDisposable,
+    public UserPresenter(CompositeDisposable compositeDisposable,
                          PreferencesHelper prefs) {
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;

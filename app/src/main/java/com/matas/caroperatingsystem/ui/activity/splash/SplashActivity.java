@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseActivity;
 import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
+import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
+import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
 import com.matas.caroperatingsystem.utils.AppConstants;
 
 import javax.inject.Inject;
@@ -29,14 +32,21 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (mPresenter.isLogin()) {
-////                    switch (mPresenter.getUser().getType()){
-////
-////                    }
-//                    ManageActivity.startActivity(SplashActivity.this);
-//                } else {
-                LoginActivity.startActivity(SplashActivity.this);
-//                }
+                if (mPresenter.isLogin()) {
+                    switch (mPresenter.getUser().getType()) {
+                        case 0:
+                            UserActivity.startActivity(SplashActivity.this);
+                            break;
+                        case 1:
+                            StaffActivity.startActivity(SplashActivity.this);
+                            break;
+                        case 2:
+                            ManageActivity.startActivity(SplashActivity.this);
+                            break;
+                    }
+                } else {
+                    LoginActivity.startActivity(SplashActivity.this);
+                }
                 finish();
             }
         }, AppConstants.SPLASH_DELAY_TIME);

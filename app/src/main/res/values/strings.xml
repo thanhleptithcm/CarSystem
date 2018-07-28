@@ -3,10 +3,12 @@
 
     <!-- action -->
     <string name="action_edit">Edit</string>
+    <string name="action_back">Back</string>
     <string name="action_next">Next</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_ok">OK</string>
     <string name="action_done">Done</string>
+    <string name="action_logout">Logout</string>
 
     <!--Splash-->
     <string name="welcome">Welcome</string>
@@ -19,13 +21,13 @@
     <string name="login_motorbike_taxi_sign_up">Motorbike Taxi Sign Up</string>
     <string name="login_forgot_password"><u>Forgot Password?</u></string>
     <string name="login">Login</string>
-    <string name="login_with_facebook">Login With Facebook</string>
-    <string name="login_with_google">Login With Google</string>
 
-    <string name="login_please_input_email">Please Input Email</string>
+    <string name="login_please_input_phone_number">Please Input Phone Number</string>
     <string name="login_please_input_password">Please Input Password</string>
     <string name="login_please_input_confirm_password">Please Input Confirm Password</string>
     <string name="login_email_invalid">Email Invalid</string>
+
+    <string name="login_failed">The username and password aren\'t not correct</string>
 
     <string name="warning_logout">Are you sure you want to logout?</string>
 
@@ -34,7 +36,6 @@
     <string name="api_default_error">Something wrong happened!</string>
     <string name="some_error">Some Error Occurred!</string>
     <string name="connection_error">Internet connection lost!</string>
-
 
     <!--Home-->
     <string name="home">Home</string>
@@ -57,11 +58,16 @@
     <!--Map-->
     <string name="maps_enter_destination">Enter destination</string>
     <string name="maps_enter_your_location">Enter your location</string>
-
+    <string name="maps_book">Book</string>
+    <string name="maps_your_location">Your location</string>
 
     <!--Staff-->
     <string name="name">Name: </string>
     <string name="phone_number">Phone Number: </string>
     <string name="address">Address: </string>
     <string name="gender">Gender: </string>
+
+    <!--Manage-->
+    <string name="manage_staff">Manage Staff</string>
+    <string name="detail_manage_staff">Detail Manage Staff</string>
 </resources>

@@ -2,13 +2,13 @@ package com.matas.caroperatingsystem.di.module;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.matas.caroperatingsystem.BuildConfig;
 import com.matas.caroperatingsystem.data.network.Urls;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
+import com.matas.caroperatingsystem.utils.CommonUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -70,14 +70,15 @@ public class NetworkModule {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request.Builder builder = chain.request().newBuilder();
-                String authenticationToken = prefs.getToken();
+                String token = prefs.getToken();
                 Headers headers = chain.request().headers();
-                if (authenticationToken != null && headers.get(Urls.REQUEST_HEADER_AUTH_TOKEN) == null) {
-                    builder.addHeader(Urls.REQUEST_HEADER_AUTH_TOKEN, String.format("%s ", authenticationToken));
+                if (token != null && headers.get(Urls.REQUEST_HEADER_TOKEN) == null) {
+                    builder.addHeader(Urls.REQUEST_HEADER_TOKEN, String.format("%s ", token));
                 }
                 return chain.proceed(builder.build());
             }
         });
+        CommonUtils.trustSsl(builder);
         return builder.build();
     }
 

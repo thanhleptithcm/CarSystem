@@ -61,9 +61,8 @@ public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V
     }
 
     @Override
-    public void setUserAsLoggedOut() {
+    public void setLogOut() {
         mPrefs.setUserLogin(null);
-        mPrefs.setToken(null);
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

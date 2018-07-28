@@ -17,10 +17,4 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;
     }
-
-    @Override
-    public void onLogout() {
-        setUserAsLoggedOut();
-        getMvpView().logoutSuccess();
-    }
 }

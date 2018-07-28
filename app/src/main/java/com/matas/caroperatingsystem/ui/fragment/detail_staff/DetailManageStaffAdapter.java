@@ -41,7 +41,6 @@ public class DetailManageStaffAdapter extends RecyclerView.Adapter<DetailManageS
 
         StaffHolder(View itemView) {
             super(itemView);
-
             itemView.setOnClickListener(this);
         }
 

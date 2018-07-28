@@ -16,5 +16,5 @@ public interface MvpPresenter<V extends MvpView> {
 
     void handleApiError(Response response);
 
-    void setUserAsLoggedOut();
+    void setLogOut();
 }

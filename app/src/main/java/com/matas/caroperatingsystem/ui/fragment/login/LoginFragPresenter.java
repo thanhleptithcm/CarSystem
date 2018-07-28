@@ -8,15 +8,15 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class LoginPresenter extends BasePresenter<LoginContract.LoginMvpView> implements LoginContract.LoginMvpPresenter {
+public class LoginFragPresenter extends BasePresenter<LoginFragContract.LoginMvpView> implements LoginFragContract.LoginMvpPresenter {
 
     private final CompositeDisposable mCompositeDisposable;
     private final AuthenticateApi mAuthenticateApi;
 
     @Inject
-    public LoginPresenter(CompositeDisposable compositeDisposable,
-                          PreferencesHelper prefs,
-                          AuthenticateApi authenticateApi) {
+    public LoginFragPresenter(CompositeDisposable compositeDisposable,
+                              PreferencesHelper prefs,
+                              AuthenticateApi authenticateApi) {
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;
         this.mAuthenticateApi = authenticateApi;

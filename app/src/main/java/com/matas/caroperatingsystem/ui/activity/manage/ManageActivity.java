@@ -8,13 +8,19 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
-import com.matas.caroperatingsystem.ui.fragment.home.HomeFragment;
+import com.matas.caroperatingsystem.data.model.Staff;
+import com.matas.caroperatingsystem.ui.fragment.detail_staff.DetailManageStaffFragment;
+import com.matas.caroperatingsystem.ui.fragment.staff.ManageStaffFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
 public class ManageActivity extends TopBarActivity implements ManageContract.ManageMvpView,
-        View.OnClickListener {
+        View.OnClickListener, ManageStaffFragment.OnStaffListener {
+
+    private ManageStaffFragment mManageStaffFragment;
+    private DetailManageStaffFragment mDetailManageStaffFragment;
+    private AppTopBar topBar;
 
     @Inject
     ManagePresenter mPresenter;
@@ -35,6 +41,11 @@ public class ManageActivity extends TopBarActivity implements ManageContract.Man
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
+        topBar = findViewById(R.id.top_bar);
+
+        mManageStaffFragment = ManageStaffFragment.newInstance();
+        mManageStaffFragment.setOnStaffListener(this);
+        pushFragment(mManageStaffFragment, ManageStaffFragment.TAG);
     }
 
 
@@ -57,6 +68,12 @@ public class ManageActivity extends TopBarActivity implements ManageContract.Man
 
     @Override
     public AppTopBar getTopBar() {
-        return null;
+        return topBar;
+    }
+
+    @Override
+    public void onStaffClick(Staff staff) {
+        mDetailManageStaffFragment = DetailManageStaffFragment.newInstance(staff);
+        pushFragment(mDetailManageStaffFragment, DetailManageStaffFragment.TAG, true);
     }
 }

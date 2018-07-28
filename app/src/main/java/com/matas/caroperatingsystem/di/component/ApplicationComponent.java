@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.matas.caroperatingsystem.MainApplication;
-import com.matas.caroperatingsystem.data.caches.CachesHelper;
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 import com.matas.caroperatingsystem.di.ApplicationContext;

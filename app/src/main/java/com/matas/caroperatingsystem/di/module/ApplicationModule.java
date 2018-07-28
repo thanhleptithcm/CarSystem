@@ -3,8 +3,6 @@ package com.matas.caroperatingsystem.di.module;
 import android.app.Application;
 import android.content.Context;
 
-import com.matas.caroperatingsystem.data.caches.AppCachesHelper;
-import com.matas.caroperatingsystem.data.caches.CachesHelper;
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
 import com.matas.caroperatingsystem.di.ApplicationContext;
 
@@ -36,12 +34,6 @@ public class ApplicationModule {
     @Singleton
     Application provideApplication() {
         return mApplication;
-    }
-
-    @Provides
-    @Singleton
-    CachesHelper provideCachesManager(AppCachesHelper appCachesHelper) {
-        return appCachesHelper;
     }
 
     @Provides

@@ -10,8 +10,7 @@
         android:id="@+id/tv_phone"
         style="@style/TextView"
         android:layout_width="0dp"
-        android:background="@drawable/bg_stroke_separator_bottom"
-        android:text="@string/phone_number"
+        android:text="Phone Number: 01267731338"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +27,7 @@
     <com.matas.caroperatingsystem.widget.AppTextView
         style="@style/TextView"
         android:layout_width="0dp"
-        android:text="ádjgasjkdgasjkdg"
+        android:text="Đi: Ngã Tư Thủ Đức"
         android:layout_marginStart="@dimen/common_16dp"
         app:layout_constraintBottom_toBottomOf="@id/imv_your_location"
         app:layout_constraintStart_toEndOf="@id/imv_your_location"
@@ -46,7 +45,7 @@
     <com.matas.caroperatingsystem.widget.AppTextView
         style="@style/TextView"
         android:layout_width="0dp"
-        android:text="ádjgasjkdgasjkdg"
+        android:text="Đến: Ngã Tư Hàng Xanh"
         android:layout_marginStart="@dimen/common_16dp"
         app:layout_constraintBottom_toBottomOf="@id/imv_destination"
         app:layout_constraintStart_toEndOf="@id/imv_destination"

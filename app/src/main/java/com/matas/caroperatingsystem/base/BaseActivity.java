@@ -1,6 +1,7 @@
 package com.matas.caroperatingsystem.base;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
@@ -24,6 +25,8 @@ import com.matas.caroperatingsystem.di.component.ActivityComponent;
 import com.matas.caroperatingsystem.di.component.DaggerActivityComponent;
 import com.matas.caroperatingsystem.di.module.ActivityModule;
 import com.matas.caroperatingsystem.ui.dialog.AppLoadingDialog;
+import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.utils.DialogUtils;
 import com.matas.caroperatingsystem.utils.KeyboardUtils;
 
 import java.util.ArrayList;
@@ -70,6 +73,27 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
             mProgressDialog.dismiss();
             mProgressDialog = null;
         }
+    }
+
+    @Override
+    public void showConfirmDialog(Context context, String title, String message,
+                                  ConfirmDialog.OnConfirmDialogListener onConfirmDialogListener,
+                                  BaseDialog.OnBackPressListener backPressListener) {
+        showConfirmDialog(context, title, message, getString(R.string.action_ok), getString(R.string.action_cancel), onConfirmDialogListener, backPressListener);
+    }
+
+    @Override
+    public void showConfirmDialog(final Context context, final String title, final String message,
+                                  final String positive, final String negative,
+                                  final ConfirmDialog.OnConfirmDialogListener onConfirmDialogListener,
+                                  final BaseDialog.OnBackPressListener backPressListener) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.showConfirmDialog(context, title, message, positive,
+                        negative, onConfirmDialogListener, backPressListener);
+            }
+        });
     }
 
     @Override
