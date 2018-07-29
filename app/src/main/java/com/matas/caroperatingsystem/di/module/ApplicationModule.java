@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
+import com.matas.caroperatingsystem.data.network.serialize.manage.ManageApi;
 import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
+import com.matas.caroperatingsystem.data.network.serialize.user.UserApi;
 import com.matas.caroperatingsystem.di.ApplicationContext;
 
 import javax.inject.Singleton;
@@ -47,5 +49,17 @@ public class ApplicationModule {
     @Singleton
     StaffApi provideStaffApi(Retrofit retrofit) {
         return retrofit.create(StaffApi.class);
+    }
+
+    @Provides
+    @Singleton
+    ManageApi provideManageApi(Retrofit retrofit) {
+        return retrofit.create(ManageApi.class);
+    }
+
+    @Provides
+    @Singleton
+    UserApi provideUserApi(Retrofit retrofit) {
+        return retrofit.create(UserApi.class);
     }
 }

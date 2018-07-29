@@ -7,6 +7,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User implements Parcelable {
+    public static final String TAG = User.class.getSimpleName();
+
     @SerializedName("type")
     @Expose
     private int type;

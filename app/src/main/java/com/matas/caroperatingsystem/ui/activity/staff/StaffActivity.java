@@ -1,25 +1,40 @@
 package com.matas.caroperatingsystem.ui.activity.staff;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
-import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
-import com.matas.caroperatingsystem.ui.fragment.staff.StaffFragment;
+import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
+import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
 public class StaffActivity extends TopBarActivity implements StaffContract.StaffView,
-        ProfileFragment.OnProfileListener,
-        StaffFragment.OnStaffListener {
+        OnMapReadyCallback {
 
-    private StaffFragment mStaffFragment;
-    private ProfileFragment mProfileFragment;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private GoogleMap mMap;
+    private LocationManager locationManager;
+    private Location mLocation;
+
     private AppTopBar topBar;
 
     @Inject
@@ -42,24 +57,16 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         mPresenter.onViewAttach(this);
 
         topBar = findViewById(R.id.top_bar);
+        topBar.initData(0, 0, R.string.staff, R.string.action_logout, 0);
+        topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
 
-        if (mPresenter.getUser().getNIN() == null) {
-            showScreenUpdateInfo();
-        } else {
-            mPresenter.updateStatus(true);
-        }
-    }
+        mPresenter.updateStatus(true);
 
-    private void showScreenStaff() {
-        mStaffFragment = StaffFragment.newInstance();
-        mStaffFragment.setOnStaffListener(this);
-        pushFragment(mStaffFragment, StaffFragment.TAG, false);
-    }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-    private void showScreenUpdateInfo() {
-        mProfileFragment = ProfileFragment.newInstance();
-        mProfileFragment.setOnProfileListener(this);
-        pushFragment(mProfileFragment, ProfileFragment.TAG, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -67,16 +74,6 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         return R.id.fr_container;
     }
 
-    @Override
-    public void onUpdateProfile(String firstName, String lastName, String address, String gender) {
-        mPresenter.updateInfo(firstName, lastName, address, gender);
-    }
-
-    @Override
-    protected void onDestroy() {
-        mPresenter.onViewDetach();
-        super.onDestroy();
-    }
 
     @Override
     public AppTopBar getTopBar() {
@@ -84,23 +81,111 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     }
 
     @Override
-    public void updateProfileSuccess() {
-        showToast("Update Profile Success");
-        showScreenStaff();
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        enableMyLocationIfPermitted();
+
+        initData();
+        initListener();
     }
+
+    private void initData() {
+
+    }
+
+    private void initListener() {
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                if (mLocation != null) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 15.0f));
+                }
+            }
+        });
+
+        topBar.setOnTopBarListener(new AppTopBar.OnTopBarListener() {
+            @Override
+            public void onImvLeftOneClick() {
+
+            }
+
+            @Override
+            public void onTvLeftOneClick() {
+
+            }
+
+            @Override
+            public void onTvRightOneClick() {
+                showConfirmDialog(StaffActivity.this, null, getString(R.string.home_do_you_want_to_logout), new ConfirmDialog.OnConfirmDialogListener() {
+                    @Override
+                    public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
+                        mPresenter.updateStatus(false);
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onConfirmDialogNegativeClick(ConfirmDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }, null);
+            }
+
+            @Override
+            public void onImvRightOneClick() {
+
+            }
+        });
+    }
+
+    private void enableMyLocationIfPermitted() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        } else if (mMap != null) {
+            mMap.setMyLocationEnabled(true);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
+    }
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            mLocation = location;
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
     @Override
     public void updateStatusSucess(boolean status) {
-        if (status) {
-            showScreenStaff();
-        } else {
+        if(!status){
             mPresenter.setLogOut();
-            AuthActivity.startActivity(this);
+            AuthActivity.startActivity(StaffActivity.this);
         }
     }
 
     @Override
-    public void onLogout() {
-        mPresenter.updateStatus(false);
+    protected void onDestroy() {
+        mPresenter.onViewDetach();
+        super.onDestroy();
     }
 }

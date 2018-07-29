@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
-import com.matas.caroperatingsystem.data.model.Staff;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff_detail.DetailManageStaffFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff.ManageStaffFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
@@ -72,8 +72,8 @@ public class ManageActivity extends TopBarActivity implements ManageContract.Man
     }
 
     @Override
-    public void onStaffClick(Staff staff) {
-        mDetailManageStaffFragment = DetailManageStaffFragment.newInstance(staff);
+    public void onStaffClick(User user) {
+        mDetailManageStaffFragment = DetailManageStaffFragment.newInstance(user);
         pushFragment(mDetailManageStaffFragment, DetailManageStaffFragment.TAG, true);
     }
 }

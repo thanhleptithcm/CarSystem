@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarFragment;
-import com.matas.caroperatingsystem.data.model.Staff;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
@@ -26,7 +26,7 @@ public class DetailManageStaffFragment extends TopBarFragment implements DetailM
     DetailManageStaffPresenter mPresenter;
 
     private OnStaffListener mOnStaffListener;
-    private Staff staff;
+    private User mUser;
     private DetailManageStaffAdapter mDetailManageStaffAdapter;
     private AppTextView tvName;
     private AppTextView tvPhone;
@@ -36,10 +36,10 @@ public class DetailManageStaffFragment extends TopBarFragment implements DetailM
     private AppTopBar topBar;
     private ImageView imvGender;
 
-    public static DetailManageStaffFragment newInstance(Staff staff) {
+    public static DetailManageStaffFragment newInstance(User user) {
         Bundle args = new Bundle();
         DetailManageStaffFragment fragment = new DetailManageStaffFragment();
-        args.putParcelable(Staff.TAG, staff);
+        args.putParcelable(User.TAG, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,13 +72,13 @@ public class DetailManageStaffFragment extends TopBarFragment implements DetailM
 
     private void initData() {
         if (getArguments() != null) {
-            staff = getArguments().getParcelable(Staff.TAG);
+            mUser = getArguments().getParcelable(User.TAG);
         }
 
-        tvName.setText(String.format("%s %s", getString(R.string.name), staff.getName()));
-        tvPhone.setText(String.format("%s %s", getString(R.string.phone_number), staff.getPhoneNumber()));
-        tvAddress.setText(String.format("%s %s", getString(R.string.address), staff.getAddress()));
-        imvGender.setImageResource(staff.getGender().equalsIgnoreCase("Male") ? R.drawable.ic_male : R.drawable.ic_female);
+        tvName.setText(String.format("%s %s %s", getString(R.string.name), mUser.getFirstName(), mUser.getLastName()));
+        tvPhone.setText(String.format("%s %s", getString(R.string.phone_number), mUser.getPhone()));
+        tvAddress.setText(String.format("%s %s", getString(R.string.address), mUser.getAddress()));
+        imvGender.setImageResource(mUser.getGender().equalsIgnoreCase("male") ? R.drawable.ic_male : R.drawable.ic_female);
 
         mDetailManageStaffAdapter = new DetailManageStaffAdapter(getContext(), mPresenter.getListHistory(), this);
         rcvHistory.setLayoutManager(new LinearLayoutManager(getContext()));

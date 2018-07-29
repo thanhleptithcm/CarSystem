@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
+import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
 import com.matas.caroperatingsystem.utils.AppConstants;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
@@ -19,10 +21,12 @@ import javax.inject.Inject;
 
 public class AuthActivity extends TopBarActivity implements AuthContract.AuthView,
         LoginFragment.OnLoginListener,
+        ProfileFragment.OnProfileListener,
         SignUpFragment.OnSignUpListener {
 
     private LoginFragment mLoginFragment;
     private SignUpFragment mSignUpFragment;
+    private ProfileFragment mProfileFragment;
 
     @Inject
     AuthPresenter mPresenter;
@@ -50,6 +54,12 @@ public class AuthActivity extends TopBarActivity implements AuthContract.AuthVie
         mLoginFragment = LoginFragment.newInstance();
         mLoginFragment.setOnLoginListener(this);
         pushFragment(mLoginFragment, LoginFragment.TAG);
+    }
+
+    private void showScreenUpdateInfo() {
+        mProfileFragment = ProfileFragment.newInstance();
+        mProfileFragment.setOnProfileListener(this);
+        pushFragment(mProfileFragment, ProfileFragment.TAG, false);
     }
 
     @Override
@@ -94,13 +104,17 @@ public class AuthActivity extends TopBarActivity implements AuthContract.AuthVie
     }
 
     @Override
-    public void loginSuccess(int typeUser) {
-        switch (typeUser) {
+    public void loginSuccess(User user) {
+        switch (user.getType()) {
             case 0:
                 UserActivity.startActivity(AuthActivity.this);
                 break;
             case 1:
-                StaffActivity.startActivity(AuthActivity.this);
+                if (user.getFirstName() == null) {
+                    showScreenUpdateInfo();
+                } else {
+                    StaffActivity.startActivity(AuthActivity.this);
+                }
                 break;
             case 2:
                 ManageActivity.startActivity(AuthActivity.this);
@@ -114,4 +128,14 @@ public class AuthActivity extends TopBarActivity implements AuthContract.AuthVie
         showScreenLogin();
     }
 
+    @Override
+    public void updateProfileSuccess() {
+        showToast("Update Profile Success");
+        StaffActivity.startActivity(AuthActivity.this);
+    }
+
+    @Override
+    public void onUpdateProfile(String firstName, String lastName, String address, String gender) {
+        mPresenter.updateInfo(firstName, lastName, address, gender);
+    }
 }

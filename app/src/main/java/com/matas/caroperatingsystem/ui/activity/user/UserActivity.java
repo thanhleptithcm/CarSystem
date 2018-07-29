@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
+import com.matas.caroperatingsystem.data.model.Driver;
+import com.matas.caroperatingsystem.data.model.PosLocation;
 import com.matas.caroperatingsystem.data.model.Route;
 import com.matas.caroperatingsystem.helper.DirectionHelper;
 import com.matas.caroperatingsystem.helper.DirectionHelperListener;
@@ -76,6 +78,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
+        mPresenter.onViewAttach(this);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -114,8 +117,9 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
             @Override
             public void onMapLoaded() {
                 if (mLocation != null) {
+                    mPresenter.getListDriver(mLocation.getLatitude(), mLocation.getLongitude());
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 15.0f));
+                            new LatLng(10.7873313, 106.7142971), 15.0f));
                 }
             }
         });
@@ -207,7 +211,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     public void onClick(View v) {
         if (v == btnBook) {
             sendRequest();
-        } if(v == tvOrigin || v == tvDestination){
+        }
+        if (v == tvOrigin || v == tvDestination) {
 
         }
     }
@@ -289,6 +294,20 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
                 polylineOptions.add(route.getPoints().get(i));
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
+        }
+    }
+
+    @Override
+    public void getListDriverNearSuccess() {
+        PosLocation location;
+        LatLng latLng;
+        MarkerOptions markerOption;
+        for (Driver driver : mPresenter.getListDriverNear()) {
+            location = driver.getLocation();
+            latLng = new LatLng(location.getCoordinates().get(1), location.getCoordinates().get(0));
+            markerOption = new MarkerOptions().position(latLng);
+            markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_moto));
+            mMap.addMarker(markerOption);
         }
     }
 }

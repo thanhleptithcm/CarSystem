@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarFragment;
-import com.matas.caroperatingsystem.data.model.Staff;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
@@ -129,7 +129,7 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
     }
 
     public interface OnStaffListener {
-        void onStaffClick(Staff staff);
+        void onStaffClick(User user);
     }
 
     @Override

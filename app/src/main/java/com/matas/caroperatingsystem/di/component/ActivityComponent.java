@@ -13,7 +13,6 @@ import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff.ManageStaffFragment;
-import com.matas.caroperatingsystem.ui.fragment.staff.StaffFragment;
 
 import dagger.Component;
 
@@ -41,6 +40,4 @@ public interface ActivityComponent {
     void inject(ManageStaffFragment manageStaffFragment);
 
     void inject(DetailManageStaffFragment detailManageStaffFragment);
-
-    void inject(StaffFragment staffFragment);
 }

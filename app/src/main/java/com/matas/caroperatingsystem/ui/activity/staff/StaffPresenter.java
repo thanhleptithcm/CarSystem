@@ -45,45 +45,6 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
         return mPrefs.getUserLogin();
     }
 
-    @Override
-    public void updateInfo(String firstName, String lastName, String address, String gender) {
-        Map<String, String> apiHeaders = new HashMap<>();
-        apiHeaders.put("Content-Type", "application/json");
-        apiHeaders.put("access-token", mPrefs.getToken());
-
-        getMvpView().showLoading();
-        final ProfileRequest profileRequest = new ProfileRequest(firstName, lastName, address, gender);
-        mCompositeDisposable.add(mStaffApi.updateProfile(apiHeaders, profileRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ProfileResponse>() {
-                    @Override
-                    public void accept(ProfileResponse loginResponse) {
-                        if (isViewAttached()) {
-
-                            getMvpView().hideLoading();
-                            getMvpView().updateProfileSuccess();
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        if (isViewAttached()) {
-                            getMvpView().hideLoading();
-                            if (throwable instanceof HttpException) {
-                                HttpException exception = (HttpException) throwable;
-                                if (exception.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                                    getMvpView().showErrorDialog(R.string.login_failed);
-                                }
-                            } else if (throwable instanceof UnknownHostException) {
-                                getMvpView().showErrorDialog(R.string.connection_error);
-                            } else {
-                                getMvpView().showErrorDialog(R.string.api_default_error);
-                            }
-                        }
-                    }
-                }));
-    }
 
     @Override
     public void updateStatus(final boolean status) {

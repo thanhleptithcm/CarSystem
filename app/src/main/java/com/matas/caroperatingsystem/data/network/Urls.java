@@ -13,4 +13,12 @@ public class Urls {
         public static final String USER = "user";
         public static final String STATUS_BIKER = "driverLocation/status";
     }
+
+    public final static class Manage {
+        public static final String DRIVERS = "drivers";
+    }
+
+    public final static class User {
+        public static final String DRIVERS_LOCATION = "driverLocation";
+    }
 }

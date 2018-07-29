@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.data.model.Staff;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.widget.AppTextView;
 
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.List;
 public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.StaffHolder> {
 
     private Context mContext;
-    private List<Staff> mList;
+    private List<User> mList;
     private OnItemClickListener mListener;
 
-    public ManageStaffAdapter(Context context, List<Staff> list, OnItemClickListener callBack) {
+    public ManageStaffAdapter(Context context, List<User> list, OnItemClickListener callBack) {
         this.mContext = context;
         this.mList = list;
         this.mListener = callBack;
@@ -33,11 +33,11 @@ public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.
 
     @Override
     public void onBindViewHolder(StaffHolder holder, int position) {
-        Staff staff = mList.get(position);
+        User user = mList.get(position);
 
-        holder.mNameTextView.setText(staff.getName());
-        holder.mPhoneNumberTextView.setText(staff.getPhoneNumber());
-        holder.mGenderImageView.setImageResource(staff.getGender().equalsIgnoreCase("Male") ? R.drawable.ic_male : R.drawable.ic_female);
+        holder.mNameTextView.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+        holder.mPhoneNumberTextView.setText(user.getPhone());
+        holder.mGenderImageView.setImageResource(user.getGender().equalsIgnoreCase("male") ? R.drawable.ic_male : R.drawable.ic_female);
     }
 
     @Override
