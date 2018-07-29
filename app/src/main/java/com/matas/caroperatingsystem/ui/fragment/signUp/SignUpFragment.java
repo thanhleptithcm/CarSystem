@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseFragment;
+import com.matas.caroperatingsystem.utils.AppConstants;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 
@@ -20,6 +21,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
     private AppEditText edtPhone;
     private AppEditText edtPassword;
     private AppEditText edtConfirmPassword;
+    private AppEditText edtNIN;
     private AppButton btnSignUp;
 
     private int mType;
@@ -54,6 +56,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
         edtPhone = view.findViewById(R.id.edt_phone);
         edtPassword = view.findViewById(R.id.edt_pass_word);
         edtConfirmPassword = view.findViewById(R.id.edt_confirm_pass_word);
+        edtNIN = view.findViewById(R.id.edt_nin);
         btnSignUp = view.findViewById(R.id.btn_login);
 
         initListener();
@@ -65,6 +68,9 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             mType = getArguments().getInt(SignUpFragment.TAG);
         }
 
+        if (mType == AppConstants.BIKER_SIGN_UP) {
+            edtNIN.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -92,6 +98,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
         CharSequence phoneStr = edtPhone.getText();
         CharSequence passwordStr = edtPassword.getText();
         CharSequence confirmPasswordStr = edtConfirmPassword.getText();
+        CharSequence ninStr = edtNIN.getText();
 
         if (TextUtils.isEmpty(phoneStr)) {
             showErrorDialog(getString(R.string.login_please_input_phone_number));
@@ -113,11 +120,25 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             return;
         }
 
-        if (mOnSignUpListener != null)
-            mOnSignUpListener.onSignUpClick(phoneStr.toString(), passwordStr.toString(), mType);
+        if (mType == AppConstants.BIKER_SIGN_UP) {
+            if (TextUtils.isEmpty(ninStr)) {
+                showErrorDialog(getString(R.string.login_please_input_nin));
+                return;
+            }
+
+            if (ninStr.length() != 9) {
+                showErrorDialog(getString(R.string.login_nin_invalid));
+                return;
+            }
+        }
+
+
+        if (mOnSignUpListener != null) {
+            mOnSignUpListener.onSignUpClick(phoneStr.toString(), passwordStr.toString(), mType, ninStr.toString());
+        }
     }
 
     public interface OnSignUpListener {
-        void onSignUpClick(String email, String password, int type);
+        void onSignUpClick(String email, String password, int type, String NIN);
     }
 }

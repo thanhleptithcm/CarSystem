@@ -3,177 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="false"
     android:padding="@dimen/common_16dp">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_first_name"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="@string/profile_first_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <com.matas.caroperatingsystem.widget.AppEditText
+        android:id="@+id/edt_first_name"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:hint="@string/profile_enter_first_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_name" />
 
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_first_name"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:text="@string/profile_first_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_last_name"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:text="@string/profile_last_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/edt_first_name" />
 
-            <com.matas.caroperatingsystem.widget.AppEditText
-                android:id="@+id/edt_first_name"
-                style="@style/EditText"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:hint="@string/profile_enter_first_name"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_first_name" />
+    <com.matas.caroperatingsystem.widget.AppEditText
+        android:id="@+id/edt_last_name"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:hint="@string/profile_enter_last_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_name" />
 
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_last_name"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_last_name"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/edt_first_name" />
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_address"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:text="@string/profile_address"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/edt_last_name" />
 
-            <com.matas.caroperatingsystem.widget.AppEditText
-                android:id="@+id/edt_last_name"
-                style="@style/EditText"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:hint="@string/profile_enter_last_name"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_last_name" />
+    <com.matas.caroperatingsystem.widget.AppEditText
+        android:id="@+id/edt_address"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:hint="@string/profile_enter_address"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_address"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_address"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/edt_last_name" />
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_gender"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:text="@string/profile_gender"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/edt_address" />
 
-            <com.matas.caroperatingsystem.widget.AppEditText
-                android:id="@+id/edt_address"
-                style="@style/EditText"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:hint="@string/profile_enter_address"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_address" />
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_male"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:drawablePadding="@dimen/common_10dp"
+        android:drawableStart="@drawable/bg_check_gender"
+        android:text="@string/profile_male"
+        app:layout_constraintEnd_toStartOf="@+id/tv_female"
+        app:layout_constraintStart_toStartOf="@id/tv_first_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_gender" />
 
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_gender"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_gender"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/edt_address" />
-
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_male"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_male"
-                android:drawableStart="@drawable/bg_check_gender"
-                android:drawablePadding="@dimen/common_10dp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_female"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_gender" />
-
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_female"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:text="@string/profile_female"
-                android:drawableStart="@drawable/bg_check_gender"
-                android:drawablePadding="@dimen/common_10dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_male"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toEndOf="@id/tv_male"
-                app:layout_constraintTop_toTopOf="@id/tv_male" />
-
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_cmnd"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_cmnd"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_male" />
-
-            <ImageView
-                android:id="@+id/imv_cmnd_front"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_empty"
-                app:layout_constraintDimensionRatio="3:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_cmnd" />
-
-            <ImageView
-                android:id="@+id/imv_cmnd_back"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_empty"
-                app:layout_constraintDimensionRatio="3:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/imv_cmnd_front" />
-
-            <com.matas.caroperatingsystem.widget.AppTextView
-                android:id="@+id/tv_license"
-                style="@style/TextView"
-                android:layout_width="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:text="@string/profile_license"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/imv_cmnd_back" />
-
-            <ImageView
-                android:id="@+id/imv_license_front"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_empty"
-                app:layout_constraintDimensionRatio="3:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_license" />
-
-            <ImageView
-                android:id="@+id/imv_license_back"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/common_10dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_empty"
-                app:layout_constraintDimensionRatio="3:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_first_name"
-                app:layout_constraintStart_toStartOf="@id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@id/imv_license_front" />
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_female"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:drawablePadding="@dimen/common_10dp"
+        android:drawableStart="@drawable/bg_check_gender"
+        android:text="@string/profile_female"
+        app:layout_constraintBottom_toBottomOf="@id/tv_male"
+        app:layout_constraintEnd_toEndOf="@id/tv_first_name"
+        app:layout_constraintStart_toEndOf="@id/tv_male"
+        app:layout_constraintTop_toTopOf="@id/tv_male" />
 
 </android.support.constraint.ConstraintLayout>

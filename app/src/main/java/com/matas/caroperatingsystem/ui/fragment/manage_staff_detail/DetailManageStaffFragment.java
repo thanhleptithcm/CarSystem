@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.fragment.detail_staff;
+package com.matas.caroperatingsystem.ui.fragment.manage_staff_detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.base.BaseFragment;
 import com.matas.caroperatingsystem.base.TopBarFragment;
 import com.matas.caroperatingsystem.data.model.Staff;
 import com.matas.caroperatingsystem.widget.AppTextView;

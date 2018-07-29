@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imv_your_location"
+        android:layout_width="@dimen/common_32dp"
+        android:layout_height="@dimen/common_32dp"
+        android:layout_marginStart="@dimen/common_10dp"
+        android:layout_marginTop="@dimen/common_20dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_your_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.matas.caroperatingsystem.widget.AppEditText
+        android:id="@+id/edt_your_location"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/maps_enter_your_location"
+        android:padding="@dimen/common_10dp"
+        android:text="@string/maps_your_location"
+        app:layout_constraintBottom_toBottomOf="@id/imv_your_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imv_your_location"
+        app:layout_constraintTop_toTopOf="@id/imv_your_location" />
+
+    <View
+        android:id="@+id/view_empty"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:background="@color/gray_blur_transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imv_your_location" />
+
+    <ImageView
+        android:id="@+id/imv_destination"
+        android:layout_width="@dimen/common_32dp"
+        android:layout_height="@dimen/common_32dp"
+        android:layout_marginStart="@dimen/common_10dp"
+        android:layout_marginTop="@dimen/common_20dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_destination"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_empty" />
+
+    <com.matas.caroperatingsystem.widget.AppEditText
+        android:id="@+id/edt_destination"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/maps_enter_destination"
+        android:padding="@dimen/common_10dp"
+        app:layout_constraintBottom_toBottomOf="@id/imv_destination"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imv_destination"
+        app:layout_constraintTop_toTopOf="@id/imv_destination" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/common_10dp"
+        android:background="@color/gray_blur_transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_destination" />
+
+</android.support.constraint.ConstraintLayout>

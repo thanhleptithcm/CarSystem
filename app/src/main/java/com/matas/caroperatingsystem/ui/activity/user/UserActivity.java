@@ -30,7 +30,7 @@ import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.data.model.Route;
 import com.matas.caroperatingsystem.helper.DirectionHelper;
 import com.matas.caroperatingsystem.helper.DirectionHelperListener;
-import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
+import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.AppButton;
@@ -53,8 +53,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private LocationManager locationManager;
     private Location mLocation;
 
-    private AppEditText edtOrigin;
-    private AppEditText edtDestination;
+    private AppTextView tvOrigin;
+    private AppTextView tvDestination;
     private AppTextView tvDistance;
     private AppTextView tvClock;
     private AppButton btnBook;
@@ -65,7 +65,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private List<Polyline> polylinePaths = new ArrayList<>();
 
     public static void startActivity(Context context) {
-        Intent intent = new Intent(context, ManageActivity.class);
+        Intent intent = new Intent(context, UserActivity.class);
         context.startActivity(intent);
     }
 
@@ -93,8 +93,23 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         initListener();
     }
 
+    private void initData() {
+        tvOrigin = findViewById(R.id.tv_your_location);
+        tvDestination = findViewById(R.id.tv_destination);
+
+        tvDistance = findViewById(R.id.tv_distance);
+        tvClock = findViewById(R.id.tv_clock);
+        btnBook = findViewById(R.id.btn_book);
+        topBar = findViewById(R.id.top_bar);
+
+        topBar.initData(0, 0, R.string.home, R.string.action_logout, 0);
+        topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
+    }
+
     private void initListener() {
         btnBook.setOnClickListener(this);
+        tvOrigin.setOnClickListener(this);
+        tvDestination.setOnClickListener(this);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
@@ -123,7 +138,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
                     public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
                         mPresenter.setLogOut();
                         dialog.dismiss();
-                        LoginActivity.startActivity(UserActivity.this);
+                        AuthActivity.startActivity(UserActivity.this);
                     }
 
                     @Override
@@ -138,18 +153,6 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
             }
         });
-    }
-
-    private void initData() {
-        edtOrigin = findViewById(R.id.edt_your_location);
-        edtDestination = findViewById(R.id.edt_destination);
-        tvDistance = findViewById(R.id.tv_distance);
-        tvClock = findViewById(R.id.tv_clock);
-        btnBook = findViewById(R.id.btn_book);
-        topBar = findViewById(R.id.top_bar);
-
-        topBar.initData(0, 0, R.string.home, R.string.action_logout, 0);
-        topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
     }
 
     ///////////////////////////////
@@ -197,19 +200,21 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
     @Override
     public AppTopBar getTopBar() {
-        return null;
+        return topBar;
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnBook) {
             sendRequest();
+        } if(v == tvOrigin || v == tvDestination){
+
         }
     }
 
     private void sendRequest() {
-        String origin = edtOrigin.getText().toString();
-        String destination = edtDestination.getText().toString();
+        String origin = tvOrigin.getText().toString();
+        String destination = tvDestination.getText().toString();
         if (origin.isEmpty()) {
             Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
             return;

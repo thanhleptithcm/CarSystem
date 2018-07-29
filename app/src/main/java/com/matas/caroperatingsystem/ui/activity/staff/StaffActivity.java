@@ -4,16 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
+import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
+import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
+import com.matas.caroperatingsystem.ui.fragment.staff.StaffFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
 public class StaffActivity extends TopBarActivity implements StaffContract.StaffView,
-        View.OnClickListener {
+        ProfileFragment.OnProfileListener,
+        StaffFragment.OnStaffListener {
+
+    private StaffFragment mStaffFragment;
+    private ProfileFragment mProfileFragment;
+    private AppTopBar topBar;
 
     @Inject
     StaffPresenter mPresenter;
@@ -33,17 +40,36 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
+
+        topBar = findViewById(R.id.top_bar);
+
+        if (mPresenter.getUser().getNIN() == null) {
+            showScreenUpdateInfo();
+        } else {
+            mPresenter.updateStatus(true);
+        }
     }
 
+    private void showScreenStaff() {
+        mStaffFragment = StaffFragment.newInstance();
+        mStaffFragment.setOnStaffListener(this);
+        pushFragment(mStaffFragment, StaffFragment.TAG, false);
+    }
 
-    @Override
-    public void onClick(View v) {
-
+    private void showScreenUpdateInfo() {
+        mProfileFragment = ProfileFragment.newInstance();
+        mProfileFragment.setOnProfileListener(this);
+        pushFragment(mProfileFragment, ProfileFragment.TAG, false);
     }
 
     @Override
     protected int getContainerId() {
         return R.id.fr_container;
+    }
+
+    @Override
+    public void onUpdateProfile(String firstName, String lastName, String address, String gender) {
+        mPresenter.updateInfo(firstName, lastName, address, gender);
     }
 
     @Override
@@ -54,6 +80,27 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
 
     @Override
     public AppTopBar getTopBar() {
-        return null;
+        return topBar;
+    }
+
+    @Override
+    public void updateProfileSuccess() {
+        showToast("Update Profile Success");
+        showScreenStaff();
+    }
+
+    @Override
+    public void updateStatusSucess(boolean status) {
+        if (status) {
+            showScreenStaff();
+        } else {
+            mPresenter.setLogOut();
+            AuthActivity.startActivity(this);
+        }
+    }
+
+    @Override
+    public void onLogout() {
+        mPresenter.updateStatus(false);
     }
 }

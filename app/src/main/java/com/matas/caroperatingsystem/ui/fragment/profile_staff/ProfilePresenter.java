@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.fragment.profile;
+package com.matas.caroperatingsystem.ui.fragment.profile_staff;
 
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;

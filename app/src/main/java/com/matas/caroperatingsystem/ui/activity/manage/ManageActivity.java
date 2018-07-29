@@ -9,8 +9,8 @@ import android.view.View;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.data.model.Staff;
-import com.matas.caroperatingsystem.ui.fragment.detail_staff.DetailManageStaffFragment;
-import com.matas.caroperatingsystem.ui.fragment.staff.ManageStaffFragment;
+import com.matas.caroperatingsystem.ui.fragment.manage_staff_detail.DetailManageStaffFragment;
+import com.matas.caroperatingsystem.ui.fragment.manage_staff.ManageStaffFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;

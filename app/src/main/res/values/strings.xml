@@ -9,11 +9,14 @@
     <string name="action_ok">OK</string>
     <string name="action_done">Done</string>
     <string name="action_logout">Logout</string>
+    <string name="action_save">Save</string>
 
     <!--Splash-->
     <string name="welcome">Welcome</string>
+
     <!-- login -->
     <string name="login_phone_number">Enter Phone Number</string>
+    <string name="login_nin">Enter NIN</string>
     <string name="login_password">Enter Password</string>
     <string name="login_confirm_password">Enter Confirm Password</string>
     <string name="login_sign_up">Sign Up</string>
@@ -25,8 +28,8 @@
     <string name="login_please_input_phone_number">Please Input Phone Number</string>
     <string name="login_please_input_password">Please Input Password</string>
     <string name="login_please_input_confirm_password">Please Input Confirm Password</string>
-    <string name="login_email_invalid">Email Invalid</string>
-
+    <string name="login_please_input_nin">Please Input NIN</string>
+    <string name="login_nin_invalid">NIN invalid</string>
     <string name="login_failed">The username and password aren\'t not correct</string>
 
     <string name="warning_logout">Are you sure you want to logout?</string>
@@ -47,13 +50,15 @@
     <string name="profile_female">Female</string>
     <string name="profile_first_name">First Name</string>
     <string name="profile_enter_first_name">Enter First Name</string>
+    <string name="profile_please_enter_first_name">Please Enter First Name</string>
     <string name="profile_last_name">Last Name</string>
     <string name="profile_enter_last_name">Enter Last Name</string>
+    <string name="profile_please_enter_last_name">Please Enter Last Name</string>
     <string name="profile_address">Address</string>
     <string name="profile_enter_address">Enter Address</string>
+    <string name="profile_please_enter_address">Please Enter Address</string>
+    <string name="profile_please_select_gender">Please Select Gender</string>
     <string name="profile_gender">Gender</string>
-    <string name="profile_cmnd">CMND</string>
-    <string name="profile_license">License</string>
 
     <!--Map-->
     <string name="maps_enter_destination">Enter destination</string>
@@ -62,6 +67,8 @@
     <string name="maps_your_location">Your location</string>
 
     <!--Staff-->
+    <string name="staff">Staff</string>
+    <string name="staff_update_profile">Update Profile</string>
     <string name="name">Name: </string>
     <string name="phone_number">Phone Number: </string>
     <string name="address">Address: </string>

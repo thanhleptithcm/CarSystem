@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.activity.login;
+package com.matas.caroperatingsystem.ui.activity.auth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends TopBarActivity implements LoginContract.LoginView,
+public class AuthActivity extends TopBarActivity implements AuthContract.AuthView,
         LoginFragment.OnLoginListener,
         SignUpFragment.OnSignUpListener {
 
@@ -25,10 +25,10 @@ public class LoginActivity extends TopBarActivity implements LoginContract.Login
     private SignUpFragment mSignUpFragment;
 
     @Inject
-    LoginPresenter mPresenter;
+    AuthPresenter mPresenter;
 
     public static void startActivity(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, AuthActivity.class);
         context.startActivity(intent);
     }
 
@@ -59,7 +59,6 @@ public class LoginActivity extends TopBarActivity implements LoginContract.Login
 
     @Override
     public void onLoginClick(String email, String password) {
-        showLoading();
         mPresenter.login(email, password);
     }
 
@@ -77,9 +76,10 @@ public class LoginActivity extends TopBarActivity implements LoginContract.Login
         pushFragment(mSignUpFragment, SignUpFragment.TAG, true);
     }
 
+
     @Override
-    public void onSignUpClick(String email, String password, int type) {
-        mPresenter.signUp(email, password, type);
+    public void onSignUpClick(String email, String password, int type, String NIN) {
+        mPresenter.signUp(email, password, type, NIN);
     }
 
     @Override
@@ -97,19 +97,21 @@ public class LoginActivity extends TopBarActivity implements LoginContract.Login
     public void loginSuccess(int typeUser) {
         switch (typeUser) {
             case 0:
-                UserActivity.startActivity(LoginActivity.this);
+                UserActivity.startActivity(AuthActivity.this);
                 break;
             case 1:
-                StaffActivity.startActivity(LoginActivity.this);
+                StaffActivity.startActivity(AuthActivity.this);
                 break;
             case 2:
-                ManageActivity.startActivity(LoginActivity.this);
+                ManageActivity.startActivity(AuthActivity.this);
                 break;
         }
     }
 
     @Override
     public void signUpSuccess() {
+        showToast("Sign up Success");
         showScreenLogin();
     }
+
 }

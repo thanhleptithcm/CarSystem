@@ -15,7 +15,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.SplashView> im
 
     @Override
     public boolean isLogin() {
-        return mPrefs.getUserLogin() != null;
+        return mPrefs.getToken() != null;
     }
 
     @Override

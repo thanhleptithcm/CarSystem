@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.fragment.detail_staff;
+package com.matas.caroperatingsystem.ui.fragment.manage_staff_detail;
 
 import com.matas.caroperatingsystem.base.MvpView;
 

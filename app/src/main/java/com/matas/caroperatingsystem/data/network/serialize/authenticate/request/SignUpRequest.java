@@ -16,10 +16,15 @@ public class SignUpRequest {
     @Expose
     private int type;
 
-    public SignUpRequest(String phone, String password, int type) {
+    @SerializedName("nin")
+    @Expose
+    private String nin;
+
+    public SignUpRequest(String phone, String password, int type, String nin) {
         this.phone = phone;
         this.password = password;
         this.type = type;
+        this.nin = nin;
     }
 }
 

@@ -2,7 +2,7 @@ package com.matas.caroperatingsystem.ui.fragment.login;
 
 import com.matas.caroperatingsystem.base.MvpView;
 
-public interface LoginFragContract {
+public interface LoginContract {
 
     interface LoginMvpView extends MvpView {
 

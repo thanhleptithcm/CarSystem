@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseActivity;
-import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
+import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
@@ -45,7 +45,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
                             break;
                     }
                 } else {
-                    LoginActivity.startActivity(SplashActivity.this);
+                    AuthActivity.startActivity(SplashActivity.this);
                 }
                 finish();
             }

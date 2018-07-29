@@ -8,4 +8,9 @@ public class Urls {
         public static final String LOGIN = "login";
         public static final String SIGNUP = "signup";
     }
+
+    public final static class Staff {
+        public static final String USER = "user";
+        public static final String STATUS_BIKER = "driverLocation/status";
+    }
 }

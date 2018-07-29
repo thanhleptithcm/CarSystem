@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.fragment.staff;
+package com.matas.caroperatingsystem.ui.fragment.manage_staff;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.matas.caroperatingsystem.R;
-import com.matas.caroperatingsystem.base.BaseFragment;
 import com.matas.caroperatingsystem.base.TopBarFragment;
 import com.matas.caroperatingsystem.data.model.Staff;
-import com.matas.caroperatingsystem.ui.activity.login.LoginActivity;
-import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
+import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
@@ -112,7 +110,7 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
                         public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
                             mPresenter.setLogOut();
                             dialog.dismiss();
-                            LoginActivity.startActivity(getActivity());
+                            AuthActivity.startActivity(getActivity());
                         }
 
                         @Override

@@ -13,7 +13,7 @@ import com.matas.caroperatingsystem.widget.AppEditText;
 
 import javax.inject.Inject;
 
-public class LoginFragment extends BaseFragment implements LoginFragContract.LoginMvpView, View.OnClickListener {
+public class LoginFragment extends BaseFragment implements LoginContract.LoginMvpView, View.OnClickListener {
 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
@@ -24,7 +24,7 @@ public class LoginFragment extends BaseFragment implements LoginFragContract.Log
     private AppButton btnBikerSignUp;
 
     @Inject
-    LoginFragPresenter mPresenter;
+    LoginPresenter mPresenter;
 
     private OnLoginListener mOnLoginListener;
 

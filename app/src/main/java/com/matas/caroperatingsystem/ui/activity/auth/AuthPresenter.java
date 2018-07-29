@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.activity.login;
+package com.matas.caroperatingsystem.ui.activity.auth;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
@@ -23,15 +23,15 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-public class LoginPresenter extends BasePresenter<LoginContract.LoginView> implements LoginContract.LoginPresenter {
+public class AuthPresenter extends BasePresenter<AuthContract.AuthView> implements AuthContract.AuthPresenter {
 
     private final CompositeDisposable mCompositeDisposable;
     private final AuthenticateApi mAuthenticateApi;
 
     @Inject
-    public LoginPresenter(CompositeDisposable compositeDisposable,
-                          PreferencesHelper prefs,
-                          AuthenticateApi authenticateApi) {
+    public AuthPresenter(CompositeDisposable compositeDisposable,
+                         PreferencesHelper prefs,
+                         AuthenticateApi authenticateApi) {
         super(prefs);
         this.mCompositeDisposable = compositeDisposable;
         this.mAuthenticateApi = authenticateApi;
@@ -72,7 +72,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
                             } else if (throwable instanceof UnknownHostException) {
                                 getMvpView().showErrorDialog(R.string.connection_error);
                             } else {
-                                getMvpView().showErrorDialog(R.string.api_default_error);
+                                getMvpView().showErrorDialog(throwable.getMessage());
                             }
                         }
                     }
@@ -80,12 +80,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
     }
 
     @Override
-    public void signUp(String phone, String passWord, int type) {
+    public void signUp(String phone, String passWord, int type, String nin) {
         Map<String, String> apiHeaders = new HashMap<>();
         apiHeaders.put("Content-Type", "application/json");
 
         getMvpView().showLoading();
-        final SignUpRequest signUpRequest = new SignUpRequest(phone, passWord, type);
+        final SignUpRequest signUpRequest = new SignUpRequest(phone, passWord, type, nin);
         mCompositeDisposable.add(mAuthenticateApi.signUp(apiHeaders, signUpRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,7 +110,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
                             } else if (throwable instanceof UnknownHostException) {
                                 getMvpView().showErrorDialog(R.string.connection_error);
                             } else {
-                                getMvpView().showErrorDialog(R.string.api_default_error);
+                                getMvpView().showErrorDialog(throwable.getMessage());
                             }
                         }
                     }
