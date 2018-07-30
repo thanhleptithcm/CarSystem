@@ -9,8 +9,10 @@ import com.matas.caroperatingsystem.data.network.serialize.authenticate.response
 import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
 import com.matas.caroperatingsystem.data.network.serialize.staff.request.ProfileRequest;
 import com.matas.caroperatingsystem.data.network.serialize.staff.request.StatusRequest;
+import com.matas.caroperatingsystem.data.network.serialize.staff.request.UpdateLocationRequest;
 import com.matas.caroperatingsystem.data.network.serialize.staff.response.ProfileResponse;
 import com.matas.caroperatingsystem.data.network.serialize.staff.response.StatusResponse;
+import com.matas.caroperatingsystem.data.network.serialize.staff.response.UpdateLocationResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import java.net.UnknownHostException;
@@ -64,6 +66,46 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
                         if (isViewAttached()) {
                             getMvpView().hideLoading();
                             getMvpView().updateStatusSucess(status);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            if (throwable instanceof HttpException) {
+                                HttpException exception = (HttpException) throwable;
+                                if (exception.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                                    getMvpView().showErrorDialog(R.string.login_failed);
+                                }
+                            } else if (throwable instanceof UnknownHostException) {
+                                getMvpView().showErrorDialog(R.string.connection_error);
+                            } else {
+                                getMvpView().showErrorDialog(throwable.getMessage());
+                            }
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void updateLocation(double latitude, double longitude, String socketId) {
+        Map<String, String> apiHeaders = new HashMap<>();
+        apiHeaders.put("Content-Type", "application/json");
+        apiHeaders.put("access-token", mPrefs.getToken());
+
+        getMvpView().showLoading();
+        final UpdateLocationRequest locationRequest = new UpdateLocationRequest(latitude, longitude, socketId);
+
+        mCompositeDisposable.add(mStaffApi.updateLocation(apiHeaders, locationRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdateLocationResponse>() {
+                    @Override
+                    public void accept(UpdateLocationResponse loginResponse) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            getMvpView().updateLocationSucess();
                         }
                     }
                 }, new Consumer<Throwable>() {

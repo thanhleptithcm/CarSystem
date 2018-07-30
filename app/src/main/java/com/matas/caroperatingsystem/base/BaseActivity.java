@@ -36,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         BaseFragment.Callback,
         FragmentManager.OnBackStackChangedListener {
 
-    public static final String TAG = BaseActivity.class.getSimpleName();
+    public static final String TAG = "TAGSS";
 
     private List<String> mTagList = new ArrayList<>();
 

@@ -32,13 +32,13 @@ android {
         production {
             dimension "default"
             applicationId "com.matas.caroperatingsystem"
-            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/api/"')
+            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/"')
         }
 
         dev {
             dimension "default"
             applicationId "com.matas.caroperatingsystem"
-            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/api/"')
+            buildConfigField("String", "HOME_URL", '"http://206.189.159.179:4040/"')
         }
     }
 
@@ -65,6 +65,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
     implementation 'com.google.android.gms:play-services:11.4.0'
+    implementation 'com.github.nkzawa:socket.io-client:0.3.0'
+
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

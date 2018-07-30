@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,22 +29,27 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.matas.caroperatingsystem.BuildConfig;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.data.model.Driver;
 import com.matas.caroperatingsystem.data.model.PosLocation;
 import com.matas.caroperatingsystem.data.model.Route;
+import com.matas.caroperatingsystem.data.network.serialize.user.response.BookingResponse;
 import com.matas.caroperatingsystem.helper.DirectionHelper;
 import com.matas.caroperatingsystem.helper.DirectionHelperListener;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
-import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +57,7 @@ import javax.inject.Inject;
 
 public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         UserContract.UserView,
+        AppEditText.OnFocusChangeListener,
         DirectionHelperListener,
         View.OnClickListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -55,8 +65,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private LocationManager locationManager;
     private Location mLocation;
 
-    private AppTextView tvOrigin;
-    private AppTextView tvDestination;
+    private AppEditText edtOrigin;
+    private AppEditText edtDestination;
     private AppTextView tvDistance;
     private AppTextView tvClock;
     private AppButton btnBook;
@@ -66,6 +76,9 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
 
+    private LatLng latLng;
+    private Boolean isConnected = true;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, UserActivity.class);
         context.startActivity(intent);
@@ -74,11 +87,27 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     @Inject
     UserPresenter mPresenter;
 
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket(BuildConfig.HOME_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
+
+        mSocket.on(Socket.EVENT_CONNECT,onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.on("acceptBooking", onAcceptBooking);
+        mSocket.connect();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -97,8 +126,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     }
 
     private void initData() {
-        tvOrigin = findViewById(R.id.tv_your_location);
-        tvDestination = findViewById(R.id.tv_destination);
+        edtOrigin = findViewById(R.id.edt_your_location);
+        edtDestination = findViewById(R.id.edt_destination);
 
         tvDistance = findViewById(R.id.tv_distance);
         tvClock = findViewById(R.id.tv_clock);
@@ -111,15 +140,15 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
     private void initListener() {
         btnBook.setOnClickListener(this);
-        tvOrigin.setOnClickListener(this);
-        tvDestination.setOnClickListener(this);
+        edtOrigin.setOnClickListener(this);
+        edtDestination.setOnClickListener(this);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
                 if (mLocation != null) {
-                    mPresenter.getListDriver(mLocation.getLatitude(), mLocation.getLongitude());
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(10.7873313, 106.7142971), 15.0f));
+                            new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 15.0f));
+                    mPresenter.getListDriver(mLocation.getLatitude(), mLocation.getLongitude());
                 }
             }
         });
@@ -157,7 +186,78 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
             }
         });
+
+        edtOrigin.setOnFocusChangeListener(this);
+        edtDestination.setOnFocusChangeListener(this);
     }
+
+
+    private Emitter.Listener onAcceptBooking = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String username;
+//                    String message;
+                    try {
+                        username = data.getString("message");
+//                        message = data.getString("message");
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
+
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(!isConnected) {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.connect, Toast.LENGTH_LONG).show();
+                        isConnected = true;
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "diconnected");
+                    isConnected = false;
+                    Toast.makeText(getApplicationContext(),
+                            R.string.disconnect, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onConnectError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "Error connecting");
+                    Toast.makeText(getApplicationContext(),
+                            R.string.error_connect, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
 
     ///////////////////////////////
     private void enableMyLocationIfPermitted() {
@@ -210,16 +310,19 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     @Override
     public void onClick(View v) {
         if (v == btnBook) {
-            sendRequest();
-        }
-        if (v == tvOrigin || v == tvDestination) {
-
+            if (btnBook.getText().toString().equalsIgnoreCase(getString(R.string.maps_search))) {
+                searchSpacing();
+            } else {
+                if (latLng != null) {
+                    mPresenter.bookingDrivers(latLng, "12344");
+                }
+            }
         }
     }
 
-    private void sendRequest() {
-        String origin = tvOrigin.getText().toString();
-        String destination = tvDestination.getText().toString();
+    private void searchSpacing() {
+        String origin = edtOrigin.getText().toString();
+        String destination = edtDestination.getText().toString();
         if (origin.isEmpty()) {
             Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
             return;
@@ -271,6 +374,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
+            latLng = route.getStartLocation();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
 
             tvClock.setText(route.getDuration().getText());
@@ -295,6 +399,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+
+        btnBook.setText(getString(R.string.maps_book));
     }
 
     @Override
@@ -309,5 +415,32 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
             markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_moto));
             mMap.addMarker(markerOption);
         }
+    }
+
+    @Override
+    public void bookingDriverSuccess(BookingResponse response) {
+        if(!mSocket.connected()){
+            return;
+        }
+        mSocket.emit("booking", response.getBook().getPassenger().getPhone());
+    }
+
+    @Override
+    public void onFocus(AppEditText editText, boolean hasFocus) {
+        if (hasFocus) {
+            btnBook.setText(getString(R.string.maps_search));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onViewDetach();
+        mSocket.disconnect();
+        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.off("acceptBooking", onAcceptBooking);
     }
 }

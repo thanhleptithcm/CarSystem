@@ -17,7 +17,7 @@ public class BaseResponse implements Parcelable {
 
     @SerializedName("message")
     @Expose
-    protected int message;
+    protected String message;
 
     public String getSuccess() {
         return success;
@@ -35,11 +35,11 @@ public class BaseResponse implements Parcelable {
         this.code = code;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(int message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -53,7 +53,7 @@ public class BaseResponse implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.success);
         dest.writeInt(this.code);
-        dest.writeInt(this.message);
+        dest.writeString(this.message);
     }
 
     public BaseResponse() {
@@ -62,7 +62,7 @@ public class BaseResponse implements Parcelable {
     protected BaseResponse(Parcel in) {
         this.success = in.readString();
         this.code = in.readInt();
-        this.message = in.readInt();
+        this.message = in.readString();
     }
 
     public static final Creator<BaseResponse> CREATOR = new Creator<BaseResponse>() {

@@ -11,19 +11,29 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.matas.caroperatingsystem.BuildConfig;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
-import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
+import com.github.nkzawa.emitter.Emitter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 
 import javax.inject.Inject;
 
@@ -36,6 +46,15 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     private Location mLocation;
 
     private AppTopBar topBar;
+    private Boolean isConnected = true;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket(BuildConfig.HOME_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Inject
     StaffPresenter mPresenter;
@@ -50,6 +69,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         return R.layout.activity_staff;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +80,16 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         topBar.initData(0, 0, R.string.staff, R.string.action_logout, 0);
         topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
 
+        mSocket.on(Socket.EVENT_CONNECT,onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.on("booking", onNewBooking);
+        mSocket.connect();
+
         mPresenter.updateStatus(true);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -89,6 +115,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         initListener();
     }
 
+
     private void initData() {
 
     }
@@ -100,6 +127,8 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
                 if (mLocation != null) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 15.0f));
+
+                    mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude(), "12345");
                 }
             }
         });
@@ -177,15 +206,92 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
 
     @Override
     public void updateStatusSucess(boolean status) {
-        if(!status){
+        if (!status) {
             mPresenter.setLogOut();
             AuthActivity.startActivity(StaffActivity.this);
         }
     }
 
     @Override
+    public void updateLocationSucess() {
+        showToast("Update Location Success");
+    }
+
+    private Emitter.Listener onNewBooking = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String username;
+//                    String message;
+                    try {
+                        username = data.getString("message");
+//                        message = data.getString("message");
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(!isConnected) {
+                        Log.d(TAG, "connected");
+                        Toast.makeText(getApplicationContext(),
+                                R.string.connect, Toast.LENGTH_LONG).show();
+                        isConnected = true;
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "diconnected");
+                    isConnected = false;
+                    Toast.makeText(getApplicationContext(),
+                            R.string.disconnect, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onConnectError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "Error connecting");
+                    Toast.makeText(getApplicationContext(),
+                            R.string.error_connect, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+    @Override
     protected void onDestroy() {
         mPresenter.onViewDetach();
+        mSocket.disconnect();
+        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.off("booking", onNewBooking);
         super.onDestroy();
     }
 }
