@@ -33,9 +33,10 @@
         </activity>
 
         <activity android:name=".ui.activity.auth.AuthActivity" />
-        <activity android:name=".ui.activity.staff.StaffActivity" />
+        <activity android:name=".ui.activity.staff.main.StaffActivity" />
         <activity android:name=".ui.activity.manage.ManageActivity" />
         <activity android:name=".ui.activity.user.UserActivity" />
+        <activity android:name=".ui.activity.staff.detail.ListBookActivity" />
     </application>
 
 </manifest>

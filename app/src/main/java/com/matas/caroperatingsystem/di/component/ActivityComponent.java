@@ -4,10 +4,12 @@ import com.matas.caroperatingsystem.base.BaseActivity;
 import com.matas.caroperatingsystem.di.PerActivity;
 import com.matas.caroperatingsystem.di.module.ActivityModule;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.detail.ListBookActivity;
 import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
-import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.main.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.activity.splash.SplashActivity;
+import com.matas.caroperatingsystem.ui.fragment.auth.AuthFragFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff_detail.DetailManageStaffFragment;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
@@ -28,6 +30,10 @@ public interface ActivityComponent {
     void inject(StaffActivity staffActivity);
 
     void inject(ManageActivity manageActivity);
+
+    void inject(ListBookActivity listBookActivity);
+
+    void inject(AuthFragFragment authFragFragment);
 
     void inject(LoginFragment loginFragment);
 

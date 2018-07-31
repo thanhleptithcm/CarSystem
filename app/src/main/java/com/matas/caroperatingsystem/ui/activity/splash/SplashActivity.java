@@ -8,7 +8,7 @@ import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseActivity;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
-import com.matas.caroperatingsystem.ui.activity.staff.StaffActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.main.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
 import com.matas.caroperatingsystem.utils.AppConstants;
 

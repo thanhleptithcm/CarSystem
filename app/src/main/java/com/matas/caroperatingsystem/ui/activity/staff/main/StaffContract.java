@@ -1,4 +1,4 @@
-package com.matas.caroperatingsystem.ui.activity.staff;
+package com.matas.caroperatingsystem.ui.activity.staff.main;
 
 import com.matas.caroperatingsystem.base.MvpView;
 import com.matas.caroperatingsystem.data.model.User;
@@ -6,9 +6,9 @@ import com.matas.caroperatingsystem.data.model.User;
 public interface StaffContract {
 
     interface StaffView extends MvpView {
-        void updateStatusSucess(boolean status);
+        void updateStatusSuccess(boolean status);
 
-        void updateLocationSucess();
+        void updateLocationSuccess();
     }
 
     interface StaffPresenter {

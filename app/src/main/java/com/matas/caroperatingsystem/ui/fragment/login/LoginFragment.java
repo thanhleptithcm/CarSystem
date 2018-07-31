@@ -20,8 +20,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
     private AppEditText edtPhone;
     private AppEditText edtPassword;
     private AppButton btnLogin;
-    private AppButton btnUserSignUp;
-    private AppButton btnBikerSignUp;
 
     @Inject
     LoginPresenter mPresenter;
@@ -53,8 +51,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
         edtPhone = view.findViewById(R.id.edt_phone);
         edtPassword = view.findViewById(R.id.edt_pass_word);
         btnLogin = view.findViewById(R.id.btn_login);
-        btnUserSignUp = view.findViewById(R.id.btn_user_sign_up);
-        btnBikerSignUp = view.findViewById(R.id.btn_biker);
 
         initListener();
         initData();
@@ -62,8 +58,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
 
     private void initData() {
         btnLogin.setOnClickListener(this);
-        btnUserSignUp.setOnClickListener(this);
-        btnBikerSignUp.setOnClickListener(this);
     }
 
     private void initListener() {
@@ -78,14 +72,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
 
     @Override
     public void onClick(View v) {
-        if (mOnLoginListener != null) {
-            if (v == btnLogin) {
-                getData();
-            } else if (v == btnUserSignUp) {
-                mOnLoginListener.onUserSignUp();
-            } else if (v == btnBikerSignUp) {
-                mOnLoginListener.onBikerSignUp();
-            }
+        if (v == btnLogin && mOnLoginListener != null) {
+            getData();
         }
     }
 
@@ -109,9 +97,5 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
 
     public interface OnLoginListener {
         void onLoginClick(String email, String password);
-
-        void onUserSignUp();
-
-        void onBikerSignUp();
     }
 }

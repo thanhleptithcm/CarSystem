@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_stroke_separator_bottom"
+    android:padding="@dimen/common_10dp">
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_phone"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_accept"
+        app:layout_constraintEnd_toStartOf="@+id/btn_accept"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.matas.caroperatingsystem.widget.AppButton
+        android:id="@+id/btn_accept"
+        style="@style/Button"
+        android:text="@string/action_accept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_phone"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

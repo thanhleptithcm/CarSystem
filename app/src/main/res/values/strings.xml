@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Card Operating System</string>
+    <string name="app_name">Best Trip</string>
 
     <!-- action -->
     <string name="action_edit">Edit</string>
@@ -10,6 +10,7 @@
     <string name="action_done">Done</string>
     <string name="action_logout">Logout</string>
     <string name="action_save">Save</string>
+    <string name="action_accept">Accept</string>
 
     <!--Splash-->
     <string name="welcome">Welcome</string>
@@ -20,7 +21,8 @@
     <string name="login_password">Enter Password</string>
     <string name="login_confirm_password">Enter Confirm Password</string>
     <string name="login_sign_up">Sign Up</string>
-    <string name="login_user_sign_up">User Sign Up</string>
+    <string name="login_driver">Driver</string>
+    <string name="login_user">User</string>
     <string name="login_motorbike_taxi_sign_up">Motorbike Taxi Sign Up</string>
     <string name="login_forgot_password"><u>Forgot Password?</u></string>
     <string name="login">Login</string>
@@ -77,6 +79,9 @@
     <string name="phone_number">Phone Number: </string>
     <string name="address">Address: </string>
     <string name="gender">Gender: </string>
+    <string name="all_booking">All Booking</string>
+    <string name="default_distance">0 km</string>
+    <string name="default_clock">0 mins</string>
 
     <!--Manage-->
     <string name="manage_staff">Manage Staff</string>

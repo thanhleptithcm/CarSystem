@@ -1,16 +1,11 @@
-package com.matas.caroperatingsystem.ui.activity.staff;
+package com.matas.caroperatingsystem.ui.activity.staff.main;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.User;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.request.LoginRequest;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.response.LoginResponse;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.response.SignUpResponse;
 import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
-import com.matas.caroperatingsystem.data.network.serialize.staff.request.ProfileRequest;
 import com.matas.caroperatingsystem.data.network.serialize.staff.request.StatusRequest;
 import com.matas.caroperatingsystem.data.network.serialize.staff.request.UpdateLocationRequest;
-import com.matas.caroperatingsystem.data.network.serialize.staff.response.ProfileResponse;
 import com.matas.caroperatingsystem.data.network.serialize.staff.response.StatusResponse;
 import com.matas.caroperatingsystem.data.network.serialize.staff.response.UpdateLocationResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
@@ -65,7 +60,7 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
                     public void accept(StatusResponse loginResponse) {
                         if (isViewAttached()) {
                             getMvpView().hideLoading();
-                            getMvpView().updateStatusSucess(status);
+                            getMvpView().updateStatusSuccess(status);
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -105,7 +100,7 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
                     public void accept(UpdateLocationResponse loginResponse) {
                         if (isViewAttached()) {
                             getMvpView().hideLoading();
-                            getMvpView().updateLocationSucess();
+                            getMvpView().updateLocationSuccess();
                         }
                     }
                 }, new Consumer<Throwable>() {

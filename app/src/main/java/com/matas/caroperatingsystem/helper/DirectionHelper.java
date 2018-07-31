@@ -28,7 +28,7 @@ public class DirectionHelper {
     private DirectionHelperListener listener;
     private String origin;
     private String destination;
-    private double originLatitude, originLongitude;
+    private double originLatitude, originLongitude, destinationLatitude, destinationLongitude;
 
     public DirectionHelper(DirectionHelperListener listener, String origin, String destination) {
         this.listener = listener;
@@ -43,19 +43,31 @@ public class DirectionHelper {
         this.destination = destination;
     }
 
+    public DirectionHelper(DirectionHelperListener listener, double originLatitude, double originLongitude,
+                           double destinationLatitude, double destinationLongitude) {
+        this.listener = listener;
+        this.originLatitude = originLatitude;
+        this.originLongitude = originLongitude;
+        this.destinationLatitude = destinationLatitude;
+        this.destinationLongitude = destinationLongitude;
+    }
+
     public void execute() throws UnsupportedEncodingException {
         listener.onDirectionHelperStart();
         new DownloadRawData().execute(createUrl());
     }
 
     private String createUrl() throws UnsupportedEncodingException {
-        String urlDestination = URLEncoder.encode(destination, "utf-8");
-
-        if (origin == null) {
-            return DIRECTION_URL_API + "origin=" + originLatitude + "," + originLongitude + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+        if (destination == null) {
+            return DIRECTION_URL_API + "origin=" + originLatitude + "," + originLongitude + "&destination=" + destinationLatitude + "," + destinationLongitude + "&key=" + GOOGLE_API_KEY;
         } else {
-            String urlOrigin = URLEncoder.encode(origin, "utf-8");
-            return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+            String urlDestination = URLEncoder.encode(destination, "utf-8");
+            if (origin == null) {
+                return DIRECTION_URL_API + "origin=" + originLatitude + "," + originLongitude + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+            } else {
+                String urlOrigin = URLEncoder.encode(origin, "utf-8");
+                return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+            }
         }
     }
 

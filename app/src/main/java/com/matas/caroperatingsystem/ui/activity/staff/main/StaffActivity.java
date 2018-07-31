@@ -1,9 +1,10 @@
-package com.matas.caroperatingsystem.ui.activity.staff;
+package com.matas.caroperatingsystem.ui.activity.staff.main;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,33 +22,57 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 import com.matas.caroperatingsystem.BuildConfig;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
+import com.matas.caroperatingsystem.data.model.ConfirmBooking;
+import com.matas.caroperatingsystem.data.model.PosLocation;
+import com.matas.caroperatingsystem.data.model.Route;
+import com.matas.caroperatingsystem.helper.DirectionHelper;
+import com.matas.caroperatingsystem.helper.DirectionHelperListener;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
+import com.matas.caroperatingsystem.ui.activity.staff.detail.ListBookActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 import com.github.nkzawa.emitter.Emitter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 public class StaffActivity extends TopBarActivity implements StaffContract.StaffView,
+        DirectionHelperListener,
         OnMapReadyCallback {
-
+    public static final int REQUEST_LIST_BOOKING_CODE = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap mMap;
     private LocationManager locationManager;
     private Location mLocation;
 
+    private List<Marker> originMarkers = new ArrayList<>();
+    private List<Marker> destinationMarkers = new ArrayList<>();
+    private List<Polyline> polylinePaths = new ArrayList<>();
+
+    private AppTextView tvDistance;
+    private AppTextView tvClock;
     private AppTopBar topBar;
     private Boolean isConnected = true;
     private Socket mSocket;
+
     {
         try {
             mSocket = IO.socket(BuildConfig.HOME_URL);
@@ -76,12 +101,14 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
+        tvDistance = findViewById(R.id.tv_distance);
+        tvClock = findViewById(R.id.tv_clock);
         topBar = findViewById(R.id.top_bar);
-        topBar.initData(0, 0, R.string.staff, R.string.action_logout, 0);
-        topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
+        topBar.initData(0, R.string.action_logout, R.string.staff, 0, R.drawable.ic_list_book);
+        topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.GONE, View.VISIBLE);
 
-        mSocket.on(Socket.EVENT_CONNECT,onConnect);
-        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
         mSocket.on("booking", onNewBooking);
@@ -94,12 +121,6 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
-    @Override
-    protected int getContainerId() {
-        return R.id.fr_container;
-    }
-
 
     @Override
     public AppTopBar getTopBar() {
@@ -141,11 +162,6 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
 
             @Override
             public void onTvLeftOneClick() {
-
-            }
-
-            @Override
-            public void onTvRightOneClick() {
                 showConfirmDialog(StaffActivity.this, null, getString(R.string.home_do_you_want_to_logout), new ConfirmDialog.OnConfirmDialogListener() {
                     @Override
                     public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
@@ -161,8 +177,14 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             }
 
             @Override
-            public void onImvRightOneClick() {
+            public void onTvRightOneClick() {
 
+            }
+
+            @Override
+            public void onImvRightOneClick() {
+                Intent intent = new Intent(StaffActivity.this, ListBookActivity.class);
+                startActivityForResult(intent, REQUEST_LIST_BOOKING_CODE);
             }
         });
     }
@@ -205,7 +227,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     };
 
     @Override
-    public void updateStatusSucess(boolean status) {
+    public void updateStatusSuccess(boolean status) {
         if (!status) {
             mPresenter.setLogOut();
             AuthActivity.startActivity(StaffActivity.this);
@@ -213,7 +235,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     }
 
     @Override
-    public void updateLocationSucess() {
+    public void updateLocationSuccess() {
         showToast("Update Location Success");
     }
 
@@ -243,7 +265,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(!isConnected) {
+                    if (!isConnected) {
                         Log.d(TAG, "connected");
                         Toast.makeText(getApplicationContext(),
                                 R.string.connect, Toast.LENGTH_LONG).show();
@@ -284,6 +306,21 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     };
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            ConfirmBooking confirmBooking = new Gson().fromJson(data.getStringExtra("BOOKING"), ConfirmBooking.class);
+            PosLocation location = confirmBooking.getDriverLocation().getLocation();
+            try {
+                new DirectionHelper(this, mLocation.getLatitude(), mLocation.getLongitude(),
+                        location.getCoordinates().get(1), location.getCoordinates().get(0)).execute();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         mPresenter.onViewDetach();
         mSocket.disconnect();
@@ -293,5 +330,60 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
         mSocket.off("booking", onNewBooking);
         super.onDestroy();
+    }
+
+    @Override
+    public void onDirectionHelperStart() {
+        showLoading();
+        if (originMarkers != null) {
+            for (Marker marker : originMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (destinationMarkers != null) {
+            for (Marker marker : destinationMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (polylinePaths != null) {
+            for (Polyline polyline : polylinePaths) {
+                polyline.remove();
+            }
+        }
+    }
+
+    @Override
+    public void onDirectionHelperSuccess(List<Route> routes) {
+        hideLoading();
+        polylinePaths = new ArrayList<>();
+        originMarkers = new ArrayList<>();
+        destinationMarkers = new ArrayList<>();
+
+        for (Route route : routes) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
+            tvClock.setText(route.getDuration().getText());
+            tvDistance.setText(route.getDistance().getText());
+
+            originMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
+                    .title(route.getStartAddress())
+                    .position(route.getStartLocation())));
+            destinationMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
+                    .title(route.getEndAddress())
+                    .position(route.getEndLocation())));
+
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < route.getPoints().size(); i++)
+                polylineOptions.add(route.getPoints().get(i));
+
+            polylinePaths.add(mMap.addPolyline(polylineOptions));
+        }
     }
 }

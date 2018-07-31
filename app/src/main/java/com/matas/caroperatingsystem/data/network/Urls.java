@@ -14,6 +14,8 @@ public class Urls {
         public static final String USER = API + "user";
         public static final String STATUS_BIKER = API + "driverLocation/status";
         public static final String DRIVERS_LOCATION = API + "driverLocation";
+        public static final String ALL_BOOKING = API + "booking";
+        public static final String CONFIRM_BOOKING = API + "booking/{bookId}";
     }
 
     public final static class Manage {

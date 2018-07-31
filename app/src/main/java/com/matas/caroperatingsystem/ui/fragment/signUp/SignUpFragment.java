@@ -68,7 +68,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             mType = getArguments().getInt(SignUpFragment.TAG);
         }
 
-        if (mType == AppConstants.BIKER_SIGN_UP) {
+        if (mType == AppConstants.DRIVER_SIGN_UP) {
             edtNIN.setVisibility(View.VISIBLE);
         }
 
@@ -120,7 +120,7 @@ public class SignUpFragment extends BaseFragment implements SignUpContract.SignU
             return;
         }
 
-        if (mType == AppConstants.BIKER_SIGN_UP) {
+        if (mType == AppConstants.DRIVER_SIGN_UP) {
             if (TextUtils.isEmpty(ninStr)) {
                 showErrorDialog(getString(R.string.login_please_input_nin));
                 return;
