@@ -1,8 +1,12 @@
 package com.matas.caroperatingsystem.ui.activity.splash;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BaseActivity;

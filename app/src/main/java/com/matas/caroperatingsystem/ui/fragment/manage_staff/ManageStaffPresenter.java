@@ -3,8 +3,8 @@ package com.matas.caroperatingsystem.ui.fragment.manage_staff;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.User;
-import com.matas.caroperatingsystem.data.network.serialize.manage.ManageApi;
-import com.matas.caroperatingsystem.data.network.serialize.manage.response.DriversResponse;
+import com.matas.caroperatingsystem.data.network.manage.ManageApi;
+import com.matas.caroperatingsystem.data.network.manage.response.DriversResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import java.net.UnknownHostException;

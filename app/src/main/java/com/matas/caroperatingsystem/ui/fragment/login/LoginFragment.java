@@ -1,5 +1,6 @@
 package com.matas.caroperatingsystem.ui.fragment.login;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -61,6 +62,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginMv
     }
 
     private void initListener() {
+
     }
 
 

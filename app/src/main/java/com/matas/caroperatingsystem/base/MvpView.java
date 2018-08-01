@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.ui.dialog.OkDialog;
 
 public interface MvpView {
 
@@ -34,6 +35,12 @@ public interface MvpView {
     void showErrorDialog(@StringRes int resId);
 
     void showErrorDialog(String message);
+
+    void showOKDialog(Context context, String title, String message, OkDialog.IOkDialogListener listener,
+                         final BaseDialog.OnBackPressListener backPressListener);
+
+    void showOKDialog(Context context, String message, OkDialog.IOkDialogListener listener,
+                         final BaseDialog.OnBackPressListener backPressListener);
 
     boolean isNetworkConnected();
 

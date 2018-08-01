@@ -26,6 +26,7 @@ import com.matas.caroperatingsystem.di.component.DaggerActivityComponent;
 import com.matas.caroperatingsystem.di.module.ActivityModule;
 import com.matas.caroperatingsystem.ui.dialog.AppLoadingDialog;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.ui.dialog.OkDialog;
 import com.matas.caroperatingsystem.utils.DialogUtils;
 import com.matas.caroperatingsystem.utils.KeyboardUtils;
 
@@ -114,6 +115,34 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
     @Override
     public void showErrorDialog(String message) {
         showOKAlertMessage(message, null);
+    }
+
+
+    @Override
+    public void showOKDialog(final Context context,
+                                final String title,
+                                final String message,
+                                final OkDialog.IOkDialogListener listener,
+                                final BaseDialog.OnBackPressListener backPressListener) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.showOkDialog(context, title, message, listener, backPressListener);
+            }
+        });
+    }
+
+    @Override
+    public void showOKDialog(final Context context,
+                                final String message,
+                                final OkDialog.IOkDialogListener listener,
+                                final BaseDialog.OnBackPressListener backPressListener) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.showOkDialog(context, null, message, listener, backPressListener);
+            }
+        });
     }
 
     @Override

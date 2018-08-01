@@ -54,7 +54,7 @@
             android:layout_marginTop="@dimen/common_24dp"
             android:background="@drawable/bg_stroke_separator_top"
             android:text="@string/action_ok"
-            android:textColor="@color/blue"
+            android:textColor="@color/purple"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/title_text_view"

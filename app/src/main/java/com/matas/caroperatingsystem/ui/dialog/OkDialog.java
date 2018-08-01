@@ -52,7 +52,7 @@ public class OkDialog extends BaseDialog {
         mMessageTextView = findViewById(R.id.message_text_view);
         mOkButton = findViewById(R.id.ok_button);
 
-        if (TextUtils.isEmpty(mTitle)) {
+        if (mTitle == null) {
             mTitleTextView.setVisibility(View.GONE);
         } else {
             mTitleTextView.setText(mTitle);

@@ -35,11 +35,12 @@ import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.data.model.Driver;
 import com.matas.caroperatingsystem.data.model.PosLocation;
 import com.matas.caroperatingsystem.data.model.Route;
-import com.matas.caroperatingsystem.data.network.serialize.user.response.BookingResponse;
+import com.matas.caroperatingsystem.data.network.user.response.BookingResponse;
 import com.matas.caroperatingsystem.helper.DirectionHelper;
 import com.matas.caroperatingsystem.helper.DirectionHelperListener;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.ui.dialog.OkDialog;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.AppTextView;
@@ -88,6 +89,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     UserPresenter mPresenter;
 
     private Socket mSocket;
+
     {
         try {
             mSocket = IO.socket(BuildConfig.HOME_URL);
@@ -102,8 +104,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
-        mSocket.on(Socket.EVENT_CONNECT,onConnect);
-        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
         mSocket.on("acceptBooking", onAcceptBooking);
@@ -219,7 +221,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(!isConnected) {
+                    if (!isConnected) {
                         Toast.makeText(getApplicationContext(),
                                 R.string.connect, Toast.LENGTH_LONG).show();
                         isConnected = true;
@@ -419,7 +421,15 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
     @Override
     public void bookingDriverSuccess(BookingResponse response) {
-        if(!mSocket.connected()){
+        showOKDialog(this, "Please waiting! \n We finding driver for you",
+                new OkDialog.IOkDialogListener() {
+                    @Override
+                    public void onIOkDialogAnswerOk(OkDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }, null);
+
+        if (!mSocket.connected()) {
             return;
         }
         mSocket.emit("booking", response.getBook().getPassenger().getPhone());

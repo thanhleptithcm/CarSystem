@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.di.component.ActivityComponent;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.ui.dialog.OkDialog;
 import com.matas.caroperatingsystem.utils.DialogUtils;
 
 public abstract class BaseFragment extends Fragment implements MvpView {
@@ -99,6 +100,32 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         });
     }
 
+    @Override
+    public void showOKDialog(final Context context,
+                             final String message,
+                             final OkDialog.IOkDialogListener listener,
+                             final BaseDialog.OnBackPressListener backPressListener) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.showOkDialog(context, null, message, listener, backPressListener);
+            }
+        });
+    }
+
+    @Override
+    public void showOKDialog(final Context context,
+                             final String title,
+                             final String message,
+                             final OkDialog.IOkDialogListener listener,
+                             final BaseDialog.OnBackPressListener backPressListener) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.showOkDialog(context, title, message, listener, backPressListener);
+            }
+        });
+    }
 
     @Override
     public void showToast(int resId) {

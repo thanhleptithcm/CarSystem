@@ -7,15 +7,11 @@ import android.support.annotation.Nullable;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
-import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.ui.activity.manage.ManageActivity;
 import com.matas.caroperatingsystem.ui.activity.staff.main.StaffActivity;
 import com.matas.caroperatingsystem.ui.activity.user.UserActivity;
 import com.matas.caroperatingsystem.ui.fragment.auth.AuthFragFragment;
-import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
-import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
-import com.matas.caroperatingsystem.utils.AppConstants;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;

@@ -3,10 +3,10 @@ package com.matas.caroperatingsystem.di.module;
 import android.app.Application;
 import android.content.Context;
 
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
-import com.matas.caroperatingsystem.data.network.serialize.manage.ManageApi;
-import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
-import com.matas.caroperatingsystem.data.network.serialize.user.UserApi;
+import com.matas.caroperatingsystem.data.network.authenticate.AuthenticateApi;
+import com.matas.caroperatingsystem.data.network.manage.ManageApi;
+import com.matas.caroperatingsystem.data.network.staff.StaffApi;
+import com.matas.caroperatingsystem.data.network.user.UserApi;
 import com.matas.caroperatingsystem.di.ApplicationContext;
 
 import javax.inject.Singleton;

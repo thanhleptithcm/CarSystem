@@ -2,7 +2,7 @@ package com.matas.caroperatingsystem.ui.activity.user;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.matas.caroperatingsystem.base.MvpView;
-import com.matas.caroperatingsystem.data.network.serialize.user.response.BookingResponse;
+import com.matas.caroperatingsystem.data.network.user.response.BookingResponse;
 
 public interface UserContract {
 

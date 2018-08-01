@@ -1,7 +1,7 @@
 package com.matas.caroperatingsystem.ui.fragment.login;
 
 import com.matas.caroperatingsystem.base.BasePresenter;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
+import com.matas.caroperatingsystem.data.network.authenticate.AuthenticateApi;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import javax.inject.Inject;

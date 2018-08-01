@@ -4,11 +4,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.Driver;
-import com.matas.caroperatingsystem.data.network.BaseResponse;
-import com.matas.caroperatingsystem.data.network.serialize.user.UserApi;
-import com.matas.caroperatingsystem.data.network.serialize.user.request.BookingRequest;
-import com.matas.caroperatingsystem.data.network.serialize.user.response.BookingResponse;
-import com.matas.caroperatingsystem.data.network.serialize.user.response.DriverNearResponse;
+import com.matas.caroperatingsystem.data.network.user.UserApi;
+import com.matas.caroperatingsystem.data.network.user.request.BookingRequest;
+import com.matas.caroperatingsystem.data.network.user.response.BookingResponse;
+import com.matas.caroperatingsystem.data.network.user.response.DriverNearResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import java.net.UnknownHostException;

@@ -2,15 +2,10 @@ package com.matas.caroperatingsystem.ui.activity.auth;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
-import com.matas.caroperatingsystem.data.model.User;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.AuthenticateApi;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.request.LoginRequest;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.request.SignUpRequest;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.response.LoginResponse;
-import com.matas.caroperatingsystem.data.network.serialize.authenticate.response.SignUpResponse;
-import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
-import com.matas.caroperatingsystem.data.network.serialize.staff.request.ProfileRequest;
-import com.matas.caroperatingsystem.data.network.serialize.staff.response.ProfileResponse;
+import com.matas.caroperatingsystem.data.network.authenticate.AuthenticateApi;
+import com.matas.caroperatingsystem.data.network.staff.StaffApi;
+import com.matas.caroperatingsystem.data.network.staff.request.ProfileRequest;
+import com.matas.caroperatingsystem.data.network.staff.response.ProfileResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import java.net.UnknownHostException;

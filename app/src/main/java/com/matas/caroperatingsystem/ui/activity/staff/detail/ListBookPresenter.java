@@ -3,12 +3,10 @@ package com.matas.caroperatingsystem.ui.activity.staff.detail;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.Book;
-import com.matas.caroperatingsystem.data.network.serialize.staff.StaffApi;
-import com.matas.caroperatingsystem.data.network.serialize.staff.request.ConfirmRequest;
-import com.matas.caroperatingsystem.data.network.serialize.staff.request.UpdateLocationRequest;
-import com.matas.caroperatingsystem.data.network.serialize.staff.response.AllBookingResponse;
-import com.matas.caroperatingsystem.data.network.serialize.staff.response.ConfirmResponse;
-import com.matas.caroperatingsystem.data.network.serialize.staff.response.UpdateLocationResponse;
+import com.matas.caroperatingsystem.data.network.staff.StaffApi;
+import com.matas.caroperatingsystem.data.network.staff.request.ConfirmRequest;
+import com.matas.caroperatingsystem.data.network.staff.response.AllBookingResponse;
+import com.matas.caroperatingsystem.data.network.staff.response.ConfirmResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
 
 import java.net.UnknownHostException;
