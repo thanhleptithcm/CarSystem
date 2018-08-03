@@ -73,14 +73,6 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     private Boolean isConnected = true;
     private Socket mSocket;
 
-    {
-        try {
-            mSocket = IO.socket(BuildConfig.HOME_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Inject
     StaffPresenter mPresenter;
 
@@ -106,6 +98,12 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         topBar = findViewById(R.id.top_bar);
         topBar.initData(0, R.string.action_logout, R.string.staff, 0, R.drawable.ic_list_book);
         topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.GONE, View.VISIBLE);
+
+        try {
+            mSocket = IO.socket(BuildConfig.HOME_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);

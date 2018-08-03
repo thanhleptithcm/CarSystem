@@ -78,7 +78,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private List<Polyline> polylinePaths = new ArrayList<>();
 
     private LatLng latLng;
-    private Boolean isConnected = true;
+    private boolean isConnected = false;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, UserActivity.class);
@@ -90,19 +90,18 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
     private Socket mSocket;
 
-    {
-        try {
-            mSocket = IO.socket(BuildConfig.HOME_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
+
+        try {
+            mSocket = IO.socket(BuildConfig.HOME_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
