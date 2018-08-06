@@ -13,8 +13,10 @@ public interface UserContract {
     }
 
     interface UserPresenter {
+        String getToken();
+
         void getListDriver(double latitude, double longitude);
 
-        void bookingDrivers(LatLng latLng, String socketId);
+        void bookingDrivers(double distance, LatLng originLatLng, LatLng latLngDestination);
     }
 }

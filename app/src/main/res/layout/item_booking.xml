@@ -10,10 +10,19 @@
         android:id="@+id/tv_phone"
         style="@style/TextView"
         android:layout_width="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_accept"
+        android:text="01649314317"
         app:layout_constraintEnd_toStartOf="@+id/btn_accept"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_price"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="VND: 10000d"
+        app:layout_constraintStart_toStartOf="@id/tv_phone"
+        app:layout_constraintEnd_toEndOf="@id/tv_phone"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone"/>
 
     <com.matas.caroperatingsystem.widget.AppButton
         android:id="@+id/btn_accept"

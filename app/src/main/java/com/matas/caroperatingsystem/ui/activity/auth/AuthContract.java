@@ -11,6 +11,10 @@ public interface AuthContract {
     }
 
     interface AuthPresenter {
+        User getUser();
+
+        boolean isLogin();
+
         void updateInfo(String firstName, String lastName, String address, String gender);
     }
 }

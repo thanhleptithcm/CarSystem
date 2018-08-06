@@ -77,7 +77,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
 
-    private LatLng latLng;
+    private LatLng originLatLng, destinationLatLng;
+    private double distance;
     private boolean isConnected = false;
 
     public static void startActivity(Context context) {
@@ -97,8 +98,10 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
+        IO.Options opts = new IO.Options();
+        opts.query = "token=" + mPresenter.getToken();
         try {
-            mSocket = IO.socket(BuildConfig.HOME_URL);
+            mSocket = IO.socket(BuildConfig.HOME_URL, opts);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -196,20 +199,22 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private Emitter.Listener onAcceptBooking = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String username;
-//                    String message;
-                    try {
-                        username = data.getString("message");
-//                        message = data.getString("message");
-                    } catch (JSONException e) {
-                        return;
-                    }
-                }
-            });
+            Log.d("TAG", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    JSONObject data = (JSONObject) args[0];
+//                    String username;
+////                    String message;
+//                    try {
+//                        username = data.getString("message");
+////                        message = data.getString("message");
+//                    } catch (JSONException e) {
+//                        return;
+//                    }
+//                }
+//            });
         }
     };
 
@@ -314,8 +319,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
             if (btnBook.getText().toString().equalsIgnoreCase(getString(R.string.maps_search))) {
                 searchSpacing();
             } else {
-                if (latLng != null) {
-                    mPresenter.bookingDrivers(latLng, "12344");
+                if (originLatLng != null && destinationLatLng != null) {
+                    mPresenter.bookingDrivers(distance, originLatLng, destinationLatLng);
                 }
             }
         }
@@ -375,7 +380,10 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
-            latLng = route.getStartLocation();
+            originLatLng = route.getStartLocation();
+            destinationLatLng = route.getEndLocation();
+            distance = Double.parseDouble(route.getDistance().getText().split(" ")[0]);
+
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
 
             tvClock.setText(route.getDuration().getText());
@@ -427,11 +435,6 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
                         dialog.dismiss();
                     }
                 }, null);
-
-        if (!mSocket.connected()) {
-            return;
-        }
-        mSocket.emit("booking", response.getBook().getPassenger().getPhone());
     }
 
     @Override

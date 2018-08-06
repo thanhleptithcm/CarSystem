@@ -12,13 +12,14 @@ import com.matas.caroperatingsystem.base.TopBarFragment;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
 import com.matas.caroperatingsystem.utils.CommonUtils;
+import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class ProfileFragment extends TopBarFragment implements ProfileContract.ProfileView, View.OnClickListener {
+public class ProfileFragment extends BaseFragment implements ProfileContract.ProfileView, View.OnClickListener {
 
     public static final String TAG = ProfileFragment.class.getSimpleName();
 
@@ -27,7 +28,7 @@ public class ProfileFragment extends TopBarFragment implements ProfileContract.P
     private AppEditText edtAddress;
     private AppTextView tvMale;
     private AppTextView tvFemale;
-    private AppTopBar topBar;
+    private AppButton btnSave;
 
     @Inject
     ProfilePresenter mPresenter;
@@ -61,6 +62,7 @@ public class ProfileFragment extends TopBarFragment implements ProfileContract.P
         edtAddress = view.findViewById(R.id.edt_address);
         tvMale = view.findViewById(R.id.tv_male);
         tvFemale = view.findViewById(R.id.tv_female);
+        btnSave = view.findViewById(R.id.btn_save);
 
         initListener();
         initData();
@@ -73,62 +75,33 @@ public class ProfileFragment extends TopBarFragment implements ProfileContract.P
     private void initListener() {
         tvMale.setOnClickListener(this);
         tvFemale.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == tvMale) {
             tvMale.setSelected(!tvMale.isSelected());
-            if(tvMale.isSelected()){
+            if (tvMale.isSelected()) {
                 tvFemale.setSelected(false);
             } else {
                 tvFemale.setSelected(true);
             }
         } else if (v == tvFemale) {
             tvFemale.setSelected(!tvFemale.isSelected());
-            if(tvFemale.isSelected()){
+            if (tvFemale.isSelected()) {
                 tvMale.setSelected(false);
             } else {
                 tvMale.setSelected(true);
             }
+        } else if (v == btnSave) {
+            getData();
         }
     }
 
     @Override
     protected void onFragmentChangedToTopBackStack() {
         super.onFragmentChangedToTopBackStack();
-        setupTopBar();
-    }
-
-    @Override
-    protected void setupTopBar() {
-        topBar = getTopBar();
-        if (topBar != null) {
-            topBar.initData(0, R.string.action_back, R.string.staff_update_profile, R.string.action_save, 0);
-            topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
-
-            topBar.setOnTopBarListener(new AppTopBar.OnTopBarListener() {
-                @Override
-                public void onImvLeftOneClick() {
-
-                }
-
-                @Override
-                public void onTvLeftOneClick() {
-                    getBaseActivity().onBackPressed();
-                }
-
-                @Override
-                public void onTvRightOneClick() {
-                    getData();
-                }
-
-                @Override
-                public void onImvRightOneClick() {
-
-                }
-            });
-        }
     }
 
     private void getData() {

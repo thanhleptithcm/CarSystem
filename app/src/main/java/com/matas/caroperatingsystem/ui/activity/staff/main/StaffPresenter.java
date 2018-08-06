@@ -42,6 +42,10 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
         return mPrefs.getUserLogin();
     }
 
+    @Override
+    public String getToken() {
+        return mPrefs.getToken();
+    }
 
     @Override
     public void updateStatus(final boolean status) {
@@ -90,7 +94,7 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
         apiHeaders.put("access-token", mPrefs.getToken());
 
         getMvpView().showLoading();
-        final UpdateLocationRequest locationRequest = new UpdateLocationRequest(latitude, longitude, socketId);
+        final UpdateLocationRequest locationRequest = new UpdateLocationRequest(latitude, longitude);
 
         mCompositeDisposable.add(mStaffApi.updateLocation(apiHeaders, locationRequest)
                 .subscribeOn(Schedulers.io())

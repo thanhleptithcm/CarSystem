@@ -42,9 +42,13 @@ public class AuthActivity extends TopBarActivity implements AuthContract.AuthVie
         getActivityComponent().inject(this);
         mPresenter.onViewAttach(this);
 
-        mAuthFragFragment = AuthFragFragment.newInstance();
-        mAuthFragFragment.setOnAuthFragListener(this);
-        pushFragment(mAuthFragFragment, AuthFragFragment.TAG, false);
+        if(mPresenter.isLogin() && mPresenter.getUser().getFirstName() == null){
+            showScreenUpdateInfo();
+        } else {
+            mAuthFragFragment = AuthFragFragment.newInstance();
+            mAuthFragFragment.setOnAuthFragListener(this);
+            pushFragment(mAuthFragFragment, AuthFragFragment.TAG, false);
+        }
     }
 
     private void showScreenUpdateInfo() {

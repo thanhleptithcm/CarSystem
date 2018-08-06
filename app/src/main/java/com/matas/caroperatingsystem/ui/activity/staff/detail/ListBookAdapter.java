@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.data.model.Book;
+import com.matas.caroperatingsystem.utils.AppConstants;
 import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppTextView;
 
@@ -36,6 +37,8 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.BookHo
         Book book = mList.get(position);
 
         holder.mPhoneTextView.setText(book.getPassenger().getPhone());
+        holder.mPriceTextView.setText(String.format("%s %s", "VND: ", String.valueOf(book.getDistance() * AppConstants.DEFAULT_PRICE)));
+
     }
 
     @Override
@@ -45,11 +48,13 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.BookHo
 
     class BookHolder extends RecyclerView.ViewHolder {
         private AppTextView mPhoneTextView;
+        private AppTextView mPriceTextView;
         private AppButton mAcceptTextView;
 
         BookHolder(View itemView) {
             super(itemView);
             mPhoneTextView = itemView.findViewById(R.id.tv_phone);
+            mPriceTextView = itemView.findViewById(R.id.tv_price);
             mAcceptTextView = itemView.findViewById(R.id.btn_accept);
 
             mAcceptTextView.setOnClickListener(new View.OnClickListener() {

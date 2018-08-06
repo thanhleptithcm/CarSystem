@@ -65,7 +65,7 @@
             android:drawablePadding="@dimen/common_10dp"
             android:drawableStart="@drawable/ic_male"
             android:hint="@string/login_nin"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:padding="@dimen/common_16dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.matas.caroperatingsystem.ui.activity.auth;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
+import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.data.network.authenticate.AuthenticateApi;
 import com.matas.caroperatingsystem.data.network.staff.StaffApi;
 import com.matas.caroperatingsystem.data.network.staff.request.ProfileRequest;
@@ -37,6 +38,17 @@ public class AuthPresenter extends BasePresenter<AuthContract.AuthView> implemen
     }
 
     @Override
+    public User getUser() {
+        return mPrefs.getUserLogin();
+    }
+
+
+    @Override
+    public boolean isLogin() {
+        return mPrefs.getToken() != null;
+    }
+
+    @Override
     public void updateInfo(String firstName, String lastName, String address, String gender) {
         Map<String, String> apiHeaders = new HashMap<>();
         apiHeaders.put("Content-Type", "application/json");
@@ -51,6 +63,9 @@ public class AuthPresenter extends BasePresenter<AuthContract.AuthView> implemen
                     @Override
                     public void accept(ProfileResponse loginResponse) {
                         if (isViewAttached()) {
+                            User user = loginResponse.getUser();
+                            mPrefs.setUserLogin(user);
+                            mPrefs.setToken(user.getToken());
 
                             getMvpView().hideLoading();
                             getMvpView().updateProfileSuccess();

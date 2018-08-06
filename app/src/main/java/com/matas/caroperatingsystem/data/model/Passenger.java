@@ -15,10 +15,6 @@ public class Passenger implements Parcelable {
     @Expose
     private String phone;
 
-    @SerializedName("socketId")
-    @Expose
-    private String socketId;
-
     public String getId() {
         return id;
     }
@@ -35,15 +31,6 @@ public class Passenger implements Parcelable {
         this.phone = phone;
     }
 
-    public String getSocketId() {
-        return socketId;
-    }
-
-    public void setSocketId(String socketId) {
-        this.socketId = socketId;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -53,7 +40,6 @@ public class Passenger implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.phone);
-        dest.writeString(this.socketId);
     }
 
     public Passenger() {
@@ -62,7 +48,6 @@ public class Passenger implements Parcelable {
     protected Passenger(Parcel in) {
         this.id = in.readString();
         this.phone = in.readString();
-        this.socketId = in.readString();
     }
 
     public static final Creator<Passenger> CREATOR = new Creator<Passenger>() {

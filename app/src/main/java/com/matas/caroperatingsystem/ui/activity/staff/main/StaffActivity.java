@@ -99,12 +99,13 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         topBar.initData(0, R.string.action_logout, R.string.staff, 0, R.drawable.ic_list_book);
         topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.GONE, View.VISIBLE);
 
+        IO.Options opts = new IO.Options();
+        opts.query = "token=" + mPresenter.getToken();
         try {
-            mSocket = IO.socket(BuildConfig.HOME_URL);
+            mSocket = IO.socket(BuildConfig.HOME_URL, opts);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
@@ -240,20 +241,21 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     private Emitter.Listener onNewBooking = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String username;
-//                    String message;
-                    try {
-                        username = data.getString("message");
-//                        message = data.getString("message");
-                    } catch (JSONException e) {
-                        return;
-                    }
-                }
-            });
+            Log.d("TAG", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    JSONObject data = (JSONObject) args[0];
+//                    String username;
+////                    String message;
+//                    try {
+//                        username = data.getString("message");
+////                        message = data.getString("message");
+//                    } catch (JSONException e) {
+//                        return;
+//                    }
+//                }
+//            });
         }
     };
 

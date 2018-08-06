@@ -12,13 +12,8 @@ public class UpdateLocationRequest {
     @Expose
     public double longitude;
 
-    @SerializedName("socketId")
-    @Expose
-    public String socketId;
-
-    public UpdateLocationRequest(double latitude, double longitude, String socketId) {
+    public UpdateLocationRequest(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.socketId = socketId;
     }
 }

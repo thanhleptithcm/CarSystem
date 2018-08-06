@@ -16,7 +16,7 @@ public class SignUpRequest {
     @Expose
     private int type;
 
-    @SerializedName("nin")
+    @SerializedName("NIN")
     @Expose
     private String nin;
 

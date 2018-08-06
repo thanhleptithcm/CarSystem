@@ -11,6 +11,10 @@ public class Book implements Parcelable {
     @Expose
     private Passenger passenger;
 
+    @SerializedName("destination")
+    @Expose
+    private Destination destination;
+
     @SerializedName("status")
     @Expose
     private String status;
@@ -18,6 +22,14 @@ public class Book implements Parcelable {
     @SerializedName("_id")
     @Expose
     private String id;
+
+    @SerializedName("distance")
+    @Expose
+    private double distance;
+
+    @SerializedName("driverId")
+    @Expose
+    private String driverId;
 
     public Passenger getPassenger() {
         return passenger;
@@ -43,6 +55,30 @@ public class Book implements Parcelable {
         this.id = id;
     }
 
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination) {
+        this.destination = destination;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
 
     @Override
     public int describeContents() {
@@ -52,8 +88,11 @@ public class Book implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.passenger, flags);
+        dest.writeParcelable(this.destination, flags);
         dest.writeString(this.status);
         dest.writeString(this.id);
+        dest.writeDouble(this.distance);
+        dest.writeString(this.driverId);
     }
 
     public Book() {
@@ -61,8 +100,11 @@ public class Book implements Parcelable {
 
     protected Book(Parcel in) {
         this.passenger = in.readParcelable(Passenger.class.getClassLoader());
+        this.destination = in.readParcelable(Destination.class.getClassLoader());
         this.status = in.readString();
         this.id = in.readString();
+        this.distance = in.readDouble();
+        this.driverId = in.readString();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

@@ -12,6 +12,8 @@ public interface StaffContract {
     }
 
     interface StaffPresenter {
+        String getToken();
+
         User getUser();
 
         void updateStatus(boolean status);

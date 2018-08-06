@@ -42,7 +42,11 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
                             UserActivity.startActivity(SplashActivity.this);
                             break;
                         case 1:
-                            StaffActivity.startActivity(SplashActivity.this);
+                            if(mPresenter.getUser().getFirstName() == null){
+                                AuthActivity.startActivity(SplashActivity.this);
+                            } else {
+                                StaffActivity.startActivity(SplashActivity.this);
+                            }
                             break;
                         case 2:
                             ManageActivity.startActivity(SplashActivity.this);

@@ -13,4 +13,6 @@ public class AppConstants {
     public static final int USER_SIGN_UP = 0;
     public static final int DRIVER_SIGN_UP = 1;
     public static final int MANAGE_SIGN_UP = 2;
+
+    public static final int DEFAULT_PRICE = 6000;
 }

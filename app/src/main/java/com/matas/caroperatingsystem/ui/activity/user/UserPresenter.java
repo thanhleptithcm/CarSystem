@@ -3,6 +3,7 @@ package com.matas.caroperatingsystem.ui.activity.user;
 import com.google.android.gms.maps.model.LatLng;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
+import com.matas.caroperatingsystem.data.model.Destination;
 import com.matas.caroperatingsystem.data.model.Driver;
 import com.matas.caroperatingsystem.data.network.user.UserApi;
 import com.matas.caroperatingsystem.data.network.user.request.BookingRequest;
@@ -43,6 +44,11 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
 
     public List<Driver> getListDriverNear() {
         return mListDriverNear;
+    }
+
+    @Override
+    public String getToken() {
+        return mPrefs.getToken();
     }
 
     @Override
@@ -87,12 +93,15 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
     }
 
     @Override
-    public void bookingDrivers(LatLng latLng, String socketId) {
+    public void bookingDrivers(double distance, LatLng originLatLng, LatLng latLngDestination) {
         Map<String, String> apiHeaders = new HashMap<>();
         apiHeaders.put("Content-Type", "application/json");
         apiHeaders.put("access-token", mPrefs.getToken());
         getMvpView().showLoading();
-        BookingRequest request = new BookingRequest(socketId, latLng.longitude, latLng.latitude);
+        BookingRequest request = new BookingRequest(distance,
+                originLatLng.longitude,
+                originLatLng.latitude,
+                new Destination(latLngDestination.longitude, latLngDestination.latitude));
         mCompositeDisposable.add(mUserApi.bookingDriver(apiHeaders, request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,7 +111,7 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
                         if (isViewAttached()) {
                             getMvpView().hideLoading();
 
-                            if(response.getMessage() != null){
+                            if (response.getMessage() != null) {
                                 getMvpView().showErrorDialog(response.getMessage());
                             } else {
                                 getMvpView().bookingDriverSuccess(response);

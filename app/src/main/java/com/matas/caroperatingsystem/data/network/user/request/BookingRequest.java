@@ -2,11 +2,12 @@ package com.matas.caroperatingsystem.data.network.user.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.matas.caroperatingsystem.data.model.Destination;
 
 public class BookingRequest {
-    @SerializedName("socketId")
+    @SerializedName("distance")
     @Expose
-    private String socketId;
+    private double distance;
 
     @SerializedName("longitude")
     @Expose
@@ -16,9 +17,16 @@ public class BookingRequest {
     @Expose
     private double latitude;
 
-    public BookingRequest(String socketId, double longitude, double latitude) {
-        this.socketId = socketId;
-        this.longitude = longitude;
-        this.latitude = latitude;
+    @SerializedName("destination")
+    @Expose
+    private Destination destination;
+
+    public BookingRequest(double distance, double originLongitude, double originLatitude,
+                          Destination destination) {
+        this.distance = distance;
+        this.longitude = originLongitude;
+        this.latitude = originLatitude;
+        this.destination = destination;
     }
 }
+
