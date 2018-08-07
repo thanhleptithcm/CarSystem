@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class User implements Parcelable {
     public static final String TAG = User.class.getSimpleName();
 
@@ -45,9 +47,15 @@ public class User implements Parcelable {
     @Expose
     private String token;
 
+    @SerializedName("active")
+    @Expose
+    private boolean active;
 
+    @SerializedName("booking")
+    @Expose
+    private List<Book> booking;
 
-    public User(int type, String id, String firstName, String lastName, String phone, String address, String gender, String NIN, String token) {
+    public User(int type, String id, String firstName, String lastName, String phone, String address, String gender, String NIN, String token, boolean active) {
         this.type = type;
         this.id = id;
         this.firstName = firstName;
@@ -57,6 +65,7 @@ public class User implements Parcelable {
         this.gender = gender;
         this.NIN = NIN;
         this.token = token;
+        this.active = active;
     }
 
     public int getType() {
@@ -131,6 +140,22 @@ public class User implements Parcelable {
         this.token = token;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public List<Book> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Book> booking) {
+        this.booking = booking;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 
     @Override
     public int describeContents() {
@@ -148,9 +173,8 @@ public class User implements Parcelable {
         dest.writeString(this.gender);
         dest.writeString(this.NIN);
         dest.writeString(this.token);
-    }
-
-    public User() {
+        dest.writeByte(this.active ? (byte) 1 : (byte) 0);
+        dest.writeTypedList(this.booking);
     }
 
     protected User(Parcel in) {
@@ -163,6 +187,8 @@ public class User implements Parcelable {
         this.gender = in.readString();
         this.NIN = in.readString();
         this.token = in.readString();
+        this.active = in.readByte() != 0;
+        this.booking = in.createTypedArrayList(Book.CREATOR);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

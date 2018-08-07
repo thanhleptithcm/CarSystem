@@ -6,9 +6,13 @@ public interface ManageStaffContract {
 
     interface ManageStaffView extends MvpView {
         void getListStaffSuccess();
+
+        void updateStatusStaffSuccess();
     }
 
     interface ManageStaffPresenter {
         void fetchListStaff();
+
+        void updateStatusStaff(boolean status, String driverId);
     }
 }

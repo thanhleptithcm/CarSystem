@@ -29,6 +29,7 @@ public class ListBookPresenter extends BasePresenter<ListBookContract.ListBookVi
     private final CompositeDisposable mCompositeDisposable;
     private final StaffApi mStaffApi;
     private List<Book> mListBooking;
+    private String idLogin;
 
     @Inject
     public ListBookPresenter(CompositeDisposable compositeDisposable,
@@ -38,6 +39,7 @@ public class ListBookPresenter extends BasePresenter<ListBookContract.ListBookVi
         this.mCompositeDisposable = compositeDisposable;
         this.mStaffApi = staffApi;
         mListBooking = new ArrayList<>();
+        idLogin = mPrefs.getUserLogin().getId();
     }
 
     public List<Book> getListBooking() {
@@ -62,51 +64,13 @@ public class ListBookPresenter extends BasePresenter<ListBookContract.ListBookVi
                                 mListBooking.clear();
                             }
                             for (Book book : response.getBooks()) {
-                                if (book.getStatus().equalsIgnoreCase("PENDING")) {
+                                if (book.getDriverId().equalsIgnoreCase(idLogin) &&
+                                        book.getStatus().equalsIgnoreCase("ACCEPT")) {
                                     mListBooking.add(book);
                                 }
                             }
                             getMvpView().hideLoading();
                             getMvpView().getAllBookingSuccess();
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        if (isViewAttached()) {
-                            getMvpView().hideLoading();
-                            if (throwable instanceof HttpException) {
-                                HttpException exception = (HttpException) throwable;
-                                if (exception.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                                    getMvpView().showErrorDialog(R.string.login_failed);
-                                }
-                            } else if (throwable instanceof UnknownHostException) {
-                                getMvpView().showErrorDialog(R.string.connection_error);
-                            } else {
-                                getMvpView().showErrorDialog(throwable.getMessage());
-                            }
-                        }
-                    }
-                }));
-    }
-
-    @Override
-    public void confirmBooking(String bookId) {
-        Map<String, String> apiHeaders = new HashMap<>();
-        apiHeaders.put("Content-Type", "application/json");
-        apiHeaders.put("access-token", mPrefs.getToken());
-
-        getMvpView().showLoading();
-        ConfirmRequest request = new ConfirmRequest("ACCEPT");
-        mCompositeDisposable.add(mStaffApi.confirmBooking(apiHeaders, request, bookId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ConfirmResponse>() {
-                    @Override
-                    public void accept(ConfirmResponse response) {
-                        if (isViewAttached()) {
-                            getMvpView().hideLoading();
-                            getMvpView().confirmBookingSuccess(response.getConfirmBooking());
                         }
                     }
                 }, new Consumer<Throwable>() {

@@ -137,4 +137,10 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
                     }
                 }));
     }
+
+    @Override
+    public void cancelBooking() {
+        getMvpView().cancelBookingSuccess();
+    }
+
 }

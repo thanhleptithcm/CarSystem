@@ -14,6 +14,8 @@ import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 public class DetailManageStaffFragment extends TopBarFragment implements DetailManageStaffContract.DetailManageStaffView,
@@ -79,13 +81,13 @@ public class DetailManageStaffFragment extends TopBarFragment implements DetailM
         tvPhone.setText(String.format("%s %s", getString(R.string.phone_number), mUser.getPhone()));
         tvAddress.setText(String.format("%s %s", getString(R.string.address), mUser.getAddress()));
         imvGender.setImageResource(mUser.getGender().equalsIgnoreCase("male") ? R.drawable.ic_male : R.drawable.ic_female);
-
-        mDetailManageStaffAdapter = new DetailManageStaffAdapter(getContext(), mPresenter.getListHistory(), this);
+        mPresenter.setListBook(mUser.getBooking());
+        mDetailManageStaffAdapter = new DetailManageStaffAdapter(getContext(),
+                mPresenter.getListBook(),
+                this);
         rcvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
         rcvHistory.setNestedScrollingEnabled(false);
         rcvHistory.setAdapter(mDetailManageStaffAdapter);
-
-        mPresenter.fetchHistoryStaff();
     }
 
     private void initListener() {
@@ -108,11 +110,6 @@ public class DetailManageStaffFragment extends TopBarFragment implements DetailM
     @Override
     public void onItemClick(int position) {
 
-    }
-
-    @Override
-    public void fetchHistoryStaffSuccess() {
-        mDetailManageStaffAdapter.notifyDataSetChanged();
     }
 
     @Override

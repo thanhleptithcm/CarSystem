@@ -20,6 +20,8 @@ public class Urls {
 
     public final static class Manage {
         public static final String DRIVERS = API + "drivers";
+
+        public static final String UPDATE_STATUS_DRIVER = API + "drivers/{driverId}";
     }
 
     public final static class User {

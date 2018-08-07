@@ -1,23 +1,18 @@
 package com.matas.caroperatingsystem.ui.activity.staff.detail;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarActivity;
-import com.matas.caroperatingsystem.data.model.ConfirmBooking;
-import com.matas.caroperatingsystem.ui.activity.staff.main.StaffActivity;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
 
-public class ListBookActivity extends TopBarActivity implements ListBookContract.ListBookView, ListBookAdapter.OnItemClickListener {
+public class ListBookActivity extends TopBarActivity implements ListBookContract.ListBookView {
     private AppTopBar topBar;
     private RecyclerView rcvAllBooking;
     private ListBookAdapter mAdapter;
@@ -48,7 +43,7 @@ public class ListBookActivity extends TopBarActivity implements ListBookContract
         topBar.initData(0, R.string.action_back, R.string.all_booking, 0, 0);
         topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.INVISIBLE, View.GONE);
 
-        mAdapter = new ListBookAdapter(this, mPresenter.getListBooking(), this);
+        mAdapter = new ListBookAdapter(this, mPresenter.getListBooking());
         rcvAllBooking.setLayoutManager(new LinearLayoutManager(this));
         rcvAllBooking.setAdapter(mAdapter);
 
@@ -77,8 +72,6 @@ public class ListBookActivity extends TopBarActivity implements ListBookContract
 
             }
         });
-
-
     }
 
     @Override
@@ -100,18 +93,5 @@ public class ListBookActivity extends TopBarActivity implements ListBookContract
     @Override
     public void getAllBookingSuccess() {
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void confirmBookingSuccess(ConfirmBooking confirmBooking) {
-        Intent intent = new Intent();
-        intent.putExtra("BOOKING", new Gson().toJson(confirmBooking));
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    @Override
-    public void onAccept(int position) {
-        mPresenter.confirmBooking(mPresenter.getListBooking().get(position).getId());
     }
 }

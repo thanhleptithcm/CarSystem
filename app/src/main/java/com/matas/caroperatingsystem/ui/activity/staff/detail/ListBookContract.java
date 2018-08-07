@@ -8,13 +8,9 @@ public interface ListBookContract {
 
     interface ListBookView extends MvpView {
         void getAllBookingSuccess();
-
-        void confirmBookingSuccess(ConfirmBooking confirmBooking);
     }
 
     interface ListBookPresenter {
         void getAllBooking();
-
-        void confirmBooking(String bookId);
     }
 }

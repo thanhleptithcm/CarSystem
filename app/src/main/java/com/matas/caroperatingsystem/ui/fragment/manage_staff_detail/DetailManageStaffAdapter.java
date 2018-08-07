@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.matas.caroperatingsystem.R;
+import com.matas.caroperatingsystem.data.model.Book;
+import com.matas.caroperatingsystem.utils.CommonUtils;
+import com.matas.caroperatingsystem.widget.AppTextView;
 
 import java.util.List;
 
 public class DetailManageStaffAdapter extends RecyclerView.Adapter<DetailManageStaffAdapter.StaffHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<Book> mList;
     private OnItemClickListener mListener;
 
-    public DetailManageStaffAdapter(Context context, List<String> list, OnItemClickListener callBack) {
+    public DetailManageStaffAdapter(Context context, List<Book> list, OnItemClickListener callBack) {
         this.mContext = context;
         this.mList = list;
         this.mListener = callBack;
@@ -30,6 +33,9 @@ public class DetailManageStaffAdapter extends RecyclerView.Adapter<DetailManageS
 
     @Override
     public void onBindViewHolder(StaffHolder holder, int position) {
+        Book book = mList.get(position);
+        holder.tvPhone.setText(book.getPassenger().getPhone());
+        holder.tvPrice.setText(String.format("%s %s", String.valueOf(book.getDistance() * CommonUtils.getPrice()), " VND"));
     }
 
     @Override
@@ -38,9 +44,13 @@ public class DetailManageStaffAdapter extends RecyclerView.Adapter<DetailManageS
     }
 
     class StaffHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        AppTextView tvPhone;
+        AppTextView tvPrice;
 
         StaffHolder(View itemView) {
             super(itemView);
+            tvPhone = itemView.findViewById(R.id.tv_phone);
+            tvPrice = itemView.findViewById(R.id.tv_price);
             itemView.setOnClickListener(this);
         }
 

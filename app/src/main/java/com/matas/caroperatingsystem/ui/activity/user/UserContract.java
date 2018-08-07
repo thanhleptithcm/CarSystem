@@ -10,6 +10,8 @@ public interface UserContract {
         void getListDriverNearSuccess();
 
         void bookingDriverSuccess(BookingResponse response);
+
+        void cancelBookingSuccess();
     }
 
     interface UserPresenter {
@@ -18,5 +20,7 @@ public interface UserContract {
         void getListDriver(double latitude, double longitude);
 
         void bookingDrivers(double distance, LatLng originLatLng, LatLng latLngDestination);
+
+        void cancelBooking();
     }
 }

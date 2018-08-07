@@ -16,20 +16,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.matas.caroperatingsystem.widget.AppTextView
-        android:id="@+id/tv_time"
-        style="@style/TextView"
-        android:layout_width="0dp"
-        android:text="07/08/2018 12h30"
-        app:layout_constraintEnd_toStartOf="@+id/tv_price"
-        app:layout_constraintStart_toStartOf="@id/tv_phone"
-        app:layout_constraintTop_toBottomOf="@id/tv_phone" />
-
-    <com.matas.caroperatingsystem.widget.AppTextView
         android:id="@+id/tv_price"
         style="@style/TextView"
         android:layout_width="0dp"
         android:text="20000 VND"
-        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintBottom_toBottomOf="@id/tv_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_phone" />
 </android.support.constraint.ConstraintLayout>

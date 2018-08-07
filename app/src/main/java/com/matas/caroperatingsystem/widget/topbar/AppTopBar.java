@@ -77,6 +77,8 @@ public class AppTopBar extends ConstraintLayout implements ITopBar,
             mLeftOneTextView.setText(textLeftOneTv);
             if (mLeftOneTextView.getText().toString().equalsIgnoreCase("Back")) {
                 mLeftOneTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_left_arrow, 0, 0, 0);
+            } else {
+                mLeftOneTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             }
         }
         if (textTitleTv != 0) {

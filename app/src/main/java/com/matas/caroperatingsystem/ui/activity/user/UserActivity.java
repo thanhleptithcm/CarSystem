@@ -206,6 +206,9 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
                     new OkDialog.IOkDialogListener() {
                         @Override
                         public void onIOkDialogAnswerOk(OkDialog dialog) {
+                            btnBook.setText("Cancel");
+                            edtOrigin.setEnabled(false);
+                            edtDestination.setEnabled(false);
                             dialog.dismiss();
                         }
                     }, null);
@@ -312,12 +315,24 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         if (v == btnBook) {
             if (btnBook.getText().toString().equalsIgnoreCase(getString(R.string.maps_search))) {
                 searchSpacing();
-            } else {
+            } else if (btnBook.getText().toString().equalsIgnoreCase(getString(R.string.maps_book))) {
                 if (originLatLng != null && destinationLatLng != null) {
                     mPresenter.bookingDrivers(distance, originLatLng, destinationLatLng);
                 }
+            } else {
+                mMap.clear();
+                mPresenter.cancelBooking();
             }
         }
+    }
+
+    @Override
+    public void cancelBookingSuccess() {
+        btnBook.setText(getString(R.string.maps_search));
+        edtOrigin.setEnabled(true);
+        edtDestination.setEnabled(true);
+
+        mPresenter.getListDriver(mLocation.getLatitude(), mLocation.getLongitude());
     }
 
     private void searchSpacing() {
@@ -426,7 +441,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
                 , new OkDialog.IOkDialogListener() {
             @Override
             public void onIOkDialogAnswerOk(OkDialog dialog) {
-
+                dialog.dismiss();
             }
         });
         mDialog.show();

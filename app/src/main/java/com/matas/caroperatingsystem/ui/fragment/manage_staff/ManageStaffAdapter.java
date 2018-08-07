@@ -39,6 +39,7 @@ public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.
         holder.mNameTextView.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         holder.mPhoneNumberTextView.setText(user.getPhone());
         holder.mGenderImageView.setImageResource(user.getGender().equalsIgnoreCase("male") ? R.drawable.ic_male : R.drawable.ic_female);
+        holder.mStatusButton.setText(user.isActive() ? "Inactive" : "Active");
     }
 
     @Override
@@ -67,10 +68,20 @@ public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.
                     }
                 }
             });
+            mStatusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onActive(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+
+        void onActive(int position);
     }
 }

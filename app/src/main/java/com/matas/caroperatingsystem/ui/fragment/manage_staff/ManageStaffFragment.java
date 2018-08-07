@@ -73,10 +73,20 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
     }
 
     @Override
+    public void updateStatusStaffSuccess() {
+        mPresenter.fetchListStaff();
+    }
+
+    @Override
     public void onItemClick(int position) {
         if (mOnStaffListener != null) {
             mOnStaffListener.onStaffClick(mPresenter.getListStaff().get(position));
         }
+    }
+
+    @Override
+    public void onActive(int position) {
+        mPresenter.updateStatusStaff(!mPresenter.getListStaff().get(position).isActive(), mPresenter.getListStaff().get(position).getId());
     }
 
     @Override
@@ -91,7 +101,6 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
         if (topBar != null) {
             topBar.initData(0, R.string.action_logout, R.string.manage_staff, 0, R.drawable.ic_setup_price);
             topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.GONE, View.VISIBLE);
-
             topBar.setOnTopBarListener(new AppTopBar.OnTopBarListener() {
                 @Override
                 public void onImvLeftOneClick() {

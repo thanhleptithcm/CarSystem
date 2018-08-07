@@ -59,7 +59,6 @@ import javax.inject.Inject;
 public class StaffActivity extends TopBarActivity implements StaffContract.StaffView,
         DirectionHelperListener,
         OnMapReadyCallback {
-    public static final int REQUEST_LIST_BOOKING_CODE = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -113,6 +112,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
         mSocket.on("booking", onNewBooking);
+        mSocket.on("cancelBooking", onCancelBooking);
         mSocket.connect();
 
         mPresenter.updateStatus(true);
@@ -185,7 +185,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             @Override
             public void onImvRightOneClick() {
                 Intent intent = new Intent(StaffActivity.this, ListBookActivity.class);
-                startActivityForResult(intent, REQUEST_LIST_BOOKING_CODE);
+                startActivity(intent);
             }
         });
     }
@@ -259,9 +259,9 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             JSONObject data = (JSONObject) args[0];
 
             try {
-                phone =  data.getJSONObject("passenger").getString("phone");
-                distance =  data.getDouble("distance");
-                bookId =  data.getString("_id");
+                phone = data.getJSONObject("passenger").getString("phone");
+                distance = data.getDouble("distance");
+                bookId = data.getString("_id");
 
                 showConfirmDialog(StaffActivity.this, "Booking",
                         "Phone: " + phone + "\nPrice: " + (distance * CommonUtils.getPrice()) + " VND",
@@ -281,6 +281,15 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    };
+
+    private Emitter.Listener onCancelBooking = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            mMap.clear();
+            showErrorDialog("User has cancelled booking");
+            mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude());
         }
     };
 
@@ -329,21 +338,6 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
             });
         }
     };
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            ConfirmBooking confirmBooking = new Gson().fromJson(data.getStringExtra("BOOKING"), ConfirmBooking.class);
-            PosLocation location = confirmBooking.getDriverLocation().getLocation();
-            try {
-                new DirectionHelper(this, mLocation.getLatitude(), mLocation.getLongitude(),
-                        location.getCoordinates().get(1), location.getCoordinates().get(0)).execute();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     protected void onDestroy() {
