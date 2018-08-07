@@ -11,6 +11,7 @@ import com.matas.caroperatingsystem.base.TopBarActivity;
 import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff_detail.DetailManageStaffFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff.ManageStaffFragment;
+import com.matas.caroperatingsystem.ui.fragment.setup_price.SetupPriceFragment;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ public class ManageActivity extends TopBarActivity implements ManageContract.Man
 
     private ManageStaffFragment mManageStaffFragment;
     private DetailManageStaffFragment mDetailManageStaffFragment;
+    private SetupPriceFragment mSetupPriceFragment;
     private AppTopBar topBar;
 
     @Inject
@@ -75,5 +77,11 @@ public class ManageActivity extends TopBarActivity implements ManageContract.Man
     public void onStaffClick(User user) {
         mDetailManageStaffFragment = DetailManageStaffFragment.newInstance(user);
         pushFragment(mDetailManageStaffFragment, DetailManageStaffFragment.TAG, true);
+    }
+
+    @Override
+    public void onSetUpClick() {
+        mSetupPriceFragment = SetupPriceFragment.newInstance();
+        pushFragment(mSetupPriceFragment, SetupPriceFragment.TAG, true);
     }
 }

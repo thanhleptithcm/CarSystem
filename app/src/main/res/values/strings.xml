@@ -86,4 +86,5 @@
     <!--Manage-->
     <string name="manage_staff">Manage Staff</string>
     <string name="detail_manage_staff">Detail Manage Staff</string>
+    <string name="manage_set_up_price">Set Up Price</string>
 </resources>

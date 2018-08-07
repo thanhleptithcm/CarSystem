@@ -40,6 +40,8 @@ import com.matas.caroperatingsystem.helper.DirectionHelperListener;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
 import com.matas.caroperatingsystem.ui.activity.staff.detail.ListBookActivity;
 import com.matas.caroperatingsystem.ui.dialog.ConfirmDialog;
+import com.matas.caroperatingsystem.utils.AppConstants;
+import com.matas.caroperatingsystem.utils.CommonUtils;
 import com.matas.caroperatingsystem.widget.AppTextView;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 import com.github.nkzawa.emitter.Emitter;
@@ -148,7 +150,7 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 15.0f));
 
-                    mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude(), "12345");
+                    mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude());
                 }
             }
         });
@@ -238,24 +240,47 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         showToast("Update Location Success");
     }
 
+    @Override
+    public void confirmBookingSuccess(ConfirmBooking confirmBooking) {
+        PosLocation location = confirmBooking.getDriverLocation().getLocation();
+        try {
+            new DirectionHelper(this, mLocation.getLatitude(), mLocation.getLongitude(),
+                    location.getCoordinates().get(1), location.getCoordinates().get(0)).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Emitter.Listener onNewBooking = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            Log.d("TAG", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    JSONObject data = (JSONObject) args[0];
-//                    String username;
-////                    String message;
-//                    try {
-//                        username = data.getString("message");
-////                        message = data.getString("message");
-//                    } catch (JSONException e) {
-//                        return;
-//                    }
-//                }
-//            });
+            final String phone, bookId;
+            double distance;
+            JSONObject data = (JSONObject) args[0];
+
+            try {
+                phone =  data.getJSONObject("passenger").getString("phone");
+                distance =  data.getDouble("distance");
+                bookId =  data.getString("_id");
+
+                showConfirmDialog(StaffActivity.this, "Booking",
+                        "Phone: " + phone + "\nPrice: " + (distance * CommonUtils.getPrice()) + " VND",
+                        "Accept", "Cancel",
+                        new ConfirmDialog.OnConfirmDialogListener() {
+                            @Override
+                            public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
+                                mPresenter.confirmBooking(bookId);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onConfirmDialogNegativeClick(ConfirmDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        }, null);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     };
 

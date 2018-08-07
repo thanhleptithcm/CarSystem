@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.data.model.User;
+import com.matas.caroperatingsystem.widget.AppButton;
 import com.matas.caroperatingsystem.widget.AppTextView;
 
 import java.util.List;
@@ -49,12 +50,14 @@ public class ManageStaffAdapter extends RecyclerView.Adapter<ManageStaffAdapter.
         private AppTextView mNameTextView;
         private AppTextView mPhoneNumberTextView;
         private ImageView mGenderImageView;
+        private AppButton mStatusButton;
 
         StaffHolder(View itemView) {
             super(itemView);
             mNameTextView = itemView.findViewById(R.id.tv_name);
             mPhoneNumberTextView = itemView.findViewById(R.id.tv_phone);
             mGenderImageView = itemView.findViewById(R.id.imv_gender);
+            mStatusButton = itemView.findViewById(R.id.btn_status);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

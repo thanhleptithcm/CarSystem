@@ -1,6 +1,7 @@
 package com.matas.caroperatingsystem.ui.activity.staff.main;
 
 import com.matas.caroperatingsystem.base.MvpView;
+import com.matas.caroperatingsystem.data.model.ConfirmBooking;
 import com.matas.caroperatingsystem.data.model.User;
 
 public interface StaffContract {
@@ -9,6 +10,8 @@ public interface StaffContract {
         void updateStatusSuccess(boolean status);
 
         void updateLocationSuccess();
+
+        void confirmBookingSuccess(ConfirmBooking confirmBooking);
     }
 
     interface StaffPresenter {
@@ -18,6 +21,8 @@ public interface StaffContract {
 
         void updateStatus(boolean status);
 
-        void updateLocation(double latitude, double longitude, String socketId);
+        void updateLocation(double latitude, double longitude);
+
+        void confirmBooking(String bookId);
     }
 }

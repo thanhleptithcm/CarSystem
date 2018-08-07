@@ -13,9 +13,9 @@
         android:layout_marginStart="@dimen/common_16dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_male"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
     <com.matas.caroperatingsystem.widget.AppTextView
         android:id="@+id/tv_name"
@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/common_16dp"
         android:layout_marginTop="@dimen/common_10dp"
         android:text="@string/name"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_status"
         app:layout_constraintStart_toEndOf="@id/imv_gender"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,8 +33,16 @@
         style="@style/TextView"
         android:layout_width="0dp"
         android:text="@string/phone_number"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_status"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
+    <com.matas.caroperatingsystem.widget.AppButton
+        android:id="@+id/btn_status"
+        style="@style/Button"
+        android:layout_marginEnd="@dimen/common_10dp"
+        android:text="InActive"
+        app:layout_constraintBottom_toBottomOf="@id/tv_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_name" />
 </android.support.constraint.ConstraintLayout>

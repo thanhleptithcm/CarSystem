@@ -13,6 +13,7 @@ import com.matas.caroperatingsystem.ui.fragment.auth.AuthFragFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff_detail.DetailManageStaffFragment;
 import com.matas.caroperatingsystem.ui.fragment.login.LoginFragment;
 import com.matas.caroperatingsystem.ui.fragment.profile_staff.ProfileFragment;
+import com.matas.caroperatingsystem.ui.fragment.setup_price.SetupPriceFragment;
 import com.matas.caroperatingsystem.ui.fragment.signUp.SignUpFragment;
 import com.matas.caroperatingsystem.ui.fragment.manage_staff.ManageStaffFragment;
 
@@ -46,4 +47,6 @@ public interface ActivityComponent {
     void inject(ManageStaffFragment manageStaffFragment);
 
     void inject(DetailManageStaffFragment detailManageStaffFragment);
+
+    void inject(SetupPriceFragment setupPriceFragment);
 }

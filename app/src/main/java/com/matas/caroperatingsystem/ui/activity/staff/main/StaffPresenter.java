@@ -4,8 +4,10 @@ import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.User;
 import com.matas.caroperatingsystem.data.network.staff.StaffApi;
+import com.matas.caroperatingsystem.data.network.staff.request.ConfirmRequest;
 import com.matas.caroperatingsystem.data.network.staff.request.StatusRequest;
 import com.matas.caroperatingsystem.data.network.staff.request.UpdateLocationRequest;
+import com.matas.caroperatingsystem.data.network.staff.response.ConfirmResponse;
 import com.matas.caroperatingsystem.data.network.staff.response.StatusResponse;
 import com.matas.caroperatingsystem.data.network.staff.response.UpdateLocationResponse;
 import com.matas.caroperatingsystem.data.prefs.PreferencesHelper;
@@ -88,7 +90,7 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
     }
 
     @Override
-    public void updateLocation(double latitude, double longitude, String socketId) {
+    public void updateLocation(double latitude, double longitude) {
         Map<String, String> apiHeaders = new HashMap<>();
         apiHeaders.put("Content-Type", "application/json");
         apiHeaders.put("access-token", mPrefs.getToken());
@@ -105,6 +107,46 @@ public class StaffPresenter extends BasePresenter<StaffContract.StaffView> imple
                         if (isViewAttached()) {
                             getMvpView().hideLoading();
                             getMvpView().updateLocationSuccess();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            if (throwable instanceof HttpException) {
+                                HttpException exception = (HttpException) throwable;
+                                if (exception.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                                    getMvpView().showErrorDialog(R.string.login_failed);
+                                }
+                            } else if (throwable instanceof UnknownHostException) {
+                                getMvpView().showErrorDialog(R.string.connection_error);
+                            } else {
+                                getMvpView().showErrorDialog(throwable.getMessage());
+                            }
+                        }
+                    }
+                }));
+    }
+
+
+    @Override
+    public void confirmBooking(String bookId) {
+        Map<String, String> apiHeaders = new HashMap<>();
+        apiHeaders.put("Content-Type", "application/json");
+        apiHeaders.put("access-token", mPrefs.getToken());
+
+        getMvpView().showLoading();
+        ConfirmRequest request = new ConfirmRequest("ACCEPT");
+        mCompositeDisposable.add(mStaffApi.confirmBooking(apiHeaders, request, bookId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ConfirmResponse>() {
+                    @Override
+                    public void accept(ConfirmResponse response) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            getMvpView().confirmBookingSuccess(response.getConfirmBooking());
                         }
                     }
                 }, new Consumer<Throwable>() {

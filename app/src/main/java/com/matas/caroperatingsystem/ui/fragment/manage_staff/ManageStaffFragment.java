@@ -89,8 +89,8 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
     protected void setupTopBar() {
         topBar = getTopBar();
         if (topBar != null) {
-            topBar.initData(0, 0, R.string.manage_staff, R.string.action_logout, 0);
-            topBar.setVisible(View.GONE, View.INVISIBLE, View.VISIBLE, View.VISIBLE, View.GONE);
+            topBar.initData(0, R.string.action_logout, R.string.manage_staff, 0, R.drawable.ic_setup_price);
+            topBar.setVisible(View.GONE, View.VISIBLE, View.VISIBLE, View.GONE, View.VISIBLE);
 
             topBar.setOnTopBarListener(new AppTopBar.OnTopBarListener() {
                 @Override
@@ -100,11 +100,6 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
 
                 @Override
                 public void onTvLeftOneClick() {
-
-                }
-
-                @Override
-                public void onTvRightOneClick() {
                     showConfirmDialog(getContext(), null, getString(R.string.home_do_you_want_to_logout), new ConfirmDialog.OnConfirmDialogListener() {
                         @Override
                         public void onConfirmDialogPositiveClick(ConfirmDialog dialog) {
@@ -121,8 +116,14 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
                 }
 
                 @Override
-                public void onImvRightOneClick() {
+                public void onTvRightOneClick() {
 
+                }
+
+                @Override
+                public void onImvRightOneClick() {
+                    if(mOnStaffListener != null)
+                        mOnStaffListener.onSetUpClick();
                 }
             });
         }
@@ -130,6 +131,8 @@ public class ManageStaffFragment extends TopBarFragment implements ManageStaffCo
 
     public interface OnStaffListener {
         void onStaffClick(User user);
+
+        void onSetUpClick();
     }
 
     @Override

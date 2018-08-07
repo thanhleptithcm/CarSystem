@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/common_16dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv1"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:text="Price 0h -> 6h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt1"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 0h -> 6h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="15000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv1" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv2"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 6h -> 9h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt1" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt2"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 6h -> 9h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="10000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv2" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv3"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 9h -> 12h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt2" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt3"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 9h -> 12h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="8000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv3" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv4"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 12h -> 13h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt3" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt4"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 12h -> 13h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="10000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv4" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv5"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 13h -> 17h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt4" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt5"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 13h -> 17h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="8000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv5" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv6"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 17h -> 20h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt5" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt6"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 17h -> 20h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="12000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv6" />
+
+        <com.matas.caroperatingsystem.widget.AppTextView
+            android:id="@+id/tv7"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/common_10dp"
+            android:text="Price 20h -> 24h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt6" />
+
+        <com.matas.caroperatingsystem.widget.AppEditText
+            android:id="@+id/edt7"
+            style="@style/EditText"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_solid_white_stroke_separator_radius_8dp"
+            android:hint="Price 20h -> 24h"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/common_10dp"
+            android:text="10000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv7" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

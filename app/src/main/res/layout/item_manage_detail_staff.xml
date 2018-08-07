@@ -11,43 +11,25 @@
         style="@style/TextView"
         android:layout_width="0dp"
         android:text="Phone Number: 01267731338"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imv_your_location"
-        android:layout_width="@dimen/common_24dp"
-        android:layout_height="@dimen/common_24dp"
-        android:layout_marginTop="6dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_your_location"
+    <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_time"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:text="07/08/2018 12h30"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
+        app:layout_constraintStart_toStartOf="@id/tv_phone"
         app:layout_constraintTop_toBottomOf="@id/tv_phone" />
 
     <com.matas.caroperatingsystem.widget.AppTextView
+        android:id="@+id/tv_price"
         style="@style/TextView"
         android:layout_width="0dp"
-        android:text="Đi: Ngã Tư Thủ Đức"
-        android:layout_marginStart="@dimen/common_16dp"
-        app:layout_constraintBottom_toBottomOf="@id/imv_your_location"
-        app:layout_constraintStart_toEndOf="@id/imv_your_location"
-        app:layout_constraintTop_toTopOf="@id/imv_your_location" />
-
-    <ImageView
-        android:id="@+id/imv_destination"
-        android:layout_width="@dimen/common_24dp"
-        android:layout_height="@dimen/common_24dp"
-        android:layout_marginTop="6dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_destination"
-        app:layout_constraintTop_toBottomOf="@id/imv_your_location" />
-
-    <com.matas.caroperatingsystem.widget.AppTextView
-        style="@style/TextView"
-        android:layout_width="0dp"
-        android:text="Đến: Ngã Tư Hàng Xanh"
-        android:layout_marginStart="@dimen/common_16dp"
-        app:layout_constraintBottom_toBottomOf="@id/imv_destination"
-        app:layout_constraintStart_toEndOf="@id/imv_destination"
-        app:layout_constraintTop_toTopOf="@id/imv_destination" />
+        android:text="20000 VND"
+        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_phone" />
 </android.support.constraint.ConstraintLayout>

@@ -90,7 +90,7 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     UserPresenter mPresenter;
 
     private Socket mSocket;
-
+    private OkDialog mDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -199,22 +199,16 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
     private Emitter.Listener onAcceptBooking = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            Log.d("TAG", "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    JSONObject data = (JSONObject) args[0];
-//                    String username;
-////                    String message;
-//                    try {
-//                        username = data.getString("message");
-////                        message = data.getString("message");
-//                    } catch (JSONException e) {
-//                        return;
-//                    }
-//                }
-//            });
+            if (mDialog != null) {
+                mDialog.dismiss();
+            }
+            showOKDialog(UserActivity.this, "The driver is picking you. Please waiting... ",
+                    new OkDialog.IOkDialogListener() {
+                        @Override
+                        public void onIOkDialogAnswerOk(OkDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }, null);
         }
     };
 
@@ -428,13 +422,14 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
 
     @Override
     public void bookingDriverSuccess(BookingResponse response) {
-        showOKDialog(this, "Please waiting! \n We finding driver for you",
-                new OkDialog.IOkDialogListener() {
-                    @Override
-                    public void onIOkDialogAnswerOk(OkDialog dialog) {
-                        dialog.dismiss();
-                    }
-                }, null);
+        mDialog = new OkDialog(this, null, "Please waiting! \n We finding driver for you"
+                , new OkDialog.IOkDialogListener() {
+            @Override
+            public void onIOkDialogAnswerOk(OkDialog dialog) {
+
+            }
+        });
+        mDialog.show();
     }
 
     @Override
