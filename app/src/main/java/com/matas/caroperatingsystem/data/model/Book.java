@@ -31,6 +31,10 @@ public class Book implements Parcelable {
     @Expose
     private String driverId;
 
+    @SerializedName("pricePerKm")
+    @Expose
+    private double pricePerKm;
+
     public Passenger getPassenger() {
         return passenger;
     }
@@ -79,6 +83,13 @@ public class Book implements Parcelable {
         this.driverId = driverId;
     }
 
+    public double getPricePerKm() {
+        return pricePerKm;
+    }
+
+    public void setPricePerKm(double pricePerKm) {
+        this.pricePerKm = pricePerKm;
+    }
 
     @Override
     public int describeContents() {
@@ -93,6 +104,7 @@ public class Book implements Parcelable {
         dest.writeString(this.id);
         dest.writeDouble(this.distance);
         dest.writeString(this.driverId);
+        dest.writeDouble(this.pricePerKm);
     }
 
     public Book() {
@@ -105,6 +117,7 @@ public class Book implements Parcelable {
         this.id = in.readString();
         this.distance = in.readDouble();
         this.driverId = in.readString();
+        this.pricePerKm = in.readDouble();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

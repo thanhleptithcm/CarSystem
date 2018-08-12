@@ -5,6 +5,8 @@ import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.BasePresenter;
 import com.matas.caroperatingsystem.data.model.Destination;
 import com.matas.caroperatingsystem.data.model.Driver;
+import com.matas.caroperatingsystem.data.network.BaseResponse;
+import com.matas.caroperatingsystem.data.network.staff.request.ConfirmRequest;
 import com.matas.caroperatingsystem.data.network.user.UserApi;
 import com.matas.caroperatingsystem.data.network.user.request.BookingRequest;
 import com.matas.caroperatingsystem.data.network.user.response.BookingResponse;
@@ -30,7 +32,9 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
 
     private final CompositeDisposable mCompositeDisposable;
     private final UserApi mUserApi;
-    private List<Driver> mListDriverNear;
+
+    private List<DriverNearResponse.Data> mListDriverNear;
+    private String idBooking;
 
     @Inject
     public UserPresenter(CompositeDisposable compositeDisposable,
@@ -42,7 +46,7 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
         mListDriverNear = new ArrayList<>();
     }
 
-    public List<Driver> getListDriverNear() {
+    public List<DriverNearResponse.Data> getListDriverNear() {
         return mListDriverNear;
     }
 
@@ -114,6 +118,7 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
                             if (response.getMessage() != null) {
                                 getMvpView().showErrorDialog(response.getMessage());
                             } else {
+                                idBooking = response.getBook().getId();
                                 getMvpView().bookingDriverSuccess(response);
                             }
                         }
@@ -140,7 +145,39 @@ public class UserPresenter extends BasePresenter<UserContract.UserView> implemen
 
     @Override
     public void cancelBooking() {
-        getMvpView().cancelBookingSuccess();
-    }
+        Map<String, String> apiHeaders = new HashMap<>();
+        apiHeaders.put("Content-Type", "application/json");
+        apiHeaders.put("access-token", mPrefs.getToken());
 
+        getMvpView().showLoading();
+        mCompositeDisposable.add(mUserApi.cancelBooking(apiHeaders, idBooking)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse response) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            getMvpView().cancelBookingSuccess();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        if (isViewAttached()) {
+                            getMvpView().hideLoading();
+                            if (throwable instanceof HttpException) {
+                                HttpException exception = (HttpException) throwable;
+                                if (exception.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                                    getMvpView().showErrorDialog(R.string.login_failed);
+                                }
+                            } else if (throwable instanceof UnknownHostException) {
+                                getMvpView().showErrorDialog(R.string.connection_error);
+                            } else {
+                                getMvpView().showErrorDialog(throwable.getMessage());
+                            }
+                        }
+                    }
+                }));
+    }
 }

@@ -36,6 +36,7 @@ import com.matas.caroperatingsystem.data.model.Driver;
 import com.matas.caroperatingsystem.data.model.PosLocation;
 import com.matas.caroperatingsystem.data.model.Route;
 import com.matas.caroperatingsystem.data.network.user.response.BookingResponse;
+import com.matas.caroperatingsystem.data.network.user.response.DriverNearResponse;
 import com.matas.caroperatingsystem.helper.DirectionHelper;
 import com.matas.caroperatingsystem.helper.DirectionHelperListener;
 import com.matas.caroperatingsystem.ui.activity.auth.AuthActivity;
@@ -426,8 +427,8 @@ public class UserActivity extends TopBarActivity implements OnMapReadyCallback,
         PosLocation location;
         LatLng latLng;
         MarkerOptions markerOption;
-        for (Driver driver : mPresenter.getListDriverNear()) {
-            location = driver.getLocation();
+        for (DriverNearResponse.Data data : mPresenter.getListDriverNear()) {
+            location = data.getLocation();
             latLng = new LatLng(location.getCoordinates().get(1), location.getCoordinates().get(0));
             markerOption = new MarkerOptions().position(latLng);
             markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_moto));

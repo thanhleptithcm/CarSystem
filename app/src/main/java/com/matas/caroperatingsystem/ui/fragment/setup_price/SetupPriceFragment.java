@@ -8,7 +8,8 @@ import android.view.View;
 
 import com.matas.caroperatingsystem.R;
 import com.matas.caroperatingsystem.base.TopBarFragment;
-import com.matas.caroperatingsystem.data.AppStorage;
+import com.matas.caroperatingsystem.data.model.Price;
+import com.matas.caroperatingsystem.utils.KeyboardUtils;
 import com.matas.caroperatingsystem.widget.AppEditText;
 import com.matas.caroperatingsystem.widget.topbar.AppTopBar;
 
@@ -31,17 +32,11 @@ public class SetupPriceFragment extends TopBarFragment implements SetupPriceCont
     @Inject
     SetupPricePresenter mPresenter;
 
-    private OnSetUpPriceListener mOnSetUpPriceListener;
-
     public static SetupPriceFragment newInstance() {
         Bundle args = new Bundle();
         SetupPriceFragment fragment = new SetupPriceFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public void setOnSetUpPriceListener(OnSetUpPriceListener onSetUpPriceListener) {
-        this.mOnSetUpPriceListener = onSetUpPriceListener;
     }
 
     @Override
@@ -66,7 +61,7 @@ public class SetupPriceFragment extends TopBarFragment implements SetupPriceCont
     }
 
     private void initData() {
-
+        mPresenter.getAllPriceByTime();
     }
 
     private void initListener() {
@@ -93,6 +88,7 @@ public class SetupPriceFragment extends TopBarFragment implements SetupPriceCont
 
                 @Override
                 public void onTvLeftOneClick() {
+                    KeyboardUtils.hideSoftInput(getActivity());
                     getBaseActivity().onBackPressed();
                 }
 
@@ -110,6 +106,13 @@ public class SetupPriceFragment extends TopBarFragment implements SetupPriceCont
     }
 
     private void getData() {
+        double str0to6 = Double.parseDouble(edt1.getText().toString());
+        double str6to9 = Double.parseDouble(edt2.getText().toString());
+        double str9to12 = Double.parseDouble(edt3.getText().toString());
+        double str12to13 = Double.parseDouble(edt4.getText().toString());
+        double str13to17 = Double.parseDouble(edt5.getText().toString());
+        double str17to20 = Double.parseDouble(edt6.getText().toString());
+        double str20to24 = Double.parseDouble(edt7.getText().toString());
         if (TextUtils.isEmpty(edt1.getText())) {
             showErrorDialog("Please Input Price 0h -> 6h");
             return;
@@ -145,20 +148,49 @@ public class SetupPriceFragment extends TopBarFragment implements SetupPriceCont
             return;
         }
 
-        List<Double> listPrice = new ArrayList<>();
-        listPrice.add(Double.parseDouble(edt1.getText().toString()));
-        listPrice.add(Double.parseDouble(edt2.getText().toString()));
-        listPrice.add(Double.parseDouble(edt3.getText().toString()));
-        listPrice.add(Double.parseDouble(edt4.getText().toString()));
-        listPrice.add(Double.parseDouble(edt5.getText().toString()));
-        listPrice.add(Double.parseDouble(edt6.getText().toString()));
-        listPrice.add(Double.parseDouble(edt7.getText().toString()));
-
-        AppStorage.setDefaultPrices(listPrice);
+        List<Price> list = mPresenter.getListPrice();
+        list.get(0).setPrice(str0to6);
+        list.get(1).setPrice(str0to6);
+        list.get(2).setPrice(str0to6);
+        list.get(3).setPrice(str0to6);
+        list.get(4).setPrice(str0to6);
+        list.get(5).setPrice(str0to6);
+        list.get(6).setPrice(str6to9);
+        list.get(7).setPrice(str6to9);
+        list.get(8).setPrice(str6to9);
+        list.get(9).setPrice(str9to12);
+        list.get(10).setPrice(str9to12);
+        list.get(11).setPrice(str9to12);
+        list.get(12).setPrice(str12to13);
+        list.get(13).setPrice(str13to17);
+        list.get(14).setPrice(str13to17);
+        list.get(15).setPrice(str13to17);
+        list.get(16).setPrice(str13to17);
+        list.get(17).setPrice(str17to20);
+        list.get(18).setPrice(str17to20);
+        list.get(19).setPrice(str17to20);
+        list.get(20).setPrice(str20to24);
+        list.get(21).setPrice(str20to24);
+        list.get(22).setPrice(str20to24);
+        list.get(23).setPrice(str20to24);
+        mPresenter.updatePriceByTime();
     }
 
-    public interface OnSetUpPriceListener {
+    @Override
+    public void getAllPriceByTimeSuccess() {
+        edt1.setText(String.valueOf(mPresenter.getListPrice().get(0).getPrice()));
+        edt2.setText(String.valueOf(mPresenter.getListPrice().get(6).getPrice()));
+        edt3.setText(String.valueOf(mPresenter.getListPrice().get(9).getPrice()));
+        edt4.setText(String.valueOf(mPresenter.getListPrice().get(12).getPrice()));
+        edt5.setText(String.valueOf(mPresenter.getListPrice().get(13).getPrice()));
+        edt6.setText(String.valueOf(mPresenter.getListPrice().get(17).getPrice()));
+        edt7.setText(String.valueOf(mPresenter.getListPrice().get(20).getPrice()));
+    }
 
+    @Override
+    public void updatePriceByTimeSuccess() {
+        KeyboardUtils.hideSoftInput(getActivity());
+        getBaseActivity().onBackPressed();
     }
 
     @Override

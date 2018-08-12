@@ -255,16 +255,17 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
         @Override
         public void call(final Object... args) {
             final String phone, bookId;
-            double distance;
+            double distance, pricePerKm;
             JSONObject data = (JSONObject) args[0];
 
             try {
                 phone = data.getJSONObject("passenger").getString("phone");
                 distance = data.getDouble("distance");
+                pricePerKm = data.getDouble("pricePerKm");
                 bookId = data.getString("_id");
 
                 showConfirmDialog(StaffActivity.this, "Booking",
-                        "Phone: " + phone + "\nPrice: " + (distance * CommonUtils.getPrice()) + " VND",
+                        "Phone: " + phone + "\nPrice: " + (distance * pricePerKm) + " VND",
                         "Accept", "Cancel",
                         new ConfirmDialog.OnConfirmDialogListener() {
                             @Override
@@ -287,9 +288,15 @@ public class StaffActivity extends TopBarActivity implements StaffContract.Staff
     private Emitter.Listener onCancelBooking = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            mMap.clear();
-            showErrorDialog("User has cancelled booking");
-            mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mMap != null)
+                        mMap.clear();
+                    showErrorDialog("User has cancelled booking");
+                    mPresenter.updateLocation(mLocation.getLatitude(), mLocation.getLongitude());
+                }
+            });
         }
     };
 

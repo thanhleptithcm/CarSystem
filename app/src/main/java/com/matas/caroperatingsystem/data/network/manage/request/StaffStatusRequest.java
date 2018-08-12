@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class StaffStatusRequest {
-    @SerializedName("status")
+    @SerializedName("active")
     @Expose
     public boolean status;
 

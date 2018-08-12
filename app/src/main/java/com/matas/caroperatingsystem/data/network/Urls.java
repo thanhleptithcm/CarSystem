@@ -21,11 +21,14 @@ public class Urls {
     public final static class Manage {
         public static final String DRIVERS = API + "drivers";
 
+        public static final String PRICE = API + "price";
+
         public static final String UPDATE_STATUS_DRIVER = API + "drivers/{driverId}";
     }
 
     public final static class User {
         public static final String DRIVERS_LOCATION = API + "driverLocation";
         public static final String BOOKING = API + "booking";
+        public static final String CANCEL_BOOKING = API + "booking/{idBooking}";
     }
 }

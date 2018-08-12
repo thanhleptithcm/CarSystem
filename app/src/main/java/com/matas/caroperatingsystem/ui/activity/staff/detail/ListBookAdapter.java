@@ -35,7 +35,7 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.BookHo
         Book book = mList.get(position);
 
         holder.mPhoneTextView.setText(book.getPassenger().getPhone());
-        holder.mPriceTextView.setText(String.format("%s %s", String.valueOf(book.getDistance() * CommonUtils.getPrice()), " VND"));
+        holder.mPriceTextView.setText(String.format("%s %s", String.valueOf(book.getDistance() * book.getPricePerKm()), " VND"));
 
     }
 

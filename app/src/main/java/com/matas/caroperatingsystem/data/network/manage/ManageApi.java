@@ -3,7 +3,9 @@ package com.matas.caroperatingsystem.data.network.manage;
 import com.matas.caroperatingsystem.data.network.BaseResponse;
 import com.matas.caroperatingsystem.data.network.Urls;
 import com.matas.caroperatingsystem.data.network.manage.request.StaffStatusRequest;
+import com.matas.caroperatingsystem.data.network.manage.request.UpdatePriceRequest;
 import com.matas.caroperatingsystem.data.network.manage.response.DriversResponse;
+import com.matas.caroperatingsystem.data.network.manage.response.GetPriceResponse;
 import com.matas.caroperatingsystem.data.network.staff.request.ConfirmRequest;
 import com.matas.caroperatingsystem.data.network.staff.response.ConfirmResponse;
 
@@ -15,6 +17,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
@@ -26,4 +29,10 @@ public interface ManageApi {
 
     @PUT(Urls.Manage.UPDATE_STATUS_DRIVER)
     Observable<BaseResponse> updateStatusStaff(@HeaderMap Map<String, String> headers, @Body StaffStatusRequest request, @Path("driverId") String driverId);
+
+    @GET(Urls.Manage.PRICE)
+    Observable<GetPriceResponse> getAllPriceByTime(@HeaderMap Map<String, String> headers);
+
+    @POST(Urls.Manage.PRICE)
+    Observable<BaseResponse> updatePriceByTime(@HeaderMap Map<String, String> headers, @Body UpdatePriceRequest request);
 }

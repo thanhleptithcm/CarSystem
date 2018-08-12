@@ -35,7 +35,7 @@ public class DetailManageStaffAdapter extends RecyclerView.Adapter<DetailManageS
     public void onBindViewHolder(StaffHolder holder, int position) {
         Book book = mList.get(position);
         holder.tvPhone.setText(book.getPassenger().getPhone());
-        holder.tvPrice.setText(String.format("%s %s", String.valueOf(book.getDistance() * CommonUtils.getPrice()), " VND"));
+        holder.tvPrice.setText(String.format("%s %s", String.valueOf(book.getDistance() * book.getPricePerKm()), " VND"));
     }
 
     @Override
